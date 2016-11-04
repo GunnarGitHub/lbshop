@@ -1,0 +1,13 @@
+<div *ngFor="let item of items ">
+	<div>
+		<form [formGroup]="itemForm">
+			<input type="hidden" formControlName="key" [ngModel]="item.key">
+			<input type="hidden" formControlName="owner" [ngModel]="item.owner">
+			<input type="hidden" formControlName="order" [ngModel]="item.order">
+			<input type="checkbox" formControlName="buy" [(ngModel)]="item.buy" (blur)="onBlur()">
+			<input type="text" formControlName="quantity"  [(ngModel)]="item.quantity" (blur)="onBlur()">
+			<input type="text" formControlName="unit" [(ngModel)]="item.unit" (blur)="onBlur()"> 
+			<input type="text" formControlName="name" [(ngModel)]="item.name" (blur)="onBlur()">
+		</form>
+	</div>
+</div>

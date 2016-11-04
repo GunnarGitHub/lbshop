@@ -1,20 +1,67 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Store, StoreModule, combineReducers } from '@ngrx/store';
+
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 
 import { AppComponent } from './app.component';
+import { ShopComponent } from './shop/shop.component';
+import { UserComponent } from './user';
+import { ListShopsComponent } from './list-shops/list-shops.component';
+import { ShopsService, DepartmentsService, ItemsService } from './services';
+import { ListDepartmentsComponent } from './list-departments/list-departments.component'
+//import { StoreContainer } from './shared/store.container';
+import { user, shop, shops, departments, items } from './reducers';
+import { ShopsPipe, DepartmentsPipe, ItemsPipe } from './pipes';
+import { ListItemsComponent } from './list-items/list-items.component';
+import { ListDepartementsWithItemsComponent } from './list-departements-with-items/list-departements-with-items.component';
+
+const initialState: any = {
+  user: { key: "gunnar", name: "Gunnar" },
+  shop: { key: "maxi", owner: "gunnar", name: "Maxi", order: 1.0 },
+  shops: [],
+  departments: [ ],
+  items: []
+};
+
+const rootReducer: any = combineReducers({
+  user,
+  shop,
+  shops,
+  departments,
+  items
+});
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShopComponent,
+    UserComponent,
+    ListShopsComponent,
+    ListDepartmentsComponent,
+    ShopsPipe,
+    ListItemsComponent,
+    ListDepartementsWithItemsComponent,
+    ItemsPipe,
+    DepartmentsPipe
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule
+    ReactiveFormsModule,
+    HttpModule,
+    StoreModule.provideStore(rootReducer, initialState),
+    StoreDevtoolsModule.instrumentStore({
+      monitor: useLogMonitor({
+        visible: true,
+        position: 'right'
+      })
+    }),
+    StoreLogMonitorModule
   ],
-  providers: [],
+  providers: [ShopsService, DepartmentsService, ItemsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

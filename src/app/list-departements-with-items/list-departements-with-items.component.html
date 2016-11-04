@@ -1,0 +1,5 @@
+<div *ngFor="let department of departments">
+	{{department.name}}
+  <list-items [items]="items$ | async | itemsPipe : department"></list-items>
+</div>
+	
