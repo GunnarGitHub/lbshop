@@ -18,10 +18,11 @@ import { user, shop, shops, departments, items } from './reducers';
 import { ShopsPipe, DepartmentsPipe, ItemsPipe } from './pipes';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListDepartementsWithItemsComponent } from './list-departements-with-items/list-departements-with-items.component';
+import { EditItemComponent } from './edit-item/edit-item.component';
 
 const initialState: any = {
-  user: { key: "gunnar", name: "Gunnar" },
-  shop: { key: "maxi", owner: "gunnar", name: "Maxi", order: 1.0 },
+  user: {},
+  shop: {},
   shops: [],
   departments: [ ],
   items: []
@@ -46,7 +47,8 @@ const rootReducer: any = combineReducers({
     ListItemsComponent,
     ListDepartementsWithItemsComponent,
     ItemsPipe,
-    DepartmentsPipe
+    DepartmentsPipe,
+    EditItemComponent
   ],
   imports: [
     BrowserModule,

@@ -25,7 +25,7 @@ export class DepartmentsService {
       { key: 'frukt', owner: 'maxi', name: 'Frukt', order: 1 },
       { key: 'mejeri', owner: 'maxi', name: 'Mejeri', order: 2 },
       { key: 'diverse', owner: 'city gross', name: 'Diverse', order: 3 },
-      { key: 'övrigt', owner: 'city gross', name: 'Övrigt', order: 4 }
+      { key: 'övrigt', owner: 'maxi', name: 'Övrigt', order: 4 }
     ]
     this.store.dispatch({ type: 'LOAD_DEPARTMENTS', payload: initialState });
   }

@@ -20,11 +20,10 @@ export class ItemsService {
     let initialState = [
       { key: "äpplen", owner: "frukt", buy: true, quantity: 1, unit: "st", name: "Äpplen", order: 1.0 },
       { key: "päron", owner: "frukt", buy: false, quantity: 1, unit: "st", name: "Päron", order: 2.0 },
-      { key: "mjölk", owner: "diverse", buy: false, quantity: 7, unit: "st", name: "Mjölk", order: 3.0 },
-      { key: "grädde", owner: "diverse", buy: false, quantity: 8, unit: "st", name: "Grädde", order: 4.0 },
-      { key: "batterier", owner: "frukt", buy: false, quantity: 9, unit: "st", name: "AA Batterier", order: 5.0 },
-      { key: "blommor", owner: "frukt", buy: false, quantity: 3, unit: "st", name: "Blommor", order: 6.0 },
-
+      { key: "grädde", owner: "mejeri", buy: false, quantity: 8, unit: "st", name: "Grädde", order: 4.0 },
+      { key: "mjölk", owner: "mejeri", buy: false, quantity: 7, unit: "st", name: "Mjölk", order: 3.0 },
+      { key: "batterier", owner: "diverse", buy: false, quantity: 9, unit: "st", name: "AA Batterier", order: 5.0 },
+      { key: "blommor", owner: "ovrigt", buy: false, quantity: 3, unit: "st", name: "Blommor", order: 6.0 }
     ];
 
     console.log("ItemsService dispatch LOAD_ITEMS");
