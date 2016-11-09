@@ -8,10 +8,12 @@ import { Item, AppState } from '../model';
 export class ItemsService {
 
   items$: Observable<Item[]>;
+  itemsLoaded: boolean;
 
   constructor(private store: Store<AppState>) {
     console.log("ItemsService constructor");
     this.items$ = this.store.select(s => s.items);
+    this.itemsLoaded = false;
   }
 
   loadItems(): void {
@@ -27,14 +29,16 @@ export class ItemsService {
       { key: "lampa40", owner: "diverse", buy: false, quantity: 9, unit: "st", name: "40 W Lampa", order: 4.0 },
       { key: "blommor", owner: "ovrigt", buy: false, quantity: 3, unit: "st", name: "Blommor", order: 6.0 }
     ];
-
-    console.log("ItemsService dispatch LOAD_ITEMS");
-    this.store.dispatch({ type: 'LOAD_ITEMS', payload: initialState });
+    if (!this.itemsLoaded) {
+      console.log("ItemsService dispatch LOAD_ITEMS");
+      this.store.dispatch({ type: 'LOAD_ITEMS', payload: initialState });
+      this.itemsLoaded = true;
+    }
   }
 
   changeItem(item: Item) {
     console.log("ItemsService dispatch CHANGE_ITEM");
-    this.store.dispatch({type: 'CHANGE_ITEM', payload: item});
+    this.store.dispatch({ type: 'CHANGE_ITEM', payload: item });
   }
 
 }

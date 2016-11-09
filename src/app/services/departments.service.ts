@@ -7,10 +7,12 @@ import { Shop, Department, AppState } from '../model'
 @Injectable()
 export class DepartmentsService {
   departments$: Observable<Department[]>;
+  departmentsLoaded: boolean;
 
   constructor(private store: Store<AppState>) {
     console.log("DepartmentsService constructor");
     this.departments$ = this.store.select(s => s.departments);
+    this.departmentsLoaded = false;
   }
 
 
@@ -27,6 +29,9 @@ export class DepartmentsService {
       { key: 'diverse', owner: 'city gross', name: 'Diverse', order: 3 },
       { key: 'övrigt', owner: 'maxi', name: 'Övrigt', order: 4 }
     ]
-    this.store.dispatch({ type: 'LOAD_DEPARTMENTS', payload: initialState });
+    if (!this.departmentsLoaded) {
+      this.store.dispatch({ type: 'LOAD_DEPARTMENTS', payload: initialState });
+      this.departmentsLoaded = true;
+    }
   }
 }
