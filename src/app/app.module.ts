@@ -15,7 +15,7 @@ import { ShopsService, DepartmentsService, ItemsService } from './services';
 import { ListDepartmentsComponent } from './list-departments/list-departments.component'
 //import { StoreContainer } from './shared/store.container';
 import { user, shop, shops, departments, items } from './reducers';
-import { ShopsPipe, DepartmentsPipe, ItemsPipe } from './pipes';
+import { ShopsPipe, DepartmentsPipe, ItemsPipe, OrderByPipe } from './pipes';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListDepartementsWithItemsComponent } from './list-departements-with-items/list-departements-with-items.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
@@ -48,7 +48,9 @@ const rootReducer: any = combineReducers({
     ListDepartementsWithItemsComponent,
     ItemsPipe,
     DepartmentsPipe,
-    EditItemComponent
+    OrderByPipe,
+    EditItemComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule,

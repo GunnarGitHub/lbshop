@@ -23,6 +23,8 @@ export class ItemsService {
       { key: "grädde", owner: "mejeri", buy: false, quantity: 8, unit: "st", name: "Grädde", order: 4.0 },
       { key: "mjölk", owner: "mejeri", buy: false, quantity: 7, unit: "st", name: "Mjölk", order: 3.0 },
       { key: "batterier", owner: "diverse", buy: false, quantity: 9, unit: "st", name: "AA Batterier", order: 5.0 },
+      { key: "lampa60", owner: "diverse", buy: false, quantity: 9, unit: "st", name: "60 W Lampa", order: 8.0 },
+      { key: "lampa40", owner: "diverse", buy: false, quantity: 9, unit: "st", name: "40 W Lampa", order: 4.0 },
       { key: "blommor", owner: "ovrigt", buy: false, quantity: 3, unit: "st", name: "Blommor", order: 6.0 }
     ];
 

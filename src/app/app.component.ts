@@ -31,13 +31,13 @@ export class AppComponent implements OnInit {
     this.shops$ = this.shopsService.shops$;
     this.departments$ = this.store.select(s => s.departments);
     this.shopsService.loadShops(this.user.key);
-    this.departmentsService.loadDepartments();
-    this.itemsService.loadItems();
   };
 
   shopIsChanged(shop: Shop) {
     console.log("onShopChanged "); // + JSON.stringify(shop));
     this.store.dispatch({type: 'CHANGE_SHOP', payload: shop})
     this.shop = shop;
+    this.departmentsService.loadDepartments();
+    this.itemsService.loadItems();
   }
 }
