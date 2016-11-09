@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     this.shops$ = this.shopsService.shops$;
     this.departments$ = this.store.select(s => s.departments);
     this.shopsService.loadShops(this.user.key);
-    this.departmentsService.loadDepartments(this.shop);
+    this.departmentsService.loadDepartments();
     this.itemsService.loadItems();
   };
 

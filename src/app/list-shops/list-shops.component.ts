@@ -20,7 +20,6 @@ export class ListShopsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO load initialt state from service component
   }
 
   onChangeShop(owner: string) {

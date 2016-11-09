@@ -19,7 +19,7 @@ export class DepartmentsService {
 
   }
 
-  loadDepartments(shop: Shop) { //TODO use ore remove shops
+  loadDepartments() {
     console.log("DepartmentsService dispatch LOAD_DEPARTMENTS");
     let initialState = [
       { key: 'frukt', owner: 'maxi', name: 'Frukt', order: 1 },
