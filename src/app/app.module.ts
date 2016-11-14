@@ -7,6 +7,7 @@ import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import { MaterialModule }  from '@angular/material';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
+import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
