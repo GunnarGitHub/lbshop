@@ -1,9 +1,10 @@
+import { Action } from '@ngrx/store';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
-
+import { MaterialModule }  from '@angular/material';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
 
@@ -63,7 +64,8 @@ const rootReducer: any = combineReducers({
         position: 'right'
       })
     }),
-    StoreLogMonitorModule
+    StoreLogMonitorModule,
+    MaterialModule.forRoot()
   ],
   providers: [ShopsService, DepartmentsService, ItemsService],
   bootstrap: [AppComponent]
