@@ -17,7 +17,7 @@ export class EditItemComponent implements OnInit {
   constructor(private fb: FormBuilder, private itemsService: ItemsService ) { }
 
   ngOnInit() {
-    console.log("EditItemComponent ngOnInit " + JSON.stringify(this.item));
+    console.log("EditItemComponent ngOnInit ");// + JSON.stringify(this.item));
     this.itemForm = this.fb.group({
       key: '',
       buy: '',
