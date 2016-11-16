@@ -1,3 +1,4 @@
+import { DatabaseService } from './services/database.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
@@ -20,7 +21,12 @@ export class AppComponent implements OnInit {
   departments$: Observable<Department[]>;
   items$: Observable<Item[]>;
 
-  constructor(private itemsService: ItemsService, private departmentsService: DepartmentsService, private shopsService: ShopsService, private store: Store<AppState>) {
+  constructor(
+    private itemsService: ItemsService, 
+    private departmentsService: DepartmentsService, 
+    private shopsService: ShopsService, 
+    private databaseService: DatabaseService,
+    private store: Store<AppState>) {
     console.log("AppComponent constructor ");
     this.items$ = this.store.select(s => s.items);
   }
@@ -39,5 +45,6 @@ export class AppComponent implements OnInit {
     this.shop = shop;
     this.departmentsService.loadDepartments();
     this.itemsService.loadItems();
+    this.databaseService.fbData();
   }
 }

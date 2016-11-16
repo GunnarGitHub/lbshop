@@ -4,7 +4,7 @@ import { Store, Action } from "@ngrx/store";
 
 import { Shop, AppState } from '../model';
 
-declare var firebase: any;
+
 
 @Injectable()
 export class ShopsService {
@@ -14,14 +14,6 @@ export class ShopsService {
   constructor(private store: Store<AppState>) {
     console.log("ShopsService constructor");
     this.shops$ = this.store.select(s => s.shops);
-    this.fbData()
-  }
-
-  fbData() {
-    console.log("ShopsService fbData ");
-    firebase.database().ref('/').on("child_added", snapshot => {
-      console.log("snap: " + snapshot.val());
-    });
   }
 
   loadShops(owner: string): void {

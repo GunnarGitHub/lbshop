@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
 import { UserComponent } from './user';
 import { ListShopsComponent } from './list-shops/list-shops.component';
-import { ShopsService, DepartmentsService, ItemsService } from './services';
+import { ShopsService, DepartmentsService, ItemsService, DatabaseService } from './services';
 import { ListDepartmentsComponent } from './list-departments/list-departments.component'
 //import { StoreContainer } from './shared/store.container';
 import { user, shop, shops, departments, items } from './reducers';
@@ -68,7 +68,7 @@ const rootReducer: any = combineReducers({
     StoreLogMonitorModule,
     MaterialModule.forRoot()
   ],
-  providers: [ShopsService, DepartmentsService, ItemsService],
+  providers: [ShopsService, DepartmentsService, ItemsService, DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
