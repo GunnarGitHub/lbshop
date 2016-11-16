@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
-import { MaterialModule }  from '@angular/material';
+import { MaterialModule } from '@angular/material';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, FIREBASE_PROVIDERS, FirebaseUrl } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
@@ -26,7 +26,7 @@ const initialState: any = {
   user: {},
   shop: {},
   shops: [],
-  departments: [ ],
+  departments: [],
   items: []
 };
 
@@ -68,7 +68,12 @@ const rootReducer: any = combineReducers({
     StoreLogMonitorModule,
     MaterialModule.forRoot()
   ],
-  providers: [ShopsService, DepartmentsService, ItemsService, DatabaseService],
+  providers: [
+    ShopsService,
+    DepartmentsService,
+    ItemsService,
+    DatabaseService,
+    FIREBASE_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

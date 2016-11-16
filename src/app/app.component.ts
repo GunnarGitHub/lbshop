@@ -45,6 +45,6 @@ export class AppComponent implements OnInit {
     this.shop = shop;
     this.departmentsService.loadDepartments();
     this.itemsService.loadItems();
-    this.databaseService.fbData();
+    this.databaseService.getShops();
   }
 }
