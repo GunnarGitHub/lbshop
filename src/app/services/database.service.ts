@@ -36,10 +36,30 @@ export class DatabaseService {
   };
 
   private initialDepartments = [
-    { key: 'frukt', owner: 'maxi', name: 'Frukt', order: 1 },
-    { key: 'mejeri', owner: 'maxi', name: 'Mejeri', order: 2 },
-    { key: 'diverse', owner: 'city gross', name: 'Diverse', order: 3 },
-    { key: 'övrigt', owner: 'maxi', name: 'Övrigt', order: 4 }
+    {
+      key: 'frukt', owner: 'maxi', name: 'Frukt', order: 1, items: [
+        { key: "äpplen", owner: "frukt", buy: true, quantity: 1, unit: "st", name: "Äpplen", order: 1.0 },
+        { key: "päron", owner: "frukt", buy: false, quantity: 1, unit: "st", name: "Päron", order: 2.0 },
+      ]
+    },
+    {
+      key: 'mejeri', owner: 'maxi', name: 'Mejeri', order: 3.5, items: [
+        { key: "grädde", owner: "mejeri", buy: false, quantity: 8, unit: "st", name: "Grädde", order: 4.0 },
+        { key: "mjölk", owner: "mejeri", buy: false, quantity: 7, unit: "st", name: "Mjölk", order: 3.0 },
+      ]
+    },
+    {
+      key: 'diverse', owner: 'city gross', name: 'Diverse', order: 3, items: [
+        { key: "batterier", owner: "diverse", buy: false, quantity: 9, unit: "st", name: "AA Batterier", order: 5.0 },
+        { key: "lampa60", owner: "diverse", buy: false, quantity: 9, unit: "st", name: "60 W Lampa", order: 8.0 },
+        { key: "lampa40", owner: "diverse", buy: false, quantity: 9, unit: "st", name: "40 W Lampa", order: 4.0 },
+      ]
+    },
+    {
+      key: 'övrigt', owner: 'maxi', name: 'Övrigt', order: 4, items: [
+        { key: "blommor", owner: "ovrigt", buy: false, quantity: 3, unit: "st", name: "Blommor", order: 6.0 }
+      ]
+    }
   ]
 
   private storeDepartments() {
@@ -48,7 +68,10 @@ export class DatabaseService {
       this.db.list('/departments');
     departments$.remove();
     this.initialDepartments.forEach(department => {
+      const items = department.items;
+      department.items = null;
       departments$.push(department);
+      console.log(JSON.stringify(department));
     })
   };
 
@@ -60,8 +83,9 @@ export class DatabaseService {
 
   getShops() {
     console.log("DatabaseService getShops ");
-    const shops$: FirebaseListObservable<any> =
-      this.db.list('/shops');
+    const shops$: FirebaseListObservable<any> = this.db.list('/shops',
+      //TODO remove static query
+      { query: { orderByChild: 'owner', equalTo: 'gunnar' } });
     shops$.subscribe((shops: any[]) =>
       shops.forEach(shop => {
         console.log("shop: " + JSON.stringify(shop) + " key: " + shop.$key);
