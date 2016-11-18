@@ -1,13 +1,13 @@
 import { Action } from '@ngrx/store';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Store, StoreModule, combineReducers } from '@ngrx/store';
 import { MaterialModule } from '@angular/material';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreLogMonitorModule, useLogMonitor } from '@ngrx/store-log-monitor';
-import { AngularFireModule, FIREBASE_PROVIDERS, FirebaseUrl } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
@@ -38,6 +38,17 @@ const rootReducer: any = combineReducers({
   items
 });
 
+// firebase OnInit
+export const firebaseConfig = {
+  apiKey: "AIzaSyDo1_LTrFIec_OtXL0DVEyKb7xWK8xUDHQ",
+  authDomain: "lb-shop-83664.firebaseapp.com",
+  databaseURL: "https://lb-shop-83664.firebaseio.com",
+  storageBucket: "lb-shop-83664.appspot.com",
+  messagingSenderId: "176056224462"
+};
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +66,7 @@ const rootReducer: any = combineReducers({
     OrderByPipe
   ],
   imports: [
+    AngularFireModule.initializeApp(firebaseConfig),
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
@@ -72,8 +84,7 @@ const rootReducer: any = combineReducers({
     ShopsService,
     DepartmentsService,
     ItemsService,
-    DatabaseService,
-    FIREBASE_PROVIDERS],
+    DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

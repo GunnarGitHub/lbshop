@@ -1,8 +1,7 @@
 import { DatabaseService } from './services/database.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Store } from "@ngrx/store";
-
 import { AppState, Shop, User, Department, Item } from './model/';
 import { ListShopsComponent } from './list-shops';
 import { ShopsService, DepartmentsService, ItemsService } from './services'
@@ -45,6 +44,5 @@ export class AppComponent implements OnInit {
     this.shop = shop;
     this.departmentsService.loadDepartments();
     this.itemsService.loadItems();
-    this.databaseService.getShops();
   }
 }

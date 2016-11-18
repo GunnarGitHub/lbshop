@@ -1,5 +1,7 @@
+import { shop } from './../reducers/shop.reducer';
+import { shops } from './../reducers/shops.reducer';
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 
 declare var firebase: any;
 
@@ -9,18 +11,12 @@ export class DatabaseService {
 
   constructor(private af: AngularFire) {
     // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyDo1_LTrFIec_OtXL0DVEyKb7xWK8xUDHQ",
-      authDomain: "lb-shop-83664.firebaseapp.com",
-      databaseURL: "https://lb-shop-83664.firebaseio.com",
-      storageBucket: "lb-shop-83664.appspot.com",
-      messagingSenderId: "176056224462"
-    };
-    firebase.initializeApp(config);
     this.db = af.database;
     this.storeDepartments();
     this.storeShops();
     //this.storeData();
+    // TODO remove 
+    this.getShops();
   }
 
   private initialStores = [
@@ -31,10 +27,11 @@ export class DatabaseService {
   ];
 
   private storeShops() {
-    this.db.ref('/shops').remove();
+    console.log("Database service storeShops");
+    const shops$: FirebaseListObservable<any> = this.db.list('/shops');
+    shops$.remove();
     this.initialStores.forEach(shop => {
-      let key = this.db.ref('/shops').push().key;
-      this.db.ref('/shops/' + key).update(shop);
+      shops$.push(shop);
     })
   };
 
@@ -46,10 +43,12 @@ export class DatabaseService {
   ]
 
   private storeDepartments() {
-    this.db.ref('/departments').remove();
+    console.log("Database service storeDepartments");
+    const departments$: FirebaseListObservable<any> =
+      this.db.list('/departments');
+    departments$.remove();
     this.initialDepartments.forEach(department => {
-      let key = this.db.ref('/departments').push().key;
-      this.db.ref('/departments/' + key).update(department);
+      departments$.push(department);
     })
   };
 
@@ -59,19 +58,15 @@ export class DatabaseService {
     this.db.ref('/shops/' + key).update({ name: 'ica', location: 'Birsta' })
   };
 
-  fbData() {
-    console.log("DatabaseService fbData ");
-    this.db.ref('/').on("child_added", snapshot => {
-      console.log("snap: " + snapshot.val());
-    });
-  }
-
   getShops() {
     console.log("DatabaseService getShops ");
-    this.db.list('/shops').map(shop => 
-      console.log("shop: " +shop));
-    };
-
-    //return this.db.ref('/shops').on("child_added");
+    const shops$: FirebaseListObservable<any> =
+      this.db.list('/shops');
+    shops$.subscribe((shops: any[]) =>
+      shops.forEach(shop => {
+        console.log("shop: " + JSON.stringify(shop) + " key: " + shop.$key);
+      }));
   };
+
+};
 
