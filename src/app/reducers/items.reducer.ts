@@ -19,7 +19,7 @@ export const items: ActionReducer<Item[]> = (state: Item[] = [], action: Action)
             console.log("itemsReducer change_item " + JSON.stringify(action.payload));
             let changedItem = action.payload;
             let newState: Item[] = [];
-            state.forEach(value => value.key === changedItem.key ? newState.push(changedItem) : newState.push(value));
+            state.forEach(value => value.$key === changedItem.key ? newState.push(changedItem) : newState.push(value));
             return newState;
         default:
             return state;

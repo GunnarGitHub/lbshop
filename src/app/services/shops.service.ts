@@ -1,3 +1,4 @@
+import { DatabaseService } from './database.service';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { Store, Action } from "@ngrx/store";
@@ -11,9 +12,9 @@ export class ShopsService {
 
   shops$: Observable<Shop[]>;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private db: DatabaseService) {
     console.log("ShopsService constructor");
-    this.shops$ = this.store.select(s => s.shops);
+    this.shops$ = this.db.shops$;
   }
 
   loadShops(owner: string): void {

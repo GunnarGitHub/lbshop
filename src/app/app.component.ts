@@ -1,3 +1,4 @@
+import { FirebaseListObservable } from 'angularfire2';
 import { DatabaseService } from './services/database.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Observable } from "rxjs/Observable";
@@ -13,10 +14,11 @@ import { ShopsService, DepartmentsService, ItemsService } from './services'
 })
 export class AppComponent implements OnInit {
   title = 'LB SHOP';
-  shop: Shop = {key: 'shop', owner:'owner', name:'name', order: 1.2};
-  user: User = { key: "gunnar", name: "Gunnar" }; //TODO take from appstore
+  //shop: Shop = {key: 'shop', owner:'owner', name:'name', order: 1.2};
+  user: User = this.databaseService.user;
+  shop : Shop;
   shop$: Observable<Shop>;
-  shops$:  Observable<Shop[]>;
+  shops$:  FirebaseListObservable<any[]>;
   departments$: Observable<Department[]>;
   items$: Observable<Item[]>;
 
@@ -33,9 +35,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     console.log("AppComponent ngOnInit load shops, departments and items");
     this.shop$ = this.store.select(s => s.shop);
-    this.shops$ = this.shopsService.shops$;
+    this.shops$ = this.databaseService.shops$
     this.departments$ = this.store.select(s => s.departments);
-    this.shopsService.loadShops(this.user.key);
+    //this.shopsService.loadShops(this.user.key);
   };
 
   shopIsChanged(shop: Shop) {

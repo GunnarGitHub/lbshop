@@ -1,5 +1,5 @@
 <div>
-	<list-shops [shops]="shops$ | async | shopsPipe : user" (shopChanged)="shopIsChanged($event)">Shops</list-shops>
+	<list-shops [shops]="shops$ | async " (shopChanged)="shopIsChanged($event)">Shops</list-shops>
 	<list-departements-with-items [departments]="departments$ | async | departmentsPipe: shop"></list-departements-with-items>
 
 	<ngrx-store-log-monitor toggleCommand="ctrl-h" positionCommand="ctrl-m"></ngrx-store-log-monitor>

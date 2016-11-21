@@ -24,7 +24,7 @@ export class ListShopsComponent implements OnInit {
 
   onChangeShop(owner: string) {
     console.log("onClickShop: " + owner);
-    let shops: Shop[] = this.shops.filter((shop: Shop) => shop.key == owner )
+    let shops: Shop[] = this.shops.filter((shop: Shop) => shop.$key == owner )
     this.shopChanged.emit(shops[0]);
   }
 }

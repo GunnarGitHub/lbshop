@@ -1,12 +1,12 @@
 export interface Department {
-    key: string;
+    $key?: string;
     owner: string;
     name: string;
     order: number;
 }
 
 export interface Item {
-    key: string;
+    $key?: string;
     owner: string;
     buy: boolean;
     quantity: number;
@@ -16,15 +16,17 @@ export interface Item {
 }
 
 export interface Shop {
-    key: string,
+    $key?: string,
     owner: string;
     name: string;
     order: number;
 }
 
 export interface User {
-    key: string;
+    $key?: string,
+    email: string;
     name: string;
+    shopOwner: string;
 }
 
 export interface AppState {

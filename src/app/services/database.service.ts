@@ -1,3 +1,4 @@
+import { user } from './../reducers/user.reducer';
 import { shop } from './../reducers/shop.reducer';
 import { shops } from './../reducers/shops.reducer';
 import { Injectable } from '@angular/core';
@@ -9,27 +10,47 @@ declare var firebase: any;
 export class DatabaseService {
   db: any;
 
+  public shops$: FirebaseListObservable<any[]>;
+  public users$: FirebaseListObservable<any[]>;
+  public departments$: FirebaseListObservable<any[]>;
+
   constructor(private af: AngularFire) {
     // Initialize Firebase
     this.db = af.database;
+    console.log('user: ' + this.user.shopOwner);
+    this.shops$ = this.db.list('/shops', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: this.user.shopOwner
+      }
+    });
+
     this.storeInitialData();
     this.storeUsers();
     // TODO remove 
-    this.getShops();
+    //this.getShops();
   }
 
+  public getDepartmentsObservable(shop: any): FirebaseListObservable<any[]> {
+    return this.db.list('/departments', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: shop.$key
+      }
+    });
+
+  }
   private users = [
-    { key: 'gunar.bos@gmail.com', name: 'Gunnar', shopOwner: 'gunar.bos@gmail.com' },
-    { key: 'lena.bost@gmail.com', name: 'Lena', shopOwner: 'gunar.bos@gmail.com' }
+    { email: 'gunar.bos@gmail.com', name: 'Gunnar', shopOwner: 'gunar.bos@gmail.com' },
+    { email: 'lena.bost@gmail.com', name: 'Lena', shopOwner: 'gunar.bos@gmail.com' }
   ];
 
-  private user = this.users[0];
+  public user = this.users[0];
 
   private storeUsers() {
-    console.log('storeUsers ' + JSON.stringify(this.users));
-    const users$: FirebaseListObservable<any> = this.db.list('/users');
+    let usrs$ = this.db.list('/users')
     this.users.forEach(user => {
-      users$.push(user);
+      usrs$.push(user);
     });
   }
 
@@ -66,8 +87,8 @@ export class DatabaseService {
         }
       ],
     },
-    { owner: 'gunar.bos@gmail.com', name: 'Apoteket', order: 2.2, departments: [] },
-    { owner: 'gunar.bos@gmail.com', name: 'Systemet', order: 2.3, departments: [] }
+    { owner: 'lena.bost@gmail.com', name: 'Apoteket', order: 2.2, departments: [] },
+    { owner: 'lena.bost@gmail.com', name: 'Systemet', order: 2.3, departments: [] }
   ];
 
   private storeInitialData() {
@@ -77,21 +98,22 @@ export class DatabaseService {
       this.db.list('/');
     data$.remove();
 
-    const shops$: FirebaseListObservable<any> = this.db.list('/shops');
-    const departments$: FirebaseListObservable<any> = this.db.list('/departments');
+    let shs$ = this.db.list('/shops');
+    let deps$ = this.db.list('/departments');
+    let its$ = this.db.list('/items');
     const items$: FirebaseListObservable<any> = this.db.list('/items');
     this.initialData.forEach(shop => {
       const departments = shop.departments;
       shop.departments = null;
-      let shopKey: string = shops$.push(shop).key
+      let shopKey: string = shs$.push(shop).key;
       departments.forEach(department => {
         department.owner = shopKey;
-        let keyDepartment: string = departments$.push(department).key;
+        let keyDepartment: string = deps$.push(department).key;
         const items = department.items;
         department.items = null;
         items.forEach(item => {
           item.owner = keyDepartment;
-          items$.push(item);
+          its$.push(item);
         })
       })
     })
@@ -99,10 +121,7 @@ export class DatabaseService {
 
   getShops() {
     console.log('DatabaseService getShops ');
-    const shops$: FirebaseListObservable<any> = this.db.list('/shops',
-      //TODO remove static query
-      { query: { orderByChild: 'owner', equalTo: 'gunnar' } });
-    shops$.subscribe((shops: any[]) =>
+    this.shops$.subscribe((shops: any[]) =>
       shops.forEach(shop => {
         console.log('shop: ' + JSON.stringify(shop) + ' key: ' + shop.$key);
       }));
