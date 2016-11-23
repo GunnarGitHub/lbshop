@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { Subject } from 'rxjs/Subject'
 
-import { Shop, Department } from './../model/model';
+import { Shop, Department, Item } from './../model/model';
 declare var firebase: any;
 
 @Injectable()
@@ -37,9 +37,17 @@ export class DatabaseService {
     this.storeUsers()
   }
 
-  shopIschanged(shop) {
+  shopChanged(shop) {
     this.shop = shop
     this.shopSubject.next(shop.$key)
+  }
+
+  itemChanged(item: Item) {
+    console.log('DatabaseService itemChanged ' + JSON.stringify(item))
+    let key = item.$key
+    delete item.$key
+    console.log('DatabaseService itemChanged ' + key + ' ' + JSON.stringify(item))
+    this.db.object('/items/' + key ).set(item)
   }
 
   public getDepartmentsObservable(): FirebaseListObservable<any[]> {
@@ -132,11 +140,13 @@ export class DatabaseService {
       let shopKey: string = shs$.push(shop).key;
       departments.forEach(department => {
         department.owner = shopKey;
-        let keyDepartment: string = deps$.push(department).key;
         const items = department.items;
         department.items = null;
+        console.log('department ' + JSON.stringify(department))
+        let keyDepartment: string = deps$.push(department).key;
         items.forEach(item => {
           item.owner = keyDepartment;
+          console.log('item ' + JSON.stringify(item))
           its$.push(item);
         })
       })

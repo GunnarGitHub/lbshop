@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
-import { ItemsService} from '../services';
+import { DatabaseService } from './../services/database.service';
 import { Item } from '../model';
 
 @Component({
@@ -14,12 +14,12 @@ export class EditItemComponent implements OnInit {
   @Input() item: Item;
   itemForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private itemsService: ItemsService ) { }
+  constructor(private fb: FormBuilder, private databaseService: DatabaseService ) { }
 
   ngOnInit() {
     console.log("EditItemComponent ngOnInit ");// + JSON.stringify(this.item));
     this.itemForm = this.fb.group({
-      key: '',
+      $key: '',
       buy: '',
       owner: '',
       quantity: '',
@@ -30,7 +30,7 @@ export class EditItemComponent implements OnInit {
   }
 
  onChange() {
-    console.log("onBlur "); // + JSON.stringify(this.itemForm.value));
-    this.itemsService.changeItem(this.itemForm.value);
+    console.log("itemChanged "); // + JSON.stringify(this.itemForm.value));
+    this.databaseService.itemChanged(this.itemForm.value);
   }
 }

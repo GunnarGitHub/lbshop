@@ -36,6 +36,6 @@ export class AppComponent implements OnInit {
   shopIsChanged(shop: Shop) {
     console.log("onShopChanged "); // + JSON.stringify(shop));
     this.shop = shop;
-    this.databaseService.shopIschanged(shop);
+    this.databaseService.shopChanged(shop);
   }
 }

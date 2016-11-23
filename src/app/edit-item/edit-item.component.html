@@ -1,8 +1,8 @@
 <div>
 		<form [formGroup]="itemForm">
-			<input type="hidden" formControlName="key" [ngModel]="item.key">
+			<input type="hidden" formControlName="$key" [ngModel]="item.$key">
 			<input type="hidden" formControlName="owner" [ngModel]="item.owner">
-			<input type="checkbox" formControlName="buy" [(ngModel)]="item.buy" (blur)="onChange()">
+			<input type="checkbox" formControlName="buy" [(ngModel)]="item.buy" (keyup.enter)="onChange()" (blur)="onChange()">
 			<input type="text" formControlName="quantity" [(ngModel)]="item.quantity" (keyup.enter)="onChange()" (blur)="onChange()">
 			<input type="text" formControlName="unit" [(ngModel)]="item.unit" (keyup.enter)="onChange()" (blur)="onChange()"> 
 			<input type="text" formControlName="name" [(ngModel)]="item.name" (keyup.enter)="onChange()" (blur)="onChange()">
