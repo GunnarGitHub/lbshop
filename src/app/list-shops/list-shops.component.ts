@@ -1,8 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
-import { Observable } from "rxjs/Observable";
-import { Store } from "@ngrx/store";
 
-import { Shop, AppState } from '../model/';
+import { Shop } from '../model/';
 import { ShopsService } from '../services'
 
 @Component({
@@ -16,7 +14,7 @@ export class ListShopsComponent implements OnInit {
   
   @Output()
   shopChanged = new EventEmitter<Shop>();
-  constructor(private shopsService : ShopsService, private store:Store<AppState> ) { 
+  constructor(private shopsService : ShopsService ) { 
   }
 
   ngOnInit() {

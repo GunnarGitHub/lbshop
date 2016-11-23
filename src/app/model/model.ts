@@ -28,11 +28,3 @@ export interface User {
     name: string;
     shopOwner: string;
 }
-
-export interface AppState {
-    user: User;
-    shop: Shop;
-    shops: Shop[];
-    departments : Department[];
-    items: Item[];
-}

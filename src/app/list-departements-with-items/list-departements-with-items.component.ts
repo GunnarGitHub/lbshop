@@ -1,9 +1,8 @@
 import { DatabaseService } from './../services/database.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs'
 import { FirebaseListObservable } from 'angularfire2';
 
-import { AppState, Department, Item } from '../model';
+import { Department, Item } from '../model';
 
 @Component({
   selector: 'list-departements-with-items',
