@@ -1,23 +1,31 @@
-import { user } from './../reducers/user.reducer';
-import { shop } from './../reducers/shop.reducer';
-import { shops } from './../reducers/shops.reducer';
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { Subject } from 'rxjs/Subject'
 
+import { Shop, Department } from './../model/model';
 declare var firebase: any;
 
 @Injectable()
 export class DatabaseService {
   db: any;
 
-  public shops$: FirebaseListObservable<any[]>;
+  private shop: Shop;
+  public shops$: FirebaseListObservable<Shop[]>;
   public users$: FirebaseListObservable<any[]>;
   public departments$: FirebaseListObservable<any[]>;
+  private shopSubject: Subject<string>
+  private departmentSubject: Subject<string>
 
   constructor(private af: AngularFire) {
     // Initialize Firebase
     this.db = af.database;
-    console.log('user: ' + this.user.shopOwner);
+    this.onInit()
+  }
+
+  onInit() {
+    console.log('shopOwner: ' + this.user.shopOwner)
+    this.shopSubject = new Subject<string>()
+    this.departmentSubject = new Subject<string>()
     this.shops$ = this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
@@ -25,21 +33,37 @@ export class DatabaseService {
       }
     });
 
-    this.storeInitialData();
-    this.storeUsers();
-    // TODO remove 
-    //this.getShops();
+    this.storeInitialData()
+    this.storeUsers()
   }
 
-  public getDepartmentsObservable(shop: any): FirebaseListObservable<any[]> {
+  shopIschanged(shop) {
+    this.shop = shop
+    this.shopSubject.next(shop.$key)
+  }
+
+  public getDepartmentsObservable(): FirebaseListObservable<any[]> {
     return this.db.list('/departments', {
       query: {
         orderByChild: 'owner',
-        equalTo: shop.$key
+        equalTo: this.shopSubject
+      }
+    })
+  }
+
+  public getItemsObservable(): FirebaseListObservable<any[]> {
+    return this.db.list('/items', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: this.departmentSubject
       }
     });
-
   }
+
+  public departmentChanged(department: Department) {
+    this.departmentSubject.next(department.$key)
+  }
+
   private users = [
     { email: 'gunar.bos@gmail.com', name: 'Gunnar', shopOwner: 'gunar.bos@gmail.com' },
     { email: 'lena.bost@gmail.com', name: 'Lena', shopOwner: 'gunar.bos@gmail.com' }
@@ -117,14 +141,6 @@ export class DatabaseService {
         })
       })
     })
-  };
-
-  getShops() {
-    console.log('DatabaseService getShops ');
-    this.shops$.subscribe((shops: any[]) =>
-      shops.forEach(shop => {
-        console.log('shop: ' + JSON.stringify(shop) + ' key: ' + shop.$key);
-      }));
   };
 
 };

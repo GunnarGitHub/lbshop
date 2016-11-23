@@ -1,6 +1,9 @@
+import { DepartmentsService } from './../services/departments.service';
+import { DatabaseService } from './../services/database.service';
 import { Component, OnInit, Input } from '@angular/core';
 import 'rxjs/Rx';
 
+import { Department } from './../model/model';
 
 import { Item } from '../model';
 
@@ -14,17 +17,19 @@ export class ListItemsComponent implements OnInit {
 
   @Input() items: Item[] = [];
 
-  constructor() {
+  dep: Department;
+  @Input('department')
+  set department(department: Department) {
+    this.dep = department;
+    this.databaseService.departmentChanged(department);
+  }
+
+  constructor(private databaseService: DatabaseService) {
     console.log("ListItemsComponent constructor ");// + JSON.stringify(this.items));
   }
 
   ngOnInit() {
     console.log("ListItemsComponent ngOnInit ");// + JSON.stringify(this.items));
-    // this.itemForm
-    //   .valueChanges
-    //   .distinctUntilChanged()
-    //   .debounceTime(5000)
-    //   .subscribe(item => this.itemsService.changeItem(item));
   }
 
   // onBlur() {

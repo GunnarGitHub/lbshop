@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   shop : Shop;
   shop$: Observable<Shop>;
   shops$:  FirebaseListObservable<any[]>;
-  departments$: Observable<Department[]>;
+  departments$: FirebaseListObservable<Department[]>;
   items$: Observable<Item[]>;
 
   constructor(
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     console.log("AppComponent ngOnInit load shops, departments and items");
     this.shop$ = this.store.select(s => s.shop);
     this.shops$ = this.databaseService.shops$
-    this.departments$ = this.store.select(s => s.departments);
+    this.departments$ = this.databaseService.getDepartmentsObservable();
     //this.shopsService.loadShops(this.user.key);
   };
 
@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
     console.log("onShopChanged "); // + JSON.stringify(shop));
     this.store.dispatch({type: 'CHANGE_SHOP', payload: shop})
     this.shop = shop;
+    this.databaseService.shopIschanged(shop);
     this.departmentsService.loadDepartments();
     this.itemsService.loadItems();
   }

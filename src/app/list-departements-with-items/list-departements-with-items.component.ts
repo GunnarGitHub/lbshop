@@ -1,6 +1,7 @@
+import { DatabaseService } from './../services/database.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs'
-import { Store } from "@ngrx/store";
+import { FirebaseListObservable } from 'angularfire2';
 
 import { AppState, Department, Item } from '../model';
 
@@ -13,11 +14,11 @@ export class ListDepartementsWithItemsComponent implements OnInit {
 
 @Input() departments: Department[] = [];
 
-items$: Observable<Item[]>;
+items$: FirebaseListObservable<Item[]>;
 
-  constructor( private store: Store<AppState>) {
+  constructor( private databaseService: DatabaseService) {
     console.log("ListDepartementsWithItemsComponent constructor");
-    this.items$ = store.select(s => s.items)
+    this.items$ = this.databaseService.getItemsObservable();
    }
   
   ngOnInit() {
