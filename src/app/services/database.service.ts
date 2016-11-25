@@ -9,16 +9,18 @@ declare var firebase: any;
 export class DatabaseService {
   db: any;
 
-  private shop: Shop;
-  public shops$: FirebaseListObservable<Shop[]>;
-  public users$: FirebaseListObservable<any[]>;
-  public departments$: FirebaseListObservable<any[]>;
+  private shop: Shop
+  public shops$: FirebaseListObservable<Shop[]>
+  public users$: FirebaseListObservable<any[]>
+  public departments$: FirebaseListObservable<any[]>
   private shopSubject: Subject<string>
   private departmentSubject: Subject<string>
+  private items$: FirebaseListObservable<Item[]>
 
   constructor(private af: AngularFire) {
     // Initialize Firebase
     this.db = af.database;
+    this.items$ = this.db.list('/items')
     this.onInit()
   }
 
@@ -43,11 +45,14 @@ export class DatabaseService {
   }
 
   itemChanged(item: Item) {
-    console.log('DatabaseService itemChanged ' + JSON.stringify(item))
+    //console.log('DatabaseService itemChanged ' + JSON.stringify(item))
     let key = item.$key
-    delete item.$key
-    console.log('DatabaseService itemChanged ' + key + ' ' + JSON.stringify(item))
-    this.db.object('/items/' + key ).set(item)
+    //item.$key = ''
+    //console.log('DatabaseService itemChanged ' + key + ' ' + JSON.stringify(item))
+    let newItem = Object.assign({}, item)
+    delete newItem.$key
+    //console.log('DatabaseService itemChanged ' + key + ' ' + JSON.stringify(newItem))
+    this.items$.update(key, newItem )
   }
 
   public getDepartmentsObservable(): FirebaseListObservable<any[]> {
@@ -90,20 +95,20 @@ export class DatabaseService {
     {
       owner: 'gunar.bos@gmail.com', name: 'Maxi', order: 1.0, departments: [
         {
-          name: 'Frukt', owner: '', order: 1, items: [
-            { buy: true, owner: '', quantity: 1, unit: 'st', name: 'Äpplen', order: 1.0 },
-            { buy: false, owner: '', quantity: 1, unit: 'st', name: 'Päron', order: 2.0 },
+          name: 'Frukt', order: 1, items: [
+            { buy: true, quantity: 1, unit: 'st', name: 'Äpplen', order: 1.0 },
+            { buy: false, quantity: 1, unit: 'st', name: 'Päron', order: 2.0 },
           ]
         },
         {
-          owner: '', name: 'Mejeri', order: 3.5, items: [
-            { buy: false, owner: 'mejeri', quantity: 8, unit: 'st', name: 'Grädde', order: 4.0 },
-            { buy: false, owner: 'mejeri', quantity: 7, unit: 'st', name: 'Mjölk', order: 3.0 },
+         name: 'Mejeri', order: 3.5, items: [
+            { buy: false, quantity: 8, unit: 'st', name: 'Grädde', order: 4.0 },
+            { buy: false, quantity: 7, unit: 'st', name: 'Mjölk', order: 3.0 },
           ]
         },
         {
-          owner: '', name: 'Övrigt', order: 4, items: [
-            { buy: false, owner: 'ovrigt', quantity: 3, unit: 'st', name: 'Blommor', order: 6.0 }
+          name: 'Övrigt', order: 4, items: [
+            { buy: false, quantity: 3, unit: 'st', name: 'Blommor', order: 6.0 }
           ]
         },
       ]
@@ -111,10 +116,10 @@ export class DatabaseService {
     {
       owner: 'gunar.bos@gmail.com', name: 'City Gross', order: 2.2, departments: [
         {
-          owner: '', name: 'Diverse', order: 3, items: [
-            { buy: false, owner: '', quantity: 9, unit: 'st', name: 'AA Batterier', order: 5.0 },
-            { buy: false, owner: '', quantity: 9, unit: 'st', name: '60 W Lampa', order: 8.0 },
-            { buy: false, owner: '', quantity: 9, unit: 'st', name: '40 W Lampa', order: 4.0 },
+          name: 'Diverse', order: 3, items: [
+            { buy: false, quantity: 9, unit: 'st', name: 'AA Batterier', order: 5.0 },
+            { buy: false, quantity: 9, unit: 'st', name: '60 W Lampa', order: 8.0 },
+            { buy: false, quantity: 9, unit: 'st', name: '40 W Lampa', order: 4.0 },
           ]
         }
       ],
@@ -139,14 +144,14 @@ export class DatabaseService {
       shop.departments = null;
       let shopKey: string = shs$.push(shop).key;
       departments.forEach(department => {
-        department.owner = shopKey;
+        department['owner'] = shopKey;
         const items = department.items;
         department.items = null;
-        console.log('department ' + JSON.stringify(department))
+        //  console.log('department ' + JSON.stringify(department))
         let keyDepartment: string = deps$.push(department).key;
         items.forEach(item => {
-          item.owner = keyDepartment;
-          console.log('item ' + JSON.stringify(item))
+          item['owner'] = keyDepartment;
+          // console.log('item ' + JSON.stringify(item))
           its$.push(item);
         })
       })

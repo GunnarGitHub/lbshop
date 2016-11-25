@@ -1,3 +1,4 @@
+import { by } from 'protractor';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
@@ -12,25 +13,30 @@ import { Item } from '../model';
 export class EditItemComponent implements OnInit {
 
   @Input() item: Item;
-  itemForm: FormGroup;
+  private itemForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private databaseService: DatabaseService ) { }
+  constructor(private fb: FormBuilder, private databaseService: DatabaseService) { 
+    //console.log("EditItemComponent constructor ");
+  }
 
   ngOnInit() {
-    console.log("EditItemComponent ngOnInit ");// + JSON.stringify(this.item));
+    console.log("EditItemComponent ngOnInit " + JSON.stringify(this.item));
     this.itemForm = this.fb.group({
-      $key: '',
-      buy: '',
-      owner: '',
-      quantity: '',
-      unit: '',
-      name: '',
-      order: null
+      $key: this.item.$key,
+      buy: this.item.buy,
+      owner: this.item.owner,
+      quantity: this.item.quantity,
+      unit: this.item.unit,
+      name: this.item.name,
+      order: this.item.order
     });
   }
 
- onChange() {
-    console.log("itemChanged "); // + JSON.stringify(this.itemForm.value));
-    this.databaseService.itemChanged(this.itemForm.value);
+  onChange() {
+    console.log("itemChanged " + JSON.stringify(this.itemForm.value));
+    if (this.itemForm.value.$key === this.item.$key) {
+      console.log("itemChanged-key " + JSON.stringify(this.itemForm.value.$key));
+      this.databaseService.itemChanged(this.itemForm.value);
+    }
   }
 }

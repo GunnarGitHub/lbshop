@@ -1,6 +1,6 @@
 export interface Department {
     $key?: string;
-    owner: string;
+    owner?: string;
     name: string;
     order: number;
 }

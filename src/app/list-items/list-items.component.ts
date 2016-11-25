@@ -25,11 +25,11 @@ export class ListItemsComponent implements OnInit {
   }
 
   constructor(private databaseService: DatabaseService) {
-    console.log("ListItemsComponent constructor ");// + JSON.stringify(this.items));
+    //console.log("ListItemsComponent constructor ");// + JSON.stringify(this.items));
   }
 
   ngOnInit() {
-    console.log("ListItemsComponent ngOnInit ");// + JSON.stringify(this.items));
+    //console.log("ListItemsComponent ngOnInit " + JSON.stringify(this.items));
   }
 
   // onBlur() {
