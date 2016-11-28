@@ -13,11 +13,11 @@ export class ListDepartementsWithItemsComponent implements OnInit {
 
 @Input() departments: Department[] = [];
 
-items$: FirebaseListObservable<Item[]>;
+//items$: FirebaseListObservable<Item[]>;
 
   constructor( private databaseService: DatabaseService) {
-    console.log("ListDepartementsWithItemsComponent constructor");
-    this.items$ = this.databaseService.getItemsObservable();
+    console.log("ListDepartementsWithItemsComponent constructor ");
+   // this.items$ = this.databaseService.getItemsObservable();
    }
   
   ngOnInit() {

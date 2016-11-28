@@ -12,15 +12,16 @@ import { Item } from '../model';
 })
 export class EditItemComponent implements OnInit {
 
-  @Input() item: Item;
+  @Input('group')
+ // @Input() item: Item;
   private itemForm: FormGroup;
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService) { 
     //console.log("EditItemComponent constructor ");
   }
-
   ngOnInit() {
-    console.log("EditItemComponent ngOnInit " + JSON.stringify(this.item));
+    console.log("EditItemComponent ngOnInit "); // + JSON.stringify(this.item));
+/*
     this.itemForm = this.fb.group({
       $key: this.item.$key,
       buy: this.item.buy,
@@ -30,8 +31,10 @@ export class EditItemComponent implements OnInit {
       name: this.item.name,
       order: this.item.order
     });
+  */
   }
 
+/*
   onChange() {
     console.log("itemChanged " + JSON.stringify(this.itemForm.value));
     if (this.itemForm.value.$key === this.item.$key) {
@@ -39,4 +42,5 @@ export class EditItemComponent implements OnInit {
       this.databaseService.itemChanged(this.itemForm.value);
     }
   }
+  */
 }

@@ -65,6 +65,7 @@ export class DatabaseService {
   }
 
   public getItemsObservable(): FirebaseListObservable<any[]> {
+    console.log('DatabaseService getItemsObservable() ');
     return this.db.list('/items', {
       query: {
         orderByChild: 'owner',
@@ -74,6 +75,7 @@ export class DatabaseService {
   }
 
   public departmentChanged(department: Department) {
+     console.log('DatabaseService departmentChanged() ' + department.$key + ' ' + department.name);
     this.departmentSubject.next(department.$key)
   }
 

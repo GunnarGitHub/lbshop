@@ -1,5 +1,5 @@
 <div *ngFor="let department of departments">
 	{{department.name}} {{department.order}}
-  <list-items [department]="department" [items]="items$ | async | orderBy"></list-items>
+  <list-items [department]="department" ></list-items>
 </div>
 	
