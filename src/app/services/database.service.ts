@@ -39,12 +39,12 @@ export class DatabaseService {
     this.storeUsers()
   }
 
-  shopChanged(shop) {
+  public shopChanged(shop) {
     this.shop = shop
     this.shopSubject.next(shop.$key)
   }
 
-  itemChanged(item: Item) {
+  public itemChanged(item: Item) {
     //console.log('DatabaseService itemChanged ' + JSON.stringify(item))
     let key = item.$key
     //item.$key = ''

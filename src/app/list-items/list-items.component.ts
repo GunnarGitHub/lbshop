@@ -1,9 +1,9 @@
+import { ItemsPipe } from './../pipes/items.pipe';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { FirebaseListObservable } from 'angularfire2';
 import 'rxjs/Rx';
 
-import { Department, Item } from '../model/model';
+import { Item } from '../model/model';
 import { DatabaseService } from './../services/database.service';
 
 @Component({
@@ -14,35 +14,20 @@ import { DatabaseService } from './../services/database.service';
 
 export class ListItemsComponent implements OnInit, OnDestroy {
 
-  items: Item[]
-  itemsSubscription: any
-
-  dep: Department;
-  @Input('department')
-  set department(department: Department) {
-    console.log('ListItemsComponent set department ' + JSON.stringify(department))
-    this.dep = department;
-    this.databaseService.departmentChanged(this.dep);
-  }
+  @Input() items: Item[]
 
   private itemForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
-    // console.log("ListItemsComponent constructor " + JSON.stringify(this.items));
+  constructor(private fb: FormBuilder) {
+    console.log("ListItemsComponent constructor ") // + JSON.stringify(this.items));
   }
 
   ngOnInit() {
-    console.log("ListItemsComponent ngOnInit " + JSON.stringify(this.dep));
+    console.log("ListItemsComponent ngOnInit " + JSON.stringify(this.items));
     this.itemForm = this.fb.group({
       items: this.fb.array([])
     });
-    this.itemsSubscription = this.databaseService.getItemsObservable()
-    this.itemsSubscription.subscribe(res => {
-      console.log('ListItemsComponent resule ' + JSON.stringify(res))
-      this.items = res;
-      this.showItems()
-    });
-
+    this.showItems()
   }
 
   showItems() {
@@ -57,7 +42,6 @@ export class ListItemsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     console.log("ListItemsComponent ngOnDestroy ")
-    this.itemsSubscription.unsubscribe;
   }
   // addItem() {
   //       const control = <FormArray>this.itemForm.controls['items'];

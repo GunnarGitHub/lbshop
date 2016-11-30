@@ -15,6 +15,7 @@ import { ShopsPipe, DepartmentsPipe, ItemsPipe, OrderByPipe } from './pipes';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListDepartementsWithItemsComponent } from './list-departements-with-items/list-departements-with-items.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
+import { ListDepartmentComponent } from './list-department/list-department.component';
 
 // firebase OnInit
 export const firebaseConfig = {
@@ -33,6 +34,7 @@ export const firebaseConfig = {
     ShopComponent,
     UserComponent,
     ListShopsComponent,
+    ListDepartmentComponent,
     ListDepartmentsComponent,
     ShopsPipe,
     ListItemsComponent,
@@ -41,7 +43,8 @@ export const firebaseConfig = {
     DepartmentsPipe,
     OrderByPipe,
     EditItemComponent,
-    OrderByPipe
+    OrderByPipe,
+    ListDepartmentComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
