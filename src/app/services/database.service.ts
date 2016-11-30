@@ -7,7 +7,7 @@ declare var firebase: any;
 
 @Injectable()
 export class DatabaseService {
-  db: any;
+  public db: any;
 
   private shop: Shop
   public shops$: FirebaseListObservable<Shop[]>
@@ -15,9 +15,9 @@ export class DatabaseService {
   public departments$: FirebaseListObservable<any[]>
   private shopSubject: Subject<string>
   private departmentSubject: Subject<string>
-  private items$: FirebaseListObservable<Item[]>
+  public items$: FirebaseListObservable<Item[]>
 
-  constructor(private af: AngularFire) {
+  constructor(public af: AngularFire) {
     // Initialize Firebase
     this.db = af.database;
     this.items$ = this.db.list('/items')
@@ -42,6 +42,11 @@ export class DatabaseService {
   public shopChanged(shop) {
     this.shop = shop
     this.shopSubject.next(shop.$key)
+  }
+
+  public departmentChanged(department: Department) {
+     console.log('DatabaseService departmentChanged() ' + department.$key + ' ' + department.name);
+    this.departmentSubject.next(department.$key)
   }
 
   public itemChanged(item: Item) {
@@ -72,11 +77,6 @@ export class DatabaseService {
         equalTo: this.departmentSubject
       }
     });
-  }
-
-  public departmentChanged(department: Department) {
-     console.log('DatabaseService departmentChanged() ' + department.$key + ' ' + department.name);
-    this.departmentSubject.next(department.$key)
   }
 
   private users = [

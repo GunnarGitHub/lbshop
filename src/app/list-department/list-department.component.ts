@@ -13,7 +13,7 @@ export class ListDepartmentComponent implements OnInit {
 
 
   @Input() department: Department
-  
+
   items$: FirebaseListObservable<Item[]>
 
   constructor(private databaseService: DatabaseService) {
@@ -22,9 +22,17 @@ export class ListDepartmentComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ListDepartmentComponent ngOnInit ' + this.department.name);
+    console.log('ListDepartmentComponent ngOnInit ');
     this.databaseService.departmentChanged(this.department)
-
+    let obs = this.databaseService.db.list('/items', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: this.department.$key
+      }
+    });
+    obs.subscribe(item => {
+      console.log('ngOnInit ' + JSON.stringify(item))
+    });
   }
 
 }
