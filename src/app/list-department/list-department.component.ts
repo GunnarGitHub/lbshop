@@ -14,25 +14,30 @@ export class ListDepartmentComponent implements OnInit {
 
   @Input() department: Department
 
-  items$: FirebaseListObservable<Item[]>
+  public items$: FirebaseListObservable<Item[]>
 
   constructor(private databaseService: DatabaseService) {
-    console.log('ListDepartmentComponent constructor');
+    console.log('constructor');
     this.items$ = this.databaseService.getItemsObservable();
+    // this.items$ = this.databaseService.items$;
   }
 
   ngOnInit() {
-    console.log('ListDepartmentComponent ngOnInit ');
+    console.log('ngOnInit ');
     this.databaseService.departmentChanged(this.department)
-    let obs = this.databaseService.db.list('/items', {
-      query: {
-        orderByChild: 'owner',
-        equalTo: this.department.$key
-      }
-    });
-    obs.subscribe(item => {
-      console.log('ngOnInit ' + JSON.stringify(item))
-    });
+    /*
+       //let obs = this.databaseService.getItemsObservable();
+       //let obs = this.databaseService.db.list('/items', {
+       //  {
+       //   query: {
+       //     orderByChild: 'owner',
+       //     equalTo: this.department.$key
+       //   }
+       // });
+       obs.subscribe(items => {
+         console.log('ngOnInit items' + JSON.stringify(items))
+       });
+       */
   }
 
 }

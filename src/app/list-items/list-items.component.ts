@@ -19,11 +19,11 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   private itemForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    console.log("ListItemsComponent constructor ") // + JSON.stringify(this.items));
+    console.log("constructor ") // + JSON.stringify(this.items));
   }
 
   ngOnInit() {
-    console.log("ListItemsComponent ngOnInit " + JSON.stringify(this.items));
+    console.log("ngOnInit items " + JSON.stringify(this.items));
     this.itemForm = this.fb.group({
       items: this.fb.array([])
     });
@@ -31,8 +31,8 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   }
 
   showItems() {
-    console.log('ListItemsComponent  showItems ' + JSON.stringify(this.items));
     if (this.items) {
+      console.log('showItems ' + JSON.stringify(this.items));
       this.items.forEach(item => {
         const control = <FormArray>this.itemForm.controls['items'];
         control.push(this.showItem(item))
@@ -41,14 +41,11 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("ListItemsComponent ngOnDestroy ")
+    console.log("ngOnDestroy ")
   }
-  // addItem() {
-  //       const control = <FormArray>this.itemForm.controls['items'];
-  //       control.push(this.pushItem());
-  //   }
 
   showItem(item: Item) {
+    console.log('showItem ' + JSON.stringify(item))
     return this.fb.group({
       $key: item.$key,
       buy: item.buy,

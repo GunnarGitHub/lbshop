@@ -45,18 +45,14 @@ export class DatabaseService {
   }
 
   public departmentChanged(department: Department) {
-     console.log('DatabaseService departmentChanged() ' + department.$key + ' ' + department.name);
+     console.log('departmentChanged() ' + department.$key + ' ' + department.name);
     this.departmentSubject.next(department.$key)
   }
 
   public itemChanged(item: Item) {
-    //console.log('DatabaseService itemChanged ' + JSON.stringify(item))
     let key = item.$key
-    //item.$key = ''
-    //console.log('DatabaseService itemChanged ' + key + ' ' + JSON.stringify(item))
     let newItem = Object.assign({}, item)
     delete newItem.$key
-    //console.log('DatabaseService itemChanged ' + key + ' ' + JSON.stringify(newItem))
     this.items$.update(key, newItem )
   }
 
@@ -70,7 +66,7 @@ export class DatabaseService {
   }
 
   public getItemsObservable(): FirebaseListObservable<any[]> {
-    console.log('DatabaseService getItemsObservable() ');
+    console.log('getItemsObservable() ');
     return this.db.list('/items', {
       query: {
         orderByChild: 'owner',
