@@ -4,7 +4,7 @@ import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import 'rxjs/Rx';
 
 import { Item } from '../model/model';
-import { DatabaseService } from './../services/database.service';
+import { DatabaseService } from './../services';
 
 @Component({
   selector: 'list-items',
@@ -14,16 +14,30 @@ import { DatabaseService } from './../services/database.service';
 
 export class ListItemsComponent implements OnInit, OnDestroy {
 
-  @Input() items: Item[]
+  private items: Item[]
 
   private itemForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
     console.log("constructor ") // + JSON.stringify(this.items));
   }
 
   ngOnInit() {
-    console.log("ngOnInit items " + JSON.stringify(this.items));
+    console.log("ngOnInit")
+        
+       //let obs = this.databaseService.getItemsObservable();
+       let obs = this.databaseService.db.list('/items', {
+         query: {
+           orderByChild: 'owner',
+           equalTo: this.databaseService.department.$key
+         }
+       });
+       
+       obs.subscribe(items => {
+         console.log('ngOnInit items' + JSON.stringify(items))
+         this.items = items
+       });
+
     this.itemForm = this.fb.group({
       items: this.fb.array([])
     });

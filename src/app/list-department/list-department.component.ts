@@ -25,19 +25,6 @@ export class ListDepartmentComponent implements OnInit {
   ngOnInit() {
     console.log('ngOnInit ');
     this.databaseService.departmentChanged(this.department)
-    /*
-       //let obs = this.databaseService.getItemsObservable();
-       //let obs = this.databaseService.db.list('/items', {
-       //  {
-       //   query: {
-       //     orderByChild: 'owner',
-       //     equalTo: this.department.$key
-       //   }
-       // });
-       obs.subscribe(items => {
-         console.log('ngOnInit items' + JSON.stringify(items))
-       });
-       */
   }
 
 }

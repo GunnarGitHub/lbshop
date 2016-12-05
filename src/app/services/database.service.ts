@@ -12,6 +12,7 @@ export class DatabaseService {
   private shop: Shop
   public shops$: FirebaseListObservable<Shop[]>
   public users$: FirebaseListObservable<any[]>
+  public department: Department
   public departments$: FirebaseListObservable<any[]>
   private shopSubject: Subject<string>
   private departmentSubject: Subject<string>
@@ -46,6 +47,7 @@ export class DatabaseService {
 
   public departmentChanged(department: Department) {
      console.log('departmentChanged() ' + department.$key + ' ' + department.name);
+     this.department = department
     this.departmentSubject.next(department.$key)
   }
 

@@ -15,19 +15,18 @@ export class EditItemComponent implements OnInit {
   @Input('group')
   private itemForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private databaseService: DatabaseService) { 
+  constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
     console.log("constructor ");
   }
   ngOnInit() {
-   // console.log("ngOnInit " + this.itemForm.controls.['items'].controls.length);
+    // console.log("ngOnInit " + this.itemForm.controls.['items'].controls.length);
   }
 
 
   onChange() {
     console.log("itemChanged " + JSON.stringify(this.itemForm.value));
-      console.log("itemChanged-key " + JSON.stringify(this.itemForm.value.$key));
-      this.databaseService.itemChanged(this.itemForm.value);
-   // if (this.itemForm.value.$key === this.item.$key) {
-   // }
+    this.databaseService.itemChanged(this.itemForm.value);
+    // if (this.itemForm.value.$key === this.item.$key) {
+    // }
   }
 }
