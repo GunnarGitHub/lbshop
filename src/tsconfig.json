@@ -17,7 +17,8 @@
       "../node_modules/@types"
     ],
     "types": [
-      "jasmine"
+      "jasmine",
+      "hammer.js"
     ],
     "include": [
         "src/**/*"
