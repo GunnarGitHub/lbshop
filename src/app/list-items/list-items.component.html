@@ -1,6 +1,6 @@
 <div [formGroup]="itemForm">
 	<div formArrayName="items">
-		<div *ngFor="let item of itemForm.controls.items.controls; let i=index">
+		<div *ngFor="let item of getItems(); let i=index">
 			<div>
 				<span>Item {{i}}</span>
 				<!--span *ngIf="itemForm.controls.items.controls.length > 1"></span-->

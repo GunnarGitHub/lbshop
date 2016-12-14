@@ -7,7 +7,8 @@ export class SearchService {
   searchSubject: ReplaySubject<string>
 
   constructor() {
-    this.searchSubject = new ReplaySubject<string>(1)
+    this.searchSubject = new ReplaySubject<string>()//.share<string>() as ReplaySubject<string>;
+    this.next('')
    }
 
   public next(value: string) {

@@ -1,11 +1,12 @@
+import { Subject } from 'rxjs/Subject';
 import { FirebaseListObservable } from 'angularfire2';
 import { ItemsPipe } from './../pipes/items.pipe';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 import { Item, Department } from '../model';
-import { DatabaseService } from './../services';
+import { DatabaseService, SearchService } from './../services';
 
 @Component({
   selector: 'list-items',
@@ -19,22 +20,20 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   private itemForm: FormGroup
   @Input() department: Department
 
-  constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
+  constructor(private fb: FormBuilder, private databaseService: DatabaseService, private searchService: SearchService) {
     console.log("constructor ") // + JSON.stringify(this.items));
   }
 
   items$: FirebaseListObservable<Item[]>
-  subscription: any
+  //itemSubscription: any
+  searchSubscription: Subject<string>
+  searchResult$: Observable<[Item[], string]>
 
   ngOnInit() {
     console.log("ngOnInit")
     if (this.itemForm) {
       this.itemForm.reset()
-      console.log('reset form')
-    } else {
-      console.log('NOT reset form')
     }
-    //let obs = this.databaseService.getItemsObservable();
     this.items$ = this.databaseService.db.list('/items', {
       query: {
         orderByChild: 'owner',
@@ -45,16 +44,25 @@ export class ListItemsComponent implements OnInit, OnDestroy {
     this.itemForm = this.fb.group({
       items: this.fb.array([])
     });
+    this.searchSubscription = this.searchService.getSearchSubject();
 
-    this.subscription = this.items$.subscribe(items => {
-      this.items = items
-      this.items.sort((a,b) => a.order - b.order)
-      console.log('subscribe items ' + JSON.stringify(this.items))
+    this.searchResult$ = Observable.combineLatest(this.items$, this.searchSubscription);
+
+    this.searchResult$.subscribe(latestValues => {
+      const [items, searchString] = latestValues;
+      this.items = items.filter(item => item.name.toLowerCase().includes(searchString))
+      this.items.sort((a, b) => a.order - b.order)
       this.itemForm = this.fb.group({
         items: this.fb.array([])
       });
       this.showItems()
-    });
+    }
+    )
+  }
+
+  ngOnDestroy() {
+    console.log("ngOnDestroy ")
+    this.searchSubscription.unsubscribe
   }
 
   showItems() {
@@ -65,11 +73,6 @@ export class ListItemsComponent implements OnInit, OnDestroy {
         control.push(this.showItem(item))
       });
     }
-  }
-
-  ngOnDestroy() {
-    console.log("ngOnDestroy ")
-    this.subscription.unsubscribe
   }
 
   showItem(item: Item) {
@@ -85,6 +88,9 @@ export class ListItemsComponent implements OnInit, OnDestroy {
     });
   }
 
+  getItems(): Item[] {
+    return this.itemForm.controls['items']['controls'];
+  }
 
   // onBlur() {
   //   console.log("onBlur "); // + JSON.stringify(this.itemForm.value));
