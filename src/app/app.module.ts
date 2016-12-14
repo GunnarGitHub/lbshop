@@ -12,7 +12,7 @@ import { UserComponent } from './user';
 import { ListShopsComponent } from './list-shops/list-shops.component';
 import { ShopsService, DepartmentsService, ItemsService, DatabaseService, SearchService } from './services';
 import { ListDepartmentsComponent } from './list-departments/list-departments.component'
-import { ShopsPipe, OrderByPipe } from './pipes';
+import { OrderByPipe } from './pipes';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListDepartementsWithItemsComponent } from './list-departements-with-items/list-departements-with-items.component';
 import { EditItemComponent } from './edit-item/edit-item.component';
@@ -38,7 +38,6 @@ export const firebaseConfig = {
     ListShopsComponent,
     ListDepartmentComponent,
     ListDepartmentsComponent,
-    ShopsPipe,
     ListItemsComponent,
     ListDepartementsWithItemsComponent,
     OrderByPipe,
