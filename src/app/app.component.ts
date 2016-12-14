@@ -1,3 +1,4 @@
+import { by } from 'protractor';
 import { FirebaseListObservable } from 'angularfire2';
 import { DatabaseService } from './services/database.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   user: User = this.databaseService.user;
   shop: Shop;
   shops$: FirebaseListObservable<any[]>;
+  departments: Department[];
   departments$: FirebaseListObservable<Department[]>;
 
   constructor(
@@ -23,18 +25,24 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("AppComponent ngOnInit load shops, departments and items");
+    console.log("AppComponent ngOnInit load shops and departments");
     this.shops$ = this.databaseService.shops$
-    this.departments$ = this.databaseService.getDepartmentsObservable();
-    //this.shopsService.loadShops(this.user.key);
-  };
-
-  getDepartments() {
-
   }
+
   shopIsChanged(shop: Shop) {
     console.log("onShopChanged "); // + JSON.stringify(shop));
     this.shop = shop;
     this.databaseService.shopChanged(shop);
+    this.departments$ = this.databaseService.db.list('/departments', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: this.shop.$key
+      }
+    });
+    this.departments$.subscribe(deps => {
+      deps.sort((dep1, dep2) => dep1.order - dep2.order);
+      this.departments = deps
+    })
   }
 }
+

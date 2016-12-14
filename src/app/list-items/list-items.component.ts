@@ -27,6 +27,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   //itemSubscription: any
   searchSubscription: Subject<string>
   searchResult$: Observable<[Item[], string]>
+  searchResultSubscription: any
 
   ngOnInit() {
     console.log("ngOnInit")
@@ -47,9 +48,9 @@ export class ListItemsComponent implements OnInit, OnDestroy {
 
     this.searchResult$ = Observable.combineLatest(this.items$, this.searchSubscription);
 
-    this.searchResult$.subscribe(latestValues => {
+    this.searchResultSubscription = this.searchResult$.subscribe(latestValues => {
       const [items, searchString] = latestValues;
-      this.items = items.filter(item => item.name.toLowerCase().includes(searchString))
+      this.items = items.filter(item => item.name.toLowerCase().includes(searchString.toLowerCase()))
       this.items.sort((a, b) => a.order - b.order)
       this.itemForm = this.fb.group({
         items: this.fb.array([])
@@ -62,6 +63,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     console.log("ngOnDestroy ")
     this.searchSubscription.unsubscribe
+    this.searchResultSubscription.unsubscribe
   }
 
   showItems() {
@@ -75,7 +77,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   }
 
   showItem(item: Item) {
-    console.log('showItem ' + JSON.stringify(item))
+    //console.log('showItem ' + JSON.stringify(item))
     return this.fb.group({
       $key: item.$key,
       buy: item.buy,
