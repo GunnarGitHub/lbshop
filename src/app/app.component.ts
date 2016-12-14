@@ -3,7 +3,7 @@ import { DatabaseService } from './services/database.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Shop, User, Department, Item } from './model/';
 import { ListShopsComponent } from './list-shops';
-import { ShopsService, DepartmentsService, ItemsService } from './services'
+import { DepartmentsService, ItemsService } from './services'
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   constructor(
     private itemsService: ItemsService,
     private departmentsService: DepartmentsService,
-    private shopsService: ShopsService,
     private databaseService: DatabaseService, ) {
     console.log("AppComponent constructor ");
   }

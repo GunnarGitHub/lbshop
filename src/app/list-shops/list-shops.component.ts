@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 
 import { Shop } from '../model/';
-import { ShopsService } from '../services'
 
 @Component({
   selector: 'list-shops',
@@ -14,7 +13,7 @@ export class ListShopsComponent implements OnInit {
   
   @Output()
   shopChanged = new EventEmitter<Shop>();
-  constructor(private shopsService : ShopsService ) { 
+  constructor() { 
   }
 
   ngOnInit() {

@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { ShopComponent } from './shop/shop.component';
 import { UserComponent } from './user';
 import { ListShopsComponent } from './list-shops/list-shops.component';
-import { ShopsService, DepartmentsService, ItemsService, DatabaseService, SearchService } from './services';
+import { DepartmentsService, ItemsService, DatabaseService, SearchService } from './services';
 import { ListDepartmentsComponent } from './list-departments/list-departments.component'
 import { OrderByPipe } from './pipes';
 import { ListItemsComponent } from './list-items/list-items.component';
@@ -54,7 +54,6 @@ export const firebaseConfig = {
     MaterialModule.forRoot()
   ],
   providers: [
-    ShopsService,
     DepartmentsService,
     ItemsService,
     DatabaseService,
