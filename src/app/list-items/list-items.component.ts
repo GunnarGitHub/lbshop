@@ -1,6 +1,5 @@
 import { Subject } from 'rxjs/Subject';
 import { FirebaseListObservable } from 'angularfire2';
-import { ItemsPipe } from './../pipes/items.pipe';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
