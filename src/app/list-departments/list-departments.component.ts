@@ -3,7 +3,6 @@ import { DatabaseService } from './../services/database.service';
 
 import { Component, OnInit, Input } from '@angular/core';
 
-import { DepartmentsService } from '../services'
 import { Department } from '../model'
 
 @Component({

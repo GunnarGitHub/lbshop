@@ -3,7 +3,7 @@ import { DatabaseService } from './services/database.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Shop, User, Department, Item } from './model/';
 import { ListShopsComponent } from './list-shops';
-import { DepartmentsService, ItemsService } from './services'
+import { ItemsService } from './services'
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private itemsService: ItemsService,
-    private departmentsService: DepartmentsService,
     private databaseService: DatabaseService, ) {
     console.log("AppComponent constructor ");
   }
@@ -32,6 +31,9 @@ export class AppComponent implements OnInit {
     //this.shopsService.loadShops(this.user.key);
   };
 
+  getDepartments() {
+
+  }
   shopIsChanged(shop: Shop) {
     console.log("onShopChanged "); // + JSON.stringify(shop));
     this.shop = shop;
