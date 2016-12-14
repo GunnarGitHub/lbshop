@@ -1,9 +1,8 @@
 import { FirebaseListObservable } from 'angularfire2';
 import { DatabaseService } from './services/database.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { Shop, User, Department, Item } from './model/';
+import { Shop, User, Department } from './model/';
 import { ListShopsComponent } from './list-shops';
-import { ItemsService } from './services'
 
 @Component({
   selector: 'app-root',
@@ -19,7 +18,6 @@ export class AppComponent implements OnInit {
   departments$: FirebaseListObservable<Department[]>;
 
   constructor(
-    private itemsService: ItemsService,
     private databaseService: DatabaseService, ) {
     console.log("AppComponent constructor ");
   }
