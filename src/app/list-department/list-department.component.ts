@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FirebaseListObservable } from 'angularfire2';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { DatabaseService } from './../services';
 import { Department, Item } from './../model';
@@ -13,18 +14,28 @@ export class ListDepartmentComponent implements OnInit {
 
 
   @Input() department: Department
+  private departmentForm: FormGroup;
+  //public items$: FirebaseListObservable<Item[]>
 
-  public items$: FirebaseListObservable<Item[]>
-
-  constructor(private databaseService: DatabaseService) {
+  constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
     console.log('constructor');
-    this.items$ = this.databaseService.getItemsObservable();
+    //this.departmentForm = new FormGroup(departmentForm)
+    //this.items$ = this.databaseService.getItemsObservable();
     // this.items$ = this.databaseService.items$;
   }
 
   ngOnInit() {
     console.log('ngOnInit ');
-    this.databaseService.departmentChanged(this.department)
+    this.departmentForm = this.fb.group({
+      $key: this.department.$key,
+      name: this.department.name,
+      owner: this.department.owner,
+      order: this.department.order
+    })
   }
 
+  onChange() {
+    //console.log("onChange " + JSON.stringify(this.departmentForm.value));
+    this.databaseService.updateDepartment(this.departmentForm.value);
+  }
 }

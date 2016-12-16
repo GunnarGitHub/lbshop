@@ -26,7 +26,7 @@ export class EditItemComponent implements OnInit {
 
 
   onChange() {
-    console.log("itemChanged " + JSON.stringify(this.itemForm.value));
-    this.databaseService.itemChanged(this.itemForm.value);
+    //console.log("itemChanged " + JSON.stringify(this.itemForm.value));
+    this.databaseService.updateItem(this.itemForm.value);
   }
 }

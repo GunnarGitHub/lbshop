@@ -22,6 +22,7 @@ export class DatabaseService {
     // Initialize Firebase
     this.db = af.database;
     this.items$ = this.db.list('/items')
+    this.departments$ = this.db.list('/departments')
     this.onInit()
   }
 
@@ -46,35 +47,25 @@ export class DatabaseService {
   }
 
   public departmentChanged(department: Department) {
-     console.log('departmentChanged() ' + department.$key + ' ' + department.name);
-     this.department = department
+    console.log('departmentChanged() ' + department.$key + ' ' + department.name);
+    this.department = department
     this.departmentSubject.next(department.$key)
   }
 
-  public itemChanged(item: Item) {
+  public updateDepartment(department: Department) {
+    console.log('updateDepartment() ' + JSON.stringify(department));
+    let key = department.$key
+    let newDepartment = Object.assign({}, department)
+    delete newDepartment.$key
+    this.departments$.update(key, newDepartment)
+  }
+
+  public updateItem(item: Item) {
+    console.log('updateItem() ' + JSON.stringify(item));
     let key = item.$key
     let newItem = Object.assign({}, item)
     delete newItem.$key
-    this.items$.update(key, newItem )
-  }
-
-  public getDepartmentsObservable(): FirebaseListObservable<any[]> {
-    return this.db.list('/departments', {
-      query: {
-        orderByChild: 'owner',
-        equalTo: this.shopSubject
-      }
-    })
-  }
-
-  public getItemsObservable(): FirebaseListObservable<any[]> {
-    console.log('getItemsObservable() ');
-    return this.db.list('/items', {
-      query: {
-        orderByChild: 'owner',
-        equalTo: this.departmentSubject
-      }
-    });
+    this.items$.update(key, newItem)
   }
 
   private users = [
@@ -101,7 +92,7 @@ export class DatabaseService {
           ]
         },
         {
-         name: 'Mejeri', order: 3.5, items: [
+          name: 'Mejeri', order: 3.5, items: [
             { buy: false, quantity: 8, unit: 'st', name: 'Grädde', order: 4.0 },
             { buy: false, quantity: 7, unit: 'st', name: 'Mjölk', order: 3.0 },
           ]

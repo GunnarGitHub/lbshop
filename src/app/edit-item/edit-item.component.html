@@ -3,9 +3,9 @@
 		<input type="hidden" formControlName="$key">
 		<input type="hidden" formControlName="owner">
 		<input type="checkbox" formControlName="buy" (change)="onChange()">
-		<input type="text" formControlName="quantity" [style.width.em]="3" (keyup.enter)="onChange()" (blur)="onChange()">
-		<input type="text" formControlName="unit" [style.width.em]="6" (keyup.enter)="onChange()" (blur)="onChange()">
+		<input type="text" formControlName="quantity" [style.width.em]="3" (change)="onChange()">
+		<input type="text" formControlName="unit" [style.width.em]="6" (change)="onChange()">
 		<input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()">
-		<input type="text" formControlName="order" [style.width.em]="4" (keyup.enter)="onChange()" (blur)="onChange()">
+		<input type="text" formControlName="order" [style.width.em]="4" (change)="onChange()">
 	</form>
 </div>
