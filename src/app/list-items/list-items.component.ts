@@ -56,8 +56,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
         items: this.fb.array([])
       });
       this.showItems()
-    }
-    )
+    })
   }
 
   ngOnDestroy() {
@@ -92,9 +91,4 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   getItems(): Item[] {
     return this.itemForm.controls['items']['controls'];
   }
-
-  // onBlur() {
-  //   console.log("onBlur "); // + JSON.stringify(this.itemForm.value));
-  //   this.itemsService.changeItem(this.itemForm.value);
-  // }
 }

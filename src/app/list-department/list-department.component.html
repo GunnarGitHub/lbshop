@@ -1,4 +1,4 @@
-<div [formGroup]="departmentForm">
+<div [hidden]="hidden" [formGroup]="departmentForm">
     <input type="hidden" formControlName="$key" >
     <input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()">
     <input type="hidden" formControlName="owner" (change)="onChange()">

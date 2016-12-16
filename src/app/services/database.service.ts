@@ -15,7 +15,7 @@ export class DatabaseService {
   public department: Department
   public departments$: FirebaseListObservable<any[]>
   private shopSubject: Subject<string>
-  private departmentSubject: Subject<string>
+  //private departmentSubject: Subject<string>
   public items$: FirebaseListObservable<Item[]>
 
   constructor(public af: AngularFire) {
@@ -29,7 +29,7 @@ export class DatabaseService {
   onInit() {
     console.log('shopOwner: ' + this.user.shopOwner)
     this.shopSubject = new Subject<string>()
-    this.departmentSubject = new Subject<string>()
+   // this.departmentSubject = new Subject<string>()
     this.shops$ = this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
@@ -44,12 +44,6 @@ export class DatabaseService {
   public shopChanged(shop) {
     this.shop = shop
     this.shopSubject.next(shop.$key)
-  }
-
-  public departmentChanged(department: Department) {
-    console.log('departmentChanged() ' + department.$key + ' ' + department.name);
-    this.department = department
-    this.departmentSubject.next(department.$key)
   }
 
   public updateDepartment(department: Department) {

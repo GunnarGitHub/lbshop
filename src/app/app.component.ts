@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     this.shops$ = this.databaseService.shops$
   }
 
-  shopIsChanged(shop: Shop) {
+  onShopChanged(shop: Shop) {
     console.log("onShopChanged "); // + JSON.stringify(shop));
     this.shop = shop;
     this.databaseService.shopChanged(shop);

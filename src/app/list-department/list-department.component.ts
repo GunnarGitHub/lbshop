@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FirebaseListObservable } from 'angularfire2';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject'
+import { Component, OnInit, Input } from '@angular/core'
+import { FormGroup, FormBuilder } from '@angular/forms'
 
-import { DatabaseService } from './../services';
-import { Department, Item } from './../model';
+import { SearchService } from './../services'
+import { DatabaseService } from './../services'
+import { Department } from './../model'
 
 @Component({
   selector: 'list-department',
@@ -14,14 +16,12 @@ export class ListDepartmentComponent implements OnInit {
 
 
   @Input() department: Department
-  private departmentForm: FormGroup;
-  //public items$: FirebaseListObservable<Item[]>
+  private departmentForm: FormGroup
+  private hidden = false
+  private searchSubscription: Subject<string>
 
-  constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
+  constructor(private fb: FormBuilder, private databaseService: DatabaseService, private searchService: SearchService) {
     console.log('constructor');
-    //this.departmentForm = new FormGroup(departmentForm)
-    //this.items$ = this.databaseService.getItemsObservable();
-    // this.items$ = this.databaseService.items$;
   }
 
   ngOnInit() {
@@ -32,6 +32,21 @@ export class ListDepartmentComponent implements OnInit {
       owner: this.department.owner,
       order: this.department.order
     })
+    this.searchSubscription = this.searchService.getSearchSubject()
+    let searchString = ''
+    this.searchSubscription.subscribe(search => searchString = search)
+    console.log('ngOnInit' + searchString + ' ' + this.department.name)
+    if (searchString.length > 0) {
+      this.hidden = this.department.name.toLowerCase().includes(searchString.toLowerCase())
+    } else {
+      this.hidden = false
+    }
+    console.log('ngOnInit hidden? ' + this.hidden)
+  }
+
+  ngOnDestroy() {
+    console.log("ngOnDestroy ")
+    this.searchSubscription.unsubscribe
   }
 
   onChange() {

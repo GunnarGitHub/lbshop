@@ -1,4 +1,4 @@
 <div>
-	<list-shops [shops]="shops$ | async " (shopChanged)="shopIsChanged($event)">Shops</list-shops>
+	<list-shops [shops]="shops$ | async " (shopChanged)="onShopChanged($event)">Shops</list-shops>
 	<list-departements-with-items [departments]="departments"></list-departements-with-items>
 </div>
