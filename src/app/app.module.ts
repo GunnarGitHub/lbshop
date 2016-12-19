@@ -19,7 +19,6 @@ import { ListDepartementsWithItemsComponent } from './list-departements-with-ite
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-import './firebase.config';
 
 @NgModule({
   declarations: [
