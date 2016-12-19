@@ -17,7 +17,7 @@ export class ListDepartmentComponent implements OnInit {
 
   @Input() department: Department
   private departmentForm: FormGroup
-  private hidden = false
+  private hidden: boolean
   private searchSubscription: Subject<string>
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService, private searchService: SearchService) {
@@ -33,15 +33,15 @@ export class ListDepartmentComponent implements OnInit {
       order: this.department.order
     })
     this.searchSubscription = this.searchService.getSearchSubject()
-    let searchString = ''
-    this.searchSubscription.subscribe(search => searchString = search)
-    console.log('ngOnInit' + searchString + ' ' + this.department.name)
-    if (searchString.length > 0) {
-      this.hidden = this.department.name.toLowerCase().includes(searchString.toLowerCase())
-    } else {
-      this.hidden = false
-    }
-    console.log('ngOnInit hidden? ' + this.hidden)
+    this.searchSubscription.subscribe(search => {
+      console.log('search ' + search + ' ' + this.department.name)
+      if (search.length > 0) {
+        this.hidden = !this.department.name.toLowerCase().includes(search.toLowerCase())
+      } else {
+        this.hidden = false
+      }
+      console.log('ngOnInit hidden? ' + this.hidden)
+    })
   }
 
   ngOnDestroy() {
