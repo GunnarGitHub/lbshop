@@ -1,6 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 # lb-shop
-/src/app/firebase-config.ts
+/src/app/firebase.config.ts
 
 # compiled output
 /dist
