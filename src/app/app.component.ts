@@ -12,7 +12,6 @@ import { ListShopsComponent } from './list-shops';
 })
 export class AppComponent implements OnInit {
   title = 'LB SHOP';
-  //shop: Shop = {key: 'shop', owner:'owner', name:'name', order: 1.2};
   user: User = this.databaseService.user;
   shop: Shop;
   shops$: FirebaseListObservable<any[]>;
@@ -25,7 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("AppComponent ngOnInit load shops and departments");
+    console.log("AppComponent ngOnInit load shop");
     this.shops$ = this.databaseService.shops$
   }
 

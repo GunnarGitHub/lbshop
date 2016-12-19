@@ -1,3 +1,4 @@
+import { firebaseConfig } from './firebase.config';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,17 +19,7 @@ import { ListDepartementsWithItemsComponent } from './list-departements-with-ite
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-
-// firebase OnInit
-export const firebaseConfig = {
-  apiKey: "AIzaSyDo1_LTrFIec_OtXL0DVEyKb7xWK8xUDHQ",
-  authDomain: "lb-shop-83664.firebaseapp.com",
-  databaseURL: "https://lb-shop-83664.firebaseio.com",
-  storageBucket: "lb-shop-83664.appspot.com",
-  messagingSenderId: "176056224462"
-};
-
-
+import './firebase.config';
 
 @NgModule({
   declarations: [
