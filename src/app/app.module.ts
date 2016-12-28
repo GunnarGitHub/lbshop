@@ -19,8 +19,8 @@ import { ListDepartementsWithItemsComponent } from './list-departements-with-ite
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-
-@NgModule({
+import { PizzaComponent, PizzaDialog} from './pizza.component'
+@NgModule({ 
   declarations: [
     AppComponent,
     ShopComponent,
@@ -34,7 +34,9 @@ import { SearchComponent } from './search/search.component';
     EditItemComponent,
     OrderByPipe,
     ListDepartmentComponent,
-    SearchComponent
+    SearchComponent,
+    PizzaComponent,
+    PizzaDialog
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -43,6 +45,7 @@ import { SearchComponent } from './search/search.component';
     HttpModule,
     MaterialModule.forRoot()
   ],
+  entryComponents: [PizzaDialog],
   providers: [
     DatabaseService,
     SearchService],

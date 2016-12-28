@@ -53,4 +53,8 @@ export class ListDepartmentComponent implements OnInit {
     //console.log("onChange " + JSON.stringify(this.departmentForm.value));
     this.databaseService.updateDepartment(this.departmentForm.value);
   }
+
+  openAddItemDialog() {
+    console.log('openAddItemDialog')
+  }
 }
