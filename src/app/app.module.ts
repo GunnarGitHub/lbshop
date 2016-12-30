@@ -1,7 +1,7 @@
 import { firebaseConfig } from './firebase.config';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, OnInit } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
@@ -19,7 +19,7 @@ import { ListDepartementsWithItemsComponent } from './list-departements-with-ite
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-import { PizzaComponent, PizzaDialog} from './pizza.component'
+import { AddItemDialogComponent } from './list-department/add-item-dialog.component'
 @NgModule({ 
   declarations: [
     AppComponent,
@@ -35,17 +35,17 @@ import { PizzaComponent, PizzaDialog} from './pizza.component'
     OrderByPipe,
     ListDepartmentComponent,
     SearchComponent,
-    PizzaComponent,
-    PizzaDialog
+    AddItemDialogComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpModule,
     MaterialModule.forRoot()
   ],
-  entryComponents: [PizzaDialog],
+  entryComponents: [AddItemDialogComponent],
   providers: [
     DatabaseService,
     SearchService],

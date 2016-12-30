@@ -1,3 +1,5 @@
+import { AddItemDialogComponent } from './add-item-dialog.component';
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject'
 import { Component, OnInit, Input } from '@angular/core'
@@ -14,13 +16,16 @@ import { Department } from './../model'
 })
 export class ListDepartmentComponent implements OnInit {
 
-
   @Input() department: Department
   private departmentForm: FormGroup
   private hidden: boolean
   private searchSubscription: Subject<string>
+  private dialogRef: MdDialogRef<AddItemDialogComponent>
 
-  constructor(private fb: FormBuilder, private databaseService: DatabaseService, private searchService: SearchService) {
+  constructor(private fb: FormBuilder,
+    private databaseService: DatabaseService,
+    private searchService: SearchService,
+    private dialog: MdDialog) {
     console.log('constructor');
   }
 
@@ -56,5 +61,13 @@ export class ListDepartmentComponent implements OnInit {
 
   openAddItemDialog() {
     console.log('openAddItemDialog')
+    this.dialogRef = this.dialog.open(AddItemDialogComponent)
+    this.dialogRef.componentInstance.item.owner = this.department.$key
+    this.dialogRef.afterClosed().subscribe(res => {
+      if (res) { console.log('openAddItemDialog res ' + JSON.stringify(res)) } else {
+        console.log('openAddItemDialog res null')
+      }
+      //this.dialogRef = null
+    })
   }
 }
