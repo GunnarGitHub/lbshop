@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder } from '@angular/forms'
 
 import { SearchService } from './../services'
 import { DatabaseService } from './../services'
-import { Department } from './../model'
+import { Department, Item } from './../model'
 
 @Component({
   selector: 'list-department',
@@ -21,6 +21,7 @@ export class ListDepartmentComponent implements OnInit {
   private hidden: boolean
   private searchSubscription: Subject<string>
   private dialogRef: MdDialogRef<AddItemDialogComponent>
+  private itemToAdd: Item
 
   constructor(private fb: FormBuilder,
     private databaseService: DatabaseService,
@@ -62,12 +63,31 @@ export class ListDepartmentComponent implements OnInit {
   openAddItemDialog() {
     console.log('openAddItemDialog')
     this.dialogRef = this.dialog.open(AddItemDialogComponent)
+    let owner = this.departmentForm.value.$key
+    console.log('owner ' + owner)
+    let items: Item[] = []
+    this.databaseService.db.list('/items', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: owner
+      }
+    }).subscribe(res => {
+      items = res
+      items.sort((a, b) => (a.order - b.order))
+      console.log((items[0] ? JSON.stringify(items[0]) : 'no items'))
+      this.setUpdialog((items[0] ? items[0] : null))
+    });
+  }
+
+  setUpdialog(item: Item) {
+    this.dialogRef.componentInstance.item.order = (item ? item.order - 100 : 10000)
     this.dialogRef.componentInstance.item.owner = this.department.$key
     this.dialogRef.afterClosed().subscribe(res => {
-      if (res) { console.log('openAddItemDialog res ' + JSON.stringify(res)) } else {
-        console.log('openAddItemDialog res null')
-      }
-      //this.dialogRef = null
+      this.itemToAdd = res
+      console.log('openAddItemDialog res ' + (res ? JSON.stringify(this.itemToAdd) : 'null'))
+      // TODO add item to database
+      this.dialogRef = null
     })
   }
+
 }

@@ -29,7 +29,7 @@ export class DatabaseService {
   onInit() {
     console.log('shopOwner: ' + this.user.shopOwner)
     this.shopSubject = new Subject<string>()
-   // this.departmentSubject = new Subject<string>()
+    // this.departmentSubject = new Subject<string>()
     this.shops$ = this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
@@ -106,6 +106,9 @@ export class DatabaseService {
             { buy: false, quantity: 9, unit: 'st', name: '60 W Lampa', order: 8.0 },
             { buy: false, quantity: 9, unit: 'st', name: '40 W Lampa', order: 4.0 },
           ]
+        },
+        {
+          name: 'Empty', order: 45, items: []
         }
       ],
     },
