@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
   template: `
     <div>
      <form #f="ngForm">
-       <md-input-container class="md-block"> 
+       <!--md-input-container class="md-block"--> 
          <input type="hidden" name="owner" [(ngModel)]="item.owner">
          <input type="checkbox" name="buy" [(ngModel)]="item.buy">
-         <input name="quantity" [(ngModel)]="item.quantity" [style.width.em]="3" >
-         <input name="unit" [(ngModel)]="item.unit" [style.width.em]="6">
-         <input placeholder="insert item name" name="name" autofocus [(ngModel)]="item.name" [style.width.em]="25">
-         <input name="order" [(ngModel)]="item.order" [style.width.em]="4">
-       </md-input-container>
+         <input id="quantity" name="quantity" [(ngModel)]="item.quantity" [style.width.em]="3" >
+         <input id="unit" name="unit" [(ngModel)]="item.unit" [style.width.em]="6">
+         <input id="name" placeholder="insert item name" name="name" autofocus [(ngModel)]="item.name" [style.width.em]="25">
+         <input id="order" name="order" [(ngModel)]="item.order" [style.width.em]="5">
+       <!--/md-input-container-->
        <md-dialog-actions>
         <button (click)="dialogRef.close(item)">Add Item</button>
         <button md-dialog-close>Cancel</button>
