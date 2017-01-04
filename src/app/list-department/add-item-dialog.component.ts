@@ -28,12 +28,8 @@ import { Component, OnInit } from '@angular/core';
 export class AddItemDialogComponent implements OnInit {
   item: Item = { buy: true, owner: 'own', quantity: 1, unit: "st", name: null, order: 11 }
 
-  constructor(dialogRef: MdDialogRef<any>) { }
+  constructor(public dialogRef: MdDialogRef<any>) { }
 
   ngOnInit() {
-  }
-
-  onSubmitTemplateBased() {
-    console.log('onSubmitTemplateBased ' + JSON.stringify(this.item));
   }
 }
