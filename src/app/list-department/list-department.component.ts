@@ -21,7 +21,6 @@ export class ListDepartmentComponent implements OnInit {
   private hidden: boolean
   private searchSubscription: Subject<string>
   private dialogRef: MdDialogRef<AddItemDialogComponent>
-  private itemToAdd: Item
 
   constructor(private fb: FormBuilder,
     private databaseService: DatabaseService,
@@ -82,10 +81,9 @@ export class ListDepartmentComponent implements OnInit {
   setUpdialog(item: Item) {
     this.dialogRef.componentInstance.item.order = (item ? item.order - 100 : 10000)
     this.dialogRef.componentInstance.item.owner = this.department.$key
-    this.dialogRef.afterClosed().subscribe(res => {
-      this.itemToAdd = res
-      console.log('openAddItemDialog res ' + (res ? JSON.stringify(this.itemToAdd) : 'null'))
-      // TODO add item to database
+    this.dialogRef.afterClosed().subscribe(item => {
+      console.log('setUpDialog res ' + (item ? JSON.stringify(item) : 'null'))
+      if (item) this.databaseService.addItem(item)
       this.dialogRef = null
     })
   }

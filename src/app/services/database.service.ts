@@ -12,7 +12,6 @@ export class DatabaseService {
   private shop: Shop
   public shops$: FirebaseListObservable<Shop[]>
   public users$: FirebaseListObservable<any[]>
-  public department: Department
   public departments$: FirebaseListObservable<any[]>
   private shopSubject: Subject<string>
   //private departmentSubject: Subject<string>
@@ -23,13 +22,13 @@ export class DatabaseService {
     this.db = af.database;
     this.items$ = this.db.list('/items')
     this.departments$ = this.db.list('/departments')
+    this.users$ = this.db.list('/users')
     this.onInit()
   }
 
   onInit() {
     console.log('shopOwner: ' + this.user.shopOwner)
     this.shopSubject = new Subject<string>()
-    // this.departmentSubject = new Subject<string>()
     this.shops$ = this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
@@ -62,6 +61,12 @@ export class DatabaseService {
     this.items$.update(key, newItem)
   }
 
+  public addItem(item: Item) {
+    console.log('addItem() ' + JSON.stringify(item));
+    this.items$.push(item)
+    console.log('addItem() pushed') 
+  }
+
   private users = [
     { email: 'gunar.bos@gmail.com', name: 'Gunnar', shopOwner: 'gunar.bos@gmail.com' },
     { email: 'lena.bost@gmail.com', name: 'Lena', shopOwner: 'gunar.bos@gmail.com' }
@@ -70,9 +75,8 @@ export class DatabaseService {
   public user = this.users[0];
 
   private storeUsers() {
-    let usrs$ = this.db.list('/users')
     this.users.forEach(user => {
-      usrs$.push(user);
+      this.users$.push(user);
     });
   }
 
