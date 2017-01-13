@@ -11,7 +11,6 @@ import { ListShopsComponent } from './list-shops';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'LB SHOP';
   user: User = this.databaseService.user;
   shop: Shop;
   shops$: FirebaseListObservable<any[]>;

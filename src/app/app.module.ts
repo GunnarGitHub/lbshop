@@ -5,9 +5,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
+import { RouterModule, Routes } from '@angular/router';
+
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ShopComponent } from './shop/shop.component';
 import { UserComponent } from './user';
 import { ListShopsComponent } from './list-shops/list-shops.component';
@@ -19,7 +22,17 @@ import { ListDepartementsWithItemsComponent } from './list-departements-with-ite
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-import { AddItemDialogComponent } from './list-department/add-item-dialog.component'
+import { AddItemDialogComponent } from './list-department/add-item-dialog.component';
+import { NavigationComponent } from './navigation/navigation.component';
+
+const routes: Routes = [
+ // { path: 'crisis-center', component: CrisisListComponent },
+ // { path: 'hero/:id',      component: HeroDetailComponent },
+  { path: '', redirectTo: '/navigation', pathMatch: 'full' },
+  { path: 'navigation', component: NavigationComponent, data: { title: 'LB SHOP' }},
+  { path: '**', component: PageNotFoundComponent }
+];
+
 @NgModule({ 
   declarations: [
     AppComponent,
@@ -35,7 +48,9 @@ import { AddItemDialogComponent } from './list-department/add-item-dialog.compon
     OrderByPipe,
     ListDepartmentComponent,
     SearchComponent,
-    AddItemDialogComponent
+    AddItemDialogComponent,
+    PageNotFoundComponent,
+    NavigationComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -43,7 +58,8 @@ import { AddItemDialogComponent } from './list-department/add-item-dialog.compon
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    RouterModule.forRoot(routes)
   ],
   entryComponents: [AddItemDialogComponent],
   providers: [
