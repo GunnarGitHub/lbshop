@@ -70,10 +70,10 @@ export class ListDepartmentComponent implements OnInit {
         orderByChild: 'owner',
         equalTo: owner
       }
-    }).subscribe(res => {
-      items = res
+    }).subscribe(items => {
+      //items = res
       items.sort((a, b) => (a.order - b.order))
-      console.log((items[0] ? JSON.stringify(items[0]) : 'no items'))
+      console.log('openAddDialog ' + (items[0] ? JSON.stringify(items[0]) : 'no items'))
       this.setUpdialog((items[0] ? items[0] : null))
     });
   }
@@ -82,8 +82,10 @@ export class ListDepartmentComponent implements OnInit {
     this.dialogRef.componentInstance.item.order = (item ? item.order - 100 : 10000)
     this.dialogRef.componentInstance.item.owner = this.department.$key
     this.dialogRef.afterClosed().subscribe(item => {
-      console.log('setUpDialog res ' + (item ? JSON.stringify(item) : 'null'))
-      if (item) this.databaseService.addItem(item)
+      console.log('setUpDialog item ' + (item ? JSON.stringify(item) : 'null'))
+      if (item) {
+        this.databaseService.addItem(item)
+      }
       this.dialogRef = null
     })
   }

@@ -58,13 +58,15 @@ export class DatabaseService {
     let key = item.$key
     let newItem = Object.assign({}, item)
     delete newItem.$key
+    newItem.name = newItem.name[0].toLocaleUpperCase() + newItem.name.substring(1)
     this.items$.update(key, newItem)
   }
 
   public addItem(item: Item) {
-    console.log('addItem() ' + JSON.stringify(item));
+    //console.log('addItem() ' + JSON.stringify(item));
+    item.name = item.name[0].toLocaleUpperCase() + item.name.substring(1)
     this.items$.push(item)
-    console.log('addItem() pushed') 
+    console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
 
   private users = [
@@ -85,8 +87,8 @@ export class DatabaseService {
       owner: 'gunar.bos@gmail.com', name: 'Maxi', order: 1.0, departments: [
         {
           name: 'Frukt', order: 1, items: [
-            { buy: true, quantity: 1, unit: 'st', name: 'Äpplen', order: 1.0 },
-            { buy: false, quantity: 1, unit: 'st', name: 'Päron', order: 2.0 },
+            { buy: true, quantity: 1, unit: 'st', name: 'äpplen', order: 1.0 },
+            { buy: false, quantity: 1, unit: 'st', name: 'päron', order: 2.0 },
           ]
         },
         {
@@ -129,7 +131,6 @@ export class DatabaseService {
 
     let shs$ = this.db.list('/shops');
     let deps$ = this.db.list('/departments');
-    let its$ = this.db.list('/items');
     const items$: FirebaseListObservable<any> = this.db.list('/items');
     this.initialData.forEach(shop => {
       const departments = shop.departments;
@@ -142,9 +143,9 @@ export class DatabaseService {
         //  console.log('department ' + JSON.stringify(department))
         let keyDepartment: string = deps$.push(department).key;
         items.forEach(item => {
-          item['owner'] = keyDepartment;
+          //item['owner'] = keyDepartment;
           // console.log('item ' + JSON.stringify(item))
-          its$.push(item);
+          this.addItem(Object.assign({}, item, {owner: keyDepartment}));
         })
       })
     })
