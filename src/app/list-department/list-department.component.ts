@@ -45,7 +45,7 @@ export class ListDepartmentComponent implements OnInit {
       } else {
         this.hidden = false
       }
-      console.log('ngOnInit hidden? ' + this.hidden)
+      //console.log('ngOnInit hidden? ' + this.hidden)
     })
   }
 

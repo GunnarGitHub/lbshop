@@ -46,7 +46,7 @@ export class DatabaseService {
   }
 
   public updateDepartment(department: Department) {
-    console.log('updateDepartment() ' + JSON.stringify(department));
+    //console.log('updateDepartment() ' + JSON.stringify(department));
     let key = department.$key
     let newDepartment = Object.assign({}, department)
     delete newDepartment.$key
@@ -54,7 +54,7 @@ export class DatabaseService {
   }
 
   public updateItem(item: Item) {
-    console.log('updateItem() ' + JSON.stringify(item));
+    //console.log('updateItem() ' + JSON.stringify(item));
     let key = item.$key
     let newItem = Object.assign({}, item)
     delete newItem.$key
@@ -66,7 +66,7 @@ export class DatabaseService {
     //console.log('addItem() ' + JSON.stringify(item));
     item.name = item.name[0].toLocaleUpperCase() + item.name.substring(1)
     this.items$.push(item)
-    console.log('addItem pushed ' +  JSON.stringify(item)) 
+    //console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
 
   private users = [

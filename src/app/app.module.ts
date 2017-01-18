@@ -23,13 +23,13 @@ import { EditItemComponent } from './edit-item/edit-item.component';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
 import { AddItemDialogComponent } from './list-department/add-item-dialog.component';
-import { NavigationComponent } from './navigation/navigation.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
  // { path: 'crisis-center', component: CrisisListComponent },
  // { path: 'hero/:id',      component: HeroDetailComponent },
-  { path: '', redirectTo: '/navigation', pathMatch: 'full' },
-  { path: 'navigation', component: NavigationComponent, data: { title: 'LB SHOP' }},
+  { path: '', redirectTo: '/home', pathMatch: 'full', data: { title: 'LB SHOP' }},
+  { path: 'home', component: HomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -50,7 +50,7 @@ const routes: Routes = [
     SearchComponent,
     AddItemDialogComponent,
     PageNotFoundComponent,
-    NavigationComponent
+    HomeComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -61,6 +61,7 @@ const routes: Routes = [
     MaterialModule.forRoot(),
     RouterModule.forRoot(routes)
   ],
+  exports: [RouterModule],
   entryComponents: [AddItemDialogComponent],
   providers: [
     DatabaseService,

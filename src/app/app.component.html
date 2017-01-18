@@ -1,7 +1,4 @@
 <div>
-	<span>
-		<list-shops [shops]="shops$ | async " (shopChanged)="onShopChanged($event)">Shops</list-shops>
-		<search>Loading search...</search>
-	</span>
-	<list-departements-with-items [departments]="departments"></list-departements-with-items>
+	{{ title }} 
 </div>
+<router-outlet></router-outlet>
