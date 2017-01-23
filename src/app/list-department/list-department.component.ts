@@ -1,5 +1,4 @@
 import { AddItemDialogComponent } from './add-item-dialog.component';
-import { MdDialog, MdDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject'
 import { Component, OnInit, Input } from '@angular/core'
@@ -20,13 +19,17 @@ export class ListDepartmentComponent implements OnInit {
   private departmentForm: FormGroup
   private hidden: boolean
   private searchSubscription: Subject<string>
-  private dialogRef: MdDialogRef<AddItemDialogComponent>
+  firstItem: Item
 
   constructor(private fb: FormBuilder,
     private databaseService: DatabaseService,
-    private searchService: SearchService,
-    private dialog: MdDialog) {
+    private searchService: SearchService) {
     console.log('constructor');
+  }
+
+  addFirstItem(item: Item) {
+    console.log('addFirstItem ')// + JSON.stringify(item))
+    this.firstItem = item
   }
 
   ngOnInit() {
@@ -39,7 +42,7 @@ export class ListDepartmentComponent implements OnInit {
     })
     this.searchSubscription = this.searchService.getSearchSubject()
     this.searchSubscription.subscribe(search => {
-      console.log('search ' + search + ' ' + this.department.name)
+      //console.log('search ' + search + ' ' + this.department.name)
       if (search.length > 0) {
         this.hidden = !this.department.name.toLowerCase().includes(search.toLowerCase())
       } else {
@@ -59,35 +62,13 @@ export class ListDepartmentComponent implements OnInit {
     this.databaseService.updateDepartment(this.departmentForm.value);
   }
 
-  openAddItemDialog() {
-    console.log('openAddItemDialog')
-    this.dialogRef = this.dialog.open(AddItemDialogComponent)
+  addNewItem() {
+    console.log('addNewItem')
     let owner = this.departmentForm.value.$key
-    console.log('owner ' + owner)
-    let items: Item[] = []
-    this.databaseService.db.list('/items', {
-      query: {
-        orderByChild: 'owner',
-        equalTo: owner
-      }
-    }).subscribe(items => {
-      //items = res
-      items.sort((a, b) => (a.order - b.order))
-      console.log('openAddDialog ' + (items[0] ? JSON.stringify(items[0]) : 'no items'))
-      this.setUpdialog((items[0] ? items[0] : null))
-    });
+    let item: Item = {
+      owner: owner, buy: true, quantity: 1, unit: 'st', name: '',
+      order: this.firstItem ? (this.firstItem.order - 100) : 10000
+    }
+    this.databaseService.addItem(item)
   }
-
-  setUpdialog(item: Item) {
-    this.dialogRef.componentInstance.item.order = (item ? item.order - 100 : 10000)
-    this.dialogRef.componentInstance.item.owner = this.department.$key
-    this.dialogRef.afterClosed().subscribe(item => {
-      console.log('setUpDialog item ' + (item ? JSON.stringify(item) : 'null'))
-      if (item) {
-        this.databaseService.addItem(item)
-      }
-      this.dialogRef = null
-    })
-  }
-
 }

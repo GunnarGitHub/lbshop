@@ -50,7 +50,16 @@ export class DatabaseService {
     let key = department.$key
     let newDepartment = Object.assign({}, department)
     delete newDepartment.$key
+    newDepartment.name = newDepartment.name ?
+      newDepartment.name[0].toLocaleUpperCase() + newDepartment.name.substring(1) : ''
     this.departments$.update(key, newDepartment)
+  }
+
+  public addDepartment (department : Department) : string  {
+    console.log('aaddDepartment ' + JSON.stringify(department));
+    department.name = department.name ? department.name[0].toLocaleUpperCase() + department.name.substring(1) : ''
+    return this.departments$.push(department).key;
+    //console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
 
   public updateItem(item: Item) {
@@ -58,13 +67,14 @@ export class DatabaseService {
     let key = item.$key
     let newItem = Object.assign({}, item)
     delete newItem.$key
-    newItem.name = newItem.name[0].toLocaleUpperCase() + newItem.name.substring(1)
+    newItem.name = newItem.name ?
+      newItem.name[0].toLocaleUpperCase() + newItem.name.substring(1) : ''
     this.items$.update(key, newItem)
   }
 
   public addItem(item: Item) {
-    //console.log('addItem() ' + JSON.stringify(item));
-    item.name = item.name[0].toLocaleUpperCase() + item.name.substring(1)
+    console.log('addItem() ' + JSON.stringify(item));
+    item.name = item.name ? item.name[0].toLocaleUpperCase() + item.name.substring(1) : ''
     this.items$.push(item)
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
@@ -130,7 +140,6 @@ export class DatabaseService {
     data$.remove();
 
     let shs$ = this.db.list('/shops');
-    let deps$ = this.db.list('/departments');
     const items$: FirebaseListObservable<any> = this.db.list('/items');
     this.initialData.forEach(shop => {
       const departments = shop.departments;
@@ -141,11 +150,11 @@ export class DatabaseService {
         const items = department.items;
         department.items = null;
         //  console.log('department ' + JSON.stringify(department))
-        let keyDepartment: string = deps$.push(department).key;
+        let keyDepartment: string = this.addDepartment(department);
         items.forEach(item => {
           //item['owner'] = keyDepartment;
           // console.log('item ' + JSON.stringify(item))
-          this.addItem(Object.assign({}, item, {owner: keyDepartment}));
+          this.addItem(Object.assign({}, item, { owner: keyDepartment }));
         })
       })
     })
