@@ -56,7 +56,7 @@ export class DatabaseService {
   }
 
   public addDepartment (department : Department) : string  {
-    console.log('aaddDepartment ' + JSON.stringify(department));
+    //console.log('addDepartment ' + JSON.stringify(department));
     department.name = department.name ? department.name[0].toLocaleUpperCase() + department.name.substring(1) : ''
     return this.departments$.push(department).key;
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
@@ -73,7 +73,7 @@ export class DatabaseService {
   }
 
   public addItem(item: Item) {
-    console.log('addItem() ' + JSON.stringify(item));
+    //console.log('addItem() ' + JSON.stringify(item));
     item.name = item.name ? item.name[0].toLocaleUpperCase() + item.name.substring(1) : ''
     this.items$.push(item)
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
