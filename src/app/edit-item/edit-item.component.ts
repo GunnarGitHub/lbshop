@@ -1,6 +1,6 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { by } from 'protractor';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
 
@@ -12,10 +12,12 @@ import { Item } from '../model';
   templateUrl: './edit-item.component.html',
   styleUrls: ['./edit-item.component.css']
 })
-export class EditItemComponent implements OnInit {
+export class EditItemComponent implements OnInit, AfterViewInit {
 
   @Input('group')
   private itemForm: FormGroup;
+
+  key: string = "dummy"
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
     console.log("constructor ");
@@ -23,12 +25,20 @@ export class EditItemComponent implements OnInit {
 
   ngOnInit() {
     console.log("ngOnInit ")// + this.itemForm.controls.['items'].controls.length);
-    let el = document.getElementById('source')
-    console.log('ngOnInit ' + JSON.stringify(this.itemForm.get('$key').value))
-    el.addEventListener('dragstart', this.dragStartHandler);
+    this.key = this.itemForm.get('$key').value
+    console.log('ngOnInit key ' + this.key) //JSON.stringify(this.itemForm.get('$key').value))
     console.log("after ngOnInit ")
   }
 
+  ngAfterViewInit() {
+    let el = document.getElementById(this.key)
+    console.log('ngAfterViewInit el ' + el)
+    el.addEventListener('dragstart', this.dragStartHandler)
+    el.addEventListener('dragend', (e) => {
+      e.preventDefault();
+    })
+    //console.log('ngAfterViewInit..');
+  }
 
   onChange() {
     //console.log("itemChanged " + JSON.stringify(this.itemForm.value));
@@ -40,10 +50,13 @@ export class EditItemComponent implements OnInit {
     console.log('dragStartHandler ' + JSON.stringify(event.currentTarget["0"].defaultValue));
     let internalDNDType = 'text/plain';
     event.dataTransfer.setData(internalDNDType, event.currentTarget["0"].defaultValue);
-    event.dataTransfer.effectAllowed = 'move'; // only allow moves
+    //event.dataTransfer.effectAllowed = 'move'; // only allow moves
+    event.dataTransfer.dropEffect = "move"
   }
 
   dropHandler(event) {
+    console.log('dropHandler ')
+    event.preventDefault();
     let internalDNDType = 'text/plain';
     console.log('dropHandler ' + event.dataTransfer.getData(internalDNDType))
     let $key = event.dataTransfer.getData(internalDNDType);

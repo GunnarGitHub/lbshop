@@ -1,13 +1,13 @@
-
-<div  >
-<form [formGroup]="itemForm" id="source" draggable="true"> 
-	<input type="hidden" formControlName="$key">
-	<input type="hidden" formControlName="owner">
-	<input type="checkbox" formControlName="buy" (change)="onChange()">
-	<input type="text" formControlName="quantity" [style.width.em]="3" (change)="onChange()">
-	<input type="text" formControlName="unit" [style.width.em]="6" (change)="onChange()">
-	<input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()">
-	<input type="text" formControlName="order" [style.width.em]="5" (change)="onChange()">
-</form>
+<div>
+	<form [formGroup]="itemForm" id={{this.key}} draggable="true" >
+		<input type="hidden" formControlName="$key">
+		<input type="hidden" formControlName="owner">
+		<input type="checkbox" formControlName="buy" (change)="onChange()">
+		<input type="text" formControlName="quantity" [style.width.em]="3" (change)="onChange()">
+		<input type="text" formControlName="unit" [style.width.em]="6" (change)="onChange()">
+		<input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()">
+		<input type="text" formControlName="order" [style.width.em]="5" (change)="onChange()">
+	</form>
 </div>
-<div dropzone="move string:text/plain" [style.width.em]="25" ondrop="dropHandler(event)"> Drop here </div>
+<div dropzone="move string:text/plain" id="dz{{this.key}}" [style.width.em]="25"
+ ondrop="dropHandler(event)" ondragover="dragover_handler(event);"> Drop here </div>
