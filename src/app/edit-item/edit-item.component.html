@@ -9,5 +9,4 @@
 		<input type="text" formControlName="order" [style.width.em]="5" (change)="onChange()">
 	</form>
 </div>
-<div dropzone="move string:text/plain" id="dz{{this.key}}" [style.width.em]="25"
- ondrop="dropHandler(event)" ondragover="dragover_handler(event);"> Drop here </div>
+<div id="dz{{this.key}}" [style.width.em]="25"> Drop here </div>

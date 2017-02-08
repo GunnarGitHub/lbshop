@@ -55,7 +55,7 @@ export class DatabaseService {
     this.departments$.update(key, newDepartment)
   }
 
-  public addDepartment (department : Department) : string  {
+  public addDepartment(department: Department): string {
     //console.log('addDepartment ' + JSON.stringify(department));
     department.name = department.name ? department.name[0].toLocaleUpperCase() + department.name.substring(1) : ''
     return this.departments$.push(department).key;
@@ -77,6 +77,13 @@ export class DatabaseService {
     item.name = item.name ? item.name[0].toLocaleUpperCase() + item.name.substring(1) : ''
     this.items$.push(item)
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
+  }
+
+  public deleteItem(key: string) {
+    console.log('deleteItem with key ' + JSON.stringify(key));
+    let item = this.db.object('/items/' + key)
+    item.remove()
+    console.log('deleteItem item ' + JSON.stringify(item));
   }
 
   private users = [
