@@ -33,18 +33,30 @@ export class EditItemComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     let el = document.getElementById(this.key)
-    console.log('ngAfterViewInit el ' + el)
-    el.addEventListener('dragstart', this.dragStartHandler)
+    el.addEventListener('dragstart', (event) => {
+      console.log('dragStartHandler ' + this.key);
+
+      event.dataTransfer.setData(this.internalDNDType, this.key);
+      event.dataTransfer.dropEffect = "move"
+    })
     el.addEventListener('dragend', (event) => {
-      console.log('dragend ' + event.dataTransfer.getData(this.internalDNDType))
+      console.log('dragend ' + this.key)
       event.preventDefault();
     })
+    // handle droptarget
     el = document.getElementById('dz' + this.key)
-    console.log('ngAfterViewInit el2 ' + el)
-    el.addEventListener('dragenter', this.dragEnterHandler)
-    el.addEventListener('drop', this.dropHandler)
+    el.addEventListener('dragenter', (event) => {
+      event.preventDefault()
+      event.dataTransfer.dropEffect = "move"
+    })
+    el.addEventListener('drop', (event: any) => {
+      console.log('dropHandler ')
+      let key = this.key;
+      console.log('dropHandler' + key)
+      this.databaseService.deleteItem(key)
+    })
     el.addEventListener('dragover', (event) => {
-      console.log('dragover ' + event.dataTransfer.getData(this.internalDNDType))
+      //console.log('dragover ' + this.key)
       event.preventDefault()
     })
     //console.log('ngAfterViewInit..');
@@ -53,34 +65,6 @@ export class EditItemComponent implements OnInit, AfterViewInit {
   onChange() {
     //console.log("itemChanged " + JSON.stringify(this.itemForm.value));
     this.databaseService.updateItem(this.itemForm.value);
-  }
-
-  dragStartHandler(event) {
-    let key: string = event.currentTarget["0"].defaultValue
-    console.log('dragStartHandler ' + JSON.stringify(key));
-    //event.preventDefault();
-
-    event.dataTransfer.setData(this.internalDNDType, key);
-    //event.dataTransfer.effectAllowed = 'move'; // only allow moves
-    event.dataTransfer.dropEffect = "move"
-    //console.log('dragStartHandler data ' + event.dataTransfer.getData("this.internalDNDType"))
-    //console.log('dragStartHandler types ' + event.dataTransfer.types)
-  }
-
-  dropHandler(event) {
-    console.log('dropHandler ')
-    //event.preventDefault();
-    //console.log('dropHandler ' + event.dataTransfer.getData(this.internalDNDType))
-    let key = event.dataTransfer.getData(this.internalDNDType);
-    console.log('dropHandler' + key)
-    this.databaseService.deleteItem(key) // TODO
-  }
-
-  dragEnterHandler(event) {
-    event.preventDefault()
-    event.dataTransfer.dropEffect = "move"
-    //console.log('dragEnterHandler data ' + JSON.stringify(event.dataTransfer.getData(this.internalDNDType)))
-    //console.log('dragEnterHandler types ' + event.dataTransfer.types)
   }
 
 }

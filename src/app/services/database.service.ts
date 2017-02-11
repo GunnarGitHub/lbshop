@@ -83,7 +83,7 @@ export class DatabaseService {
     console.log('deleteItem with key ' + JSON.stringify(key));
     let item = this.db.object('/items/' + key)
     item.remove()
-    console.log('deleteItem item ' + JSON.stringify(item));
+    //console.log('deleteItem item ' + JSON.stringify(item));
   }
 
   private users = [

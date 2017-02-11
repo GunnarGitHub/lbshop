@@ -1,5 +1,5 @@
 <div>
-	<form [formGroup]="itemForm" id={{this.key}} draggable="true" >
+	<form [formGroup]="itemForm" id={{this.key}} draggable="true">
 		<input type="hidden" formControlName="$key">
 		<input type="hidden" formControlName="owner">
 		<input type="checkbox" formControlName="buy" (change)="onChange()">
@@ -7,6 +7,6 @@
 		<input type="text" formControlName="unit" [style.width.em]="6" (change)="onChange()">
 		<input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()">
 		<input type="text" formControlName="order" [style.width.em]="5" (change)="onChange()">
+		<span id="dz{{this.key}}" class="dz" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drop here&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	</form>
 </div>
-<div id="dz{{this.key}}" [style.width.em]="25"> Drop here </div>
