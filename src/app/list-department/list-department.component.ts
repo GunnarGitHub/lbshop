@@ -28,7 +28,6 @@ export class ListDepartmentComponent implements OnInit {
   }
 
   addFirstItem(item: Item) {
-    console.log('addFirstItem ')// + JSON.stringify(item))
     this.firstItem = item
   }
 

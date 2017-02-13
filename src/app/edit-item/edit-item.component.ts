@@ -33,6 +33,13 @@ export class EditItemComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     let el = document.getElementById(this.key)
+    let name: string = this.itemForm.get('name').value
+    console.log('ngAfterViewInit name ' + JSON.stringify(name))
+    if (name.length == 0 ) {
+      let nameElement = el.children[5]
+      console.log('ngAfterViewInit children 5 ' + nameElement)// +  JSON.stringify(el.children[5].length))
+     // TODO set focus nameElement.foc
+    }
     el.addEventListener('dragstart', (event) => {
       console.log('dragStartHandler ' + this.key);
 
@@ -48,12 +55,18 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     el.addEventListener('dragenter', (event) => {
       event.preventDefault()
       event.dataTransfer.dropEffect = "move"
+      el.className="dzenter"
+    })
+      el.addEventListener('dragleave', (event) => {
+      event.preventDefault()
+      el.className="dzleave"
     })
     el.addEventListener('drop', (event: any) => {
       console.log('dropHandler ')
-      let key = this.key;
+      let key = event.dataTransfer.getData(this.internalDNDType);;
       console.log('dropHandler' + key)
       this.databaseService.deleteItem(key)
+      el.className="dzleave"
     })
     el.addEventListener('dragover', (event) => {
       //console.log('dragover ' + this.key)

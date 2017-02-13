@@ -1,6 +1,18 @@
-span.dz {
-    opacity: 0.2;
+span.dzenter {
+    opacity: 0.5;
     min-width: "50px";
     border: groove;
     width: "50px";
+    padding-left: "10px";
+    color: "black";
+    background-color: darkred;
+}
+span.dzleave {
+    opacity: 0.1;
+    min-width: "50px";
+    border: groove;
+    width: "50px";
+    padding-left: "10px";
+    color: "black";
+    background-color: white;
 }

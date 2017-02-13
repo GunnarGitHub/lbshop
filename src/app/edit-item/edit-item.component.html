@@ -3,10 +3,10 @@
 		<input type="hidden" formControlName="$key">
 		<input type="hidden" formControlName="owner">
 		<input type="checkbox" formControlName="buy" (change)="onChange()">
-		<input type="text" formControlName="quantity" [style.width.em]="3" (change)="onChange()">
-		<input type="text" formControlName="unit" [style.width.em]="6" (change)="onChange()">
-		<input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()">
-		<input type="text" formControlName="order" [style.width.em]="5" (change)="onChange()">
-		<span id="dz{{this.key}}" class="dz" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drop here&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		<input type="text" formControlName="quantity" [style.width.em]="3" (change)="onChange()" data-lpignore="true">
+		<input type="text" formControlName="unit" [style.width.em]="6" (change)="onChange()" data-lpignore="true">
+		<input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()" data-lpignore="true">
+		<input type="text" formControlName="order" [style.width.em]="5" (change)="onChange()" data-lpignore="true">
+		<span id="dz{{this.key}}" class="dzleave" >Drag item and drop here to delete it</span>
 	</form>
 </div>
