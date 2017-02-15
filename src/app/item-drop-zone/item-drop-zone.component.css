@@ -1,0 +1,18 @@
+.dzenter {
+    opacity: 1;
+    min-width: "50px";
+    border: groove;
+    width: "50px";
+    padding-left: "10px";
+    color: "black";
+    background-color: red;
+}
+.dzleave {
+    opacity: 0.2;
+    min-width: "50px";
+    border: groove;
+    width: "50px";
+    padding-left: "10px";
+    color: "black";
+    background-color: white;
+}

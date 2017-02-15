@@ -24,6 +24,7 @@ import { ListDepartmentComponent } from './list-department/list-department.compo
 import { SearchComponent } from './search/search.component';
 import { AddItemDialogComponent } from './list-department/add-item-dialog.component';
 import { HomeComponent } from './home/home.component';
+import { ItemDropZoneComponent } from './item-drop-zone/item-drop-zone.component'
 
 const routes: Routes = [
  // { path: 'crisis-center', component: CrisisListComponent },
@@ -50,7 +51,8 @@ const routes: Routes = [
     SearchComponent,
     AddItemDialogComponent,
     PageNotFoundComponent,
-    HomeComponent
+    HomeComponent,
+    ItemDropZoneComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

@@ -18,7 +18,7 @@ export class EditItemComponent implements OnInit, AfterViewInit {
   private itemForm: FormGroup;
 
   key: string = "dummy"
-  internalDNDType = 'text/key';
+  internalDNDType = 'string:text/itemkey';
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
     console.log("constructor ");
@@ -50,6 +50,7 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       event.preventDefault();
     })
     // handle droptarget
+    /*
     el = document.getElementById('dz' + this.key)
     el.addEventListener('dragenter', (event) => {
       event.preventDefault()
@@ -64,7 +65,7 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       console.log('dropHandler ')
       let key = event.dataTransfer.getData(this.internalDNDType);;
       console.log('dropHandler' + key)
-      this.databaseService.deleteItem(key)
+      //this.databaseService.deleteItem(key)
       el.className="dzleave"
     })
     el.addEventListener('dragover', (event) => {
@@ -72,6 +73,7 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       event.preventDefault()
     })
     //console.log('ngAfterViewInit..');
+    */
   }
 
   onChange() {
