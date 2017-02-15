@@ -1,11 +1,11 @@
 span.dzenter {
-    opacity: 0.5;
+    opacity: 1;
     min-width: "50px";
     border: groove;
     width: "50px";
     padding-left: "10px";
     color: "black";
-    background-color: darkred;
+    background-color: red;
 }
 span.dzleave {
     opacity: 0.1;

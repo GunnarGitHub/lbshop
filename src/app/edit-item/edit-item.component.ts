@@ -36,9 +36,8 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     let name: string = this.itemForm.get('name').value
     console.log('ngAfterViewInit name ' + JSON.stringify(name))
     if (name.length == 0 ) {
-      let nameElement = el.children[5]
-      console.log('ngAfterViewInit children 5 ' + nameElement)// +  JSON.stringify(el.children[5].length))
-     // TODO set focus nameElement.foc
+      let nameElement = document.getElementById("name"+this.key)
+      nameElement.focus()
     }
     el.addEventListener('dragstart', (event) => {
       console.log('dragStartHandler ' + this.key);
