@@ -1,8 +1,8 @@
-<div>
-	<span>
-		<list-shops [shops]="shops$ | async " (shopChanged)="onShopChanged($event)">Shops</list-shops>
-		<search>Loading search...</search>
-	</span>
-	<list-departements-with-items [departments]="departments"></list-departements-with-items>
+<div class="home-container">
+	<list-shops [shops]=" shops$ | async " (shopChanged)="onShopChanged($event) ">Shops</list-shops>
+	<search>Loading search...</search>
+</div>
+<div class="list-departments-and-items">
+	<list-departements-with-items [departments]="departments "></list-departements-with-items>
 	<item-drop-zone></item-drop-zone>
 </div>

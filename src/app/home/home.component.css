@@ -1,0 +1,17 @@
+.home-container {
+    display: flex;
+}
+search {
+    margin-left: 10px;
+}
+
+.list-departments-and-items {
+    display: flex
+}
+
+item-drop-zone {
+    margin-left: 10px;
+    flex-grow: 1;
+    align-items: baseline;
+
+}
