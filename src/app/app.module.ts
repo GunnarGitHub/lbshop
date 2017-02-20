@@ -22,7 +22,6 @@ import { ListDepartementsWithItemsComponent } from './list-departements-with-ite
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-import { AddItemDialogComponent } from './list-department/add-item-dialog.component';
 import { HomeComponent } from './home/home.component';
 import { ItemDropZoneComponent } from './item-drop-zone/item-drop-zone.component'
 
@@ -49,7 +48,6 @@ const routes: Routes = [
     OrderByPipe,
     ListDepartmentComponent,
     SearchComponent,
-    AddItemDialogComponent,
     PageNotFoundComponent,
     HomeComponent,
     ItemDropZoneComponent
@@ -64,7 +62,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
-  entryComponents: [AddItemDialogComponent],
+  entryComponents: [],
   providers: [
     DatabaseService,
     SearchService],
