@@ -1,18 +1,8 @@
-span.dzenter {
-    opacity: 1;
-    min-width: "50px";
-    border: groove;
-    width: "50px";
-    padding-left: "10px";
-    color: "black";
+.dzenter {
     background-color: red;
+    border: solid red 6px;
 }
-span.dzleave {
-    opacity: 0.1;
-    min-width: "50px";
-    border: groove;
-    width: "50px";
-    padding-left: "10px";
-    color: "black";
+.dzleave {
     background-color: white;
+    opacity: 1;
 }

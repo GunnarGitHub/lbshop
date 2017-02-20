@@ -18,7 +18,8 @@ export class EditItemComponent implements OnInit, AfterViewInit {
   private itemForm: FormGroup;
 
   key: string = "dummy"
-  internalDNDType = 'string:text/itemkey';
+  dndItemKey = 'string:text/itemkey';
+  dndDepartmentKey = 'string:text/departmentkey';
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
     console.log("constructor ");
@@ -35,14 +36,15 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     let el = document.getElementById(this.key)
     let name: string = this.itemForm.get('name').value
     console.log('ngAfterViewInit name ' + JSON.stringify(name))
-    if (name.length == 0 ) {
-      let nameElement = document.getElementById("name"+this.key)
+    if (name.length == 0) {
+      let nameElement = document.getElementById("name" + this.key)
       nameElement.focus()
     }
     el.addEventListener('dragstart', (event) => {
       console.log('dragStartHandler ' + this.key);
-
-      event.dataTransfer.setData(this.internalDNDType, this.key);
+      console.log('dragStartHandler owner' + this.itemForm.get('owner').value);
+      event.dataTransfer.setData(this.dndItemKey, this.key);
+      event.dataTransfer.setData(this.dndDepartmentKey, this.itemForm.get('owner').value);
       event.dataTransfer.dropEffect = "move"
     })
     el.addEventListener('dragend', (event) => {
@@ -50,32 +52,48 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       event.preventDefault();
     })
     // handle droptarget
-    /*
-    el = document.getElementById('dz' + this.key)
+    //el = document.getElementById('dz' + this.key)
     el.addEventListener('dragenter', (event) => {
       event.preventDefault()
       event.dataTransfer.dropEffect = "move"
-      el.className="dzenter"
+      el.className = "dzenter"
     })
-      el.addEventListener('dragleave', (event) => {
+    el.addEventListener('dragleave', (event) => {
       event.preventDefault()
-      el.className="dzleave"
+      el.className = "dzleave"
     })
-    el.addEventListener('drop', (event: any) => {
+    el.addEventListener('drop', (event: DragEvent) => {
       console.log('dropHandler ')
-      let key = event.dataTransfer.getData(this.internalDNDType);;
-      console.log('dropHandler' + key)
+      let key = event.dataTransfer.getData(this.dndItemKey);
+      let owner = event.dataTransfer.getData(this.dndDepartmentKey);
+      console.log('dropHandler key ' + key)
+      console.log('dropHandler owner ' + owner)
+      let order = event.currentTarget[6].value
+      console.log('dropHandler order ' + order)
+      let targetElementKey = event.currentTarget[0].value
+      console.log('dropHandler targetElementKey ' + JSON.stringify(targetElementKey))
+      let targetElement = document.getElementById(targetElementKey)
+      let nextElement = this.get_nextsibling(targetElement.parentNode)
+      console.log('dropHandler nextElement ' + JSON.stringify(nextElement.innerHTML))
       //this.databaseService.deleteItem(key)
-      el.className="dzleave"
+      el.className = "dzleave"
     })
     el.addEventListener('dragover', (event) => {
       //console.log('dragover ' + this.key)
       event.preventDefault()
     })
-    //console.log('ngAfterViewInit..');
-    */
   }
 
+  get_nextsibling(node) {
+     console.log('get_nextsibling ' + node.nodeType + ' ' + node.innerHTML)  
+    var el = node.nextSibling;
+    console.log('get_nextsibling ' + el.nodeType + ' ' + el.innerHTML)  
+    while (el.nodeType != 1) { // skip all but elements
+      el = el.nextSibling;
+      console.log('get_nextsibling ' + el.nodeType + ' ' + el.innerHTML)   
+    }
+    return el;
+  }
   onChange() {
     //console.log("itemChanged " + JSON.stringify(this.itemForm.value));
     this.databaseService.updateItem(this.itemForm.value);

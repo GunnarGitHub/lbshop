@@ -1,5 +1,5 @@
 <div>
-	<form [formGroup]="itemForm" id={{this.key}} draggable="true">
+	<form [formGroup]="itemForm" id={{this.key}} draggable="true" class="dzleave">
 		<input type="hidden" formControlName="$key">
 		<input type="hidden" formControlName="owner">
 		<input type="checkbox" formControlName="buy" (change)="onChange()">
