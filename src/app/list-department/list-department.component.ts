@@ -1,4 +1,3 @@
-import { AddItemDialogComponent } from './add-item-dialog.component';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject'
 import { Component, OnInit, Input } from '@angular/core'

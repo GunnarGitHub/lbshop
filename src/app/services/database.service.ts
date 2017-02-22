@@ -110,8 +110,9 @@ export class DatabaseService {
         },
         {
           name: 'Mejeri', order: 3.5, items: [
-            { buy: false, quantity: 8, unit: 'st', name: 'Grädde', order: 4.0 },
-            { buy: false, quantity: 7, unit: 'st', name: 'Mjölk', order: 3.0 },
+            { buy: false, quantity: 1, unit: 'st', name: 'Grädde', order: 4.0 },
+            { buy: false, quantity: 2, unit: 'st', name: 'Mjölk', order: 3.0 },
+            { buy: false, quantity: 3, unit: 'st', name: 'Smör', order: 6 },
           ]
         },
         {

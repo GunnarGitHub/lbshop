@@ -1,5 +1,5 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { by } from 'protractor';
+//import { by, element } from 'protractor';
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
@@ -48,7 +48,7 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       event.dataTransfer.dropEffect = "move"
     })
     el.addEventListener('dragend', (event) => {
-      console.log('dragend ' + this.key)
+      //console.log('dragend ' + this.key)
       event.preventDefault();
     })
     // handle droptarget
@@ -71,10 +71,15 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       let order = event.currentTarget[6].value
       console.log('dropHandler order ' + order)
       let targetElementKey = event.currentTarget[0].value
-      console.log('dropHandler targetElementKey ' + JSON.stringify(targetElementKey))
       let targetElement = document.getElementById(targetElementKey)
-      let nextElement = this.get_nextsibling(targetElement.parentNode)
-      console.log('dropHandler nextElement ' + JSON.stringify(nextElement.innerHTML))
+      let targetElementOwner = targetElement[1].value
+      console.log('dropHandler targetElementKey ' + targetElementKey + ' ' + targetElementOwner)
+      let nextForm = this.get_nextform(targetElement.parentElement.parentElement.parentElement.parentElement)
+      let nextElementOrder = nextForm[6].value
+      console.log('dropHandler nextElement order ' + nextElementOrder )
+
+      //TODO gard for no nextElemet, calculate owner and order for the moved item and update database
+
       //this.databaseService.deleteItem(key)
       el.className = "dzleave"
     })
@@ -84,16 +89,26 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     })
   }
 
-  get_nextsibling(node) {
-     console.log('get_nextsibling ' + node.nodeType + ' ' + node.innerHTML)  
-    var el = node.nextSibling;
-    console.log('get_nextsibling ' + el.nodeType + ' ' + el.innerHTML)  
-    while (el.nodeType != 1) { // skip all but elements
-      el = el.nextSibling;
-      console.log('get_nextsibling ' + el.nodeType + ' ' + el.innerHTML)   
+  get_nextform(node) {//*[@id="-Kd_2HuqnsLJK9egqcNB"]
+    //console.log('get_nextform ' + node.nodeName + ' ' + node.innerHTML)
+    var el: Element = node.nextElementSibling
+    var forms = el.getElementsByTagName("FORM")
+    //console.log('get_nextform ' + JSON.stringify(forms.length))
+    //console.log('get_nextform ' + JSON.stringify(forms[0].id))
+    /*console.log('get_nextform ' + el.nodeName + ' ' + el.innerHTML)
+    while (el.nodeName != "FORM") { // skip all but FORM elements
+      el = el.firstElementChild;
+      if (el) {
+        console.log('get_nextform ' + el.nodeName + ' ' + el.innerHTML)
+      } else {
+        console.log('get_nextform null or undefined')
+      }
+
     }
-    return el;
+    */
+    return forms[0];
   }
+
   onChange() {
     //console.log("itemChanged " + JSON.stringify(this.itemForm.value));
     this.databaseService.updateItem(this.itemForm.value);
