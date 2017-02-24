@@ -70,18 +70,20 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       console.log('dropHandler owner ' + owner)
       let order = event.currentTarget[6].value
       console.log('dropHandler order ' + order)
-      let targetElementKey = event.currentTarget[0].value
-      let targetElement = document.getElementById(targetElementKey)
-      let targetElementOwner = targetElement[1].value
+      let targetElementKey: string = event.currentTarget[0].value
+      let targetElementOwner: string = event.currentTarget[1].value
+      let targetElementOrder: number = +event.currentTarget[6].value
       console.log('dropHandler targetElementKey ' + targetElementKey + ' ' + targetElementOwner)
-      let nextForm = this.get_nextform(targetElement.parentElement.parentElement.parentElement.parentElement)
-      let nextElementOrder = nextForm[6].value
-      console.log('dropHandler nextElement order ' + nextElementOrder )
-
+      let targetElement: Element = document.getElementById(targetElementKey)
+      let nextElementOrder: number = +this.getNextFormOrder(targetElement)
+      console.log('dropHandler nextElement order ' + (nextElementOrder ? nextElementOrder : "null"))
+      let newOrder: number =
+        (nextElementOrder ? ((targetElementOrder + nextElementOrder) / 2.0) : (targetElementOrder + 100))
+      console.log('dropHandler neworder ' + newOrder)
       //TODO gard for no nextElemet, calculate owner and order for the moved item and update database
 
-      //this.databaseService.deleteItem(key)
-      el.className = "dzleave"
+      this.databaseService.moveItem(key, targetElementOwner, newOrder)
+      targetElement.className = "dzleave"
     })
     el.addEventListener('dragover', (event) => {
       //console.log('dragover ' + this.key)
@@ -89,24 +91,14 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     })
   }
 
-  get_nextform(node) {//*[@id="-Kd_2HuqnsLJK9egqcNB"]
-    //console.log('get_nextform ' + node.nodeName + ' ' + node.innerHTML)
-    var el: Element = node.nextElementSibling
-    var forms = el.getElementsByTagName("FORM")
-    //console.log('get_nextform ' + JSON.stringify(forms.length))
-    //console.log('get_nextform ' + JSON.stringify(forms[0].id))
-    /*console.log('get_nextform ' + el.nodeName + ' ' + el.innerHTML)
-    while (el.nodeName != "FORM") { // skip all but FORM elements
-      el = el.firstElementChild;
-      if (el) {
-        console.log('get_nextform ' + el.nodeName + ' ' + el.innerHTML)
-      } else {
-        console.log('get_nextform null or undefined')
-      }
+  getNextFormOrder(targetElement: Element): number {//*[@id="-Kd_2HuqnsLJK9egqcNB"]
+    var el: Element = targetElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling
 
-    }
-    */
-    return forms[0];
+    if (!el) return null
+    var forms = el.getElementsByTagName("FORM")
+    if (!forms) return null
+    let form: Element = forms[0]
+    return +form[6].value
   }
 
   onChange() {
