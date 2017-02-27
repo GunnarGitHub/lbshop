@@ -15,7 +15,6 @@ import { ShopComponent } from './shop/shop.component';
 import { UserComponent } from './user';
 import { ListShopsComponent } from './list-shops/list-shops.component';
 import { DatabaseService, SearchService } from './services';
-import { ListDepartmentsComponent } from './list-departments/list-departments.component'
 import { OrderByPipe } from './pipes';
 import { ListItemsComponent } from './list-items/list-items.component';
 import { ListDepartementsWithItemsComponent } from './list-departements-with-items/list-departements-with-items.component';
@@ -40,7 +39,6 @@ const routes: Routes = [
     UserComponent,
     ListShopsComponent,
     ListDepartmentComponent,
-    ListDepartmentsComponent,
     ListItemsComponent,
     ListDepartementsWithItemsComponent,
     OrderByPipe,

@@ -15,6 +15,7 @@ import { Department, Item } from './../model'
 export class ListDepartmentComponent implements OnInit {
 
   @Input() department: Department
+  @Input() id: string
   private departmentForm: FormGroup
   private hidden: boolean
   private searchSubscription: Subject<string>

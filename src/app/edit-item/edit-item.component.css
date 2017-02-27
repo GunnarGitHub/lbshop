@@ -1,8 +1,9 @@
 .dzenter {
-    background-color: red;
-    border: solid red 6px;
+    background-color: blue;
+    border: solid blue 6px;
 }
 .dzleave {
     background-color: white;
     opacity: 1;
+    border: none;
 }

@@ -1,4 +1,4 @@
-<div *ngFor="let department of departments">
-  <list-department [department]="department" ></list-department>
+<div *ngFor="let department of departments; let i = index">
+  <list-department [id]="'d'+i" id="{{id}}" [department]="department" ></list-department>
 </div>
 	

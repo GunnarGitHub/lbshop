@@ -17,34 +17,32 @@ export class EditItemComponent implements OnInit, AfterViewInit {
   @Input('group')
   private itemForm: FormGroup;
 
+  @Input() id: string
   key: string = "dummy"
   dndItemKey = 'string:text/itemkey';
-  dndDepartmentKey = 'string:text/departmentkey';
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
     console.log("constructor ");
   }
 
   ngOnInit() {
-    console.log("ngOnInit ")
+    console.log("ngOnInit id " + this.id)
     this.key = this.itemForm.get('$key').value
     console.log('ngOnInit key ' + this.key)
     console.log("after ngOnInit ")
   }
 
   ngAfterViewInit() {
-    let el = document.getElementById(this.key)
+    let el = document.getElementById(this.id)
     let name: string = this.itemForm.get('name').value
-    console.log('ngAfterViewInit name ' + JSON.stringify(name))
     if (name.length == 0) {
-      let nameElement = document.getElementById("name" + this.key)
+      let nameElement = document.getElementById("name" + this.id)
       nameElement.focus()
     }
     el.addEventListener('dragstart', (event) => {
       console.log('dragStartHandler ' + this.key);
       console.log('dragStartHandler owner' + this.itemForm.get('owner').value);
       event.dataTransfer.setData(this.dndItemKey, this.key);
-      event.dataTransfer.setData(this.dndDepartmentKey, this.itemForm.get('owner').value);
       event.dataTransfer.dropEffect = "move"
     })
     el.addEventListener('dragend', (event) => {
@@ -52,8 +50,16 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       event.preventDefault();
     })
     // handle droptarget
-    //el = document.getElementById('dz' + this.key)
+    //TODO fix dzleave
     el.addEventListener('dragenter', (event) => {
+      //let key: string = event.dataTransfer.getData(this.dndItemKey);
+      let targetElement: Element = document.getElementById(this.id)
+      let targetElementKey = event.currentTarget[0].value
+      if (targetElementKey == this.key) {
+        targetElement.className = "dzleave"
+        console.log('drop set class to dzleave')
+        return
+      }
       event.preventDefault()
       event.dataTransfer.dropEffect = "move"
       el.className = "dzenter"
@@ -64,18 +70,15 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     })
     el.addEventListener('drop', (event: DragEvent) => {
       console.log('dropHandler ')
-      let key = event.dataTransfer.getData(this.dndItemKey);
-      let owner = event.dataTransfer.getData(this.dndDepartmentKey);
+      let key: string = event.dataTransfer.getData(this.dndItemKey);
       console.log('dropHandler key ' + key)
-      console.log('dropHandler owner ' + owner)
-      let order = event.currentTarget[6].value
+      let order: number = +event.currentTarget[6].value
       console.log('dropHandler order ' + order)
       let targetElementKey: string = event.currentTarget[0].value
       let targetElementOwner: string = event.currentTarget[1].value
-      let targetElementOrder: number = +event.currentTarget[6].value
-      console.log('dropHandler targetElementKey ' + targetElementKey + ' ' + targetElementOwner)
-      let targetElement: Element = document.getElementById(targetElementKey)
-      let nextElementOrder: number = +this.getNextFormOrder(targetElement)
+      let targetElementOrder: number = order
+      let targetElement: Element = document.getElementById(this.id)
+      let nextElementOrder: number = +this.getNextFormOrder(this.id)
       console.log('dropHandler nextElement order ' + (nextElementOrder ? nextElementOrder : "null"))
       let newOrder: number =
         (nextElementOrder ? ((targetElementOrder + nextElementOrder) / 2.0) : (targetElementOrder + 100))
@@ -91,13 +94,13 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     })
   }
 
-  getNextFormOrder(targetElement: Element): number {//*[@id="-Kd_2HuqnsLJK9egqcNB"]
-    var el: Element = targetElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling
+  getNextFormOrder(id: string): number {
+    let prefix: string = id.slice(0, id.indexOf('f') + 1)
+    let suffix: number = +id.slice(id.indexOf('f') + 1)
+    suffix++
 
-    if (!el) return null
-    var forms = el.getElementsByTagName("FORM")
-    if (!forms) return null
-    let form: Element = forms[0]
+    let form: Element = document.getElementById(prefix + suffix)
+    if (!form) return null
     return +form[6].value
   }
 

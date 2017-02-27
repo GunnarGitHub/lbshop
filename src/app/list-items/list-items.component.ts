@@ -18,6 +18,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   private items: Item[]
   private itemForm: FormGroup
   @Input() department: Department
+  @Input() id: string
   @Output() firstItemEvent: EventEmitter<Item> = new EventEmitter();
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService, private searchService: SearchService) {

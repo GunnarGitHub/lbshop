@@ -1,14 +1,9 @@
 <div [formGroup]="itemForm">
 	<div formArrayName="items">
 		<div *ngFor="let item of getItems(); let i=index">
-			<div>
-				<!--span>Item {{i}}</span>-->
-				<!--span *ngIf="itemForm.controls.items.controls.length > 1"></span-->
-			</div>
-			<div [formGroupName]="i">
-				<edit-item [group]="itemForm.controls.items.controls[i]"></edit-item>
+			<div id="{{id}}-i{{i}}" [formGroupName]="i">
+				<edit-item [id]="id+'-f'+i" [group]="itemForm.controls.items.controls[i]"></edit-item>
 			</div>
 		</div>
 	</div>
 </div>
-<!--pre>form value: <br>{{itemForm.value | json}}</pre-->
