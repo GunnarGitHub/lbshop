@@ -19,7 +19,8 @@ export class EditItemComponent implements OnInit, AfterViewInit {
 
   @Input() id: string
   key: string = "dummy"
-  dndItemKey = 'string:text/itemkey';
+  dndItemKey = 'string:text/itemkey'
+  dragStartKey: string
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService) {
     console.log("constructor ");
@@ -40,8 +41,10 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       nameElement.focus()
     }
     el.addEventListener('dragstart', (event) => {
-      console.log('dragStartHandler ' + this.key);
-      console.log('dragStartHandler owner' + this.itemForm.get('owner').value);
+      this.dragStartKey = this.key
+      //console.log('dragstart key ' + this.key);
+      console.log('dragstart  key ' + this.dragStartKey);
+      console.log('dragstart owner ' + this.itemForm.get('owner').value);
       event.dataTransfer.setData(this.dndItemKey, this.key);
       event.dataTransfer.dropEffect = "move"
     })
@@ -52,28 +55,34 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     // handle droptarget
     //TODO fix dzleave
     el.addEventListener('dragenter', (event) => {
-      //let key: string = event.dataTransfer.getData(this.dndItemKey);
-      let targetElement: Element = document.getElementById(this.id)
+      console.log('dragenter id ' + this.id);
+      let targetElement: any = event.target
       let targetElementKey = event.currentTarget[0].value
-      if (targetElementKey == this.key) {
-        targetElement.className = "dzleave"
-        console.log('drop set class to dzleave')
-        return
-      }
+      //console.log('dragenter ' + targetElementKey + '/' + this.dragStartKey)
+      // event.dataTransfer.dropEffect = "move"
       event.preventDefault()
-      event.dataTransfer.dropEffect = "move"
-      el.className = "dzenter"
+      if (this.dragStartKey) {
+        targetElement.className = "dzleave"
+        console.log('dragenter set class to dzleave')
+      } else {
+        el.className = "dzenter"
+        console.log('dragenter set class to dzenter')
+      }
     })
     el.addEventListener('dragleave', (event) => {
       event.preventDefault()
       el.className = "dzleave"
     })
     el.addEventListener('drop', (event: DragEvent) => {
-      console.log('dropHandler ')
+      console.log('drop')
+      if(this.dragStartKey) {
+        console.log('drop cannot drop on self')
+        return
+      }
       let key: string = event.dataTransfer.getData(this.dndItemKey);
-      console.log('dropHandler key ' + key)
+      console.log('drop key ' + key)
       let order: number = +event.currentTarget[6].value
-      console.log('dropHandler order ' + order)
+      console.log('drop order ' + order)
       let targetElementKey: string = event.currentTarget[0].value
       let targetElementOwner: string = event.currentTarget[1].value
       let targetElementOrder: number = order

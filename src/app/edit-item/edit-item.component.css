@@ -1,9 +1,17 @@
 .dzenter {
     background-color: blue;
-    border: solid blue 6px;
+}
+
+.dzenter input {
+    color: yellow;
+    background-color: blue;
+    
 }
 .dzleave {
     background-color: white;
-    opacity: 1;
-    border: none;
+}
+
+.dzleave input{
+    background-color: white;
+    color: black;
 }

@@ -70,7 +70,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
 
   showItems() {
     if (this.items) {
-      console.log('showItems ' + JSON.stringify(this.items));
+      // console.log('showItems ' + JSON.stringify(this.items));
       this.items.forEach(item => {
         const control = <FormArray>this.itemForm.controls['items'];
         control.push(this.showItem(item))
