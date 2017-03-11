@@ -1,8 +1,8 @@
 import { by } from 'protractor';
 import { FirebaseListObservable } from 'angularfire2';
-import { DatabaseService } from '../services/database.service';
+import { DatabaseService } from '../../services/database.service';
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { Shop, User, Department } from '../model/';
+import { Shop, User, Department } from '../../model/';
 import { ListShopsComponent } from '../list-shops';
 @Component({
   selector: 'home',

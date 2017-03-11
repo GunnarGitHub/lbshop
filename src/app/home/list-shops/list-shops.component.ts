@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output} from '@angular/core';
 
-import { Shop } from '../model/';
+import { Shop } from '../../model/';
 
 @Component({
   selector: 'list-shops',

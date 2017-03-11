@@ -1,0 +1,9 @@
+button {
+    height: 22px !important;
+    width: 22px !important;
+}
+
+.mat-mini-fab .mat-icon {
+   padding: 0;
+}
+    

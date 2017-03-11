@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ShopComponent } from './shop/shop.component';
 import { UserComponent } from './user';
-import { ListShopsComponent } from './list-shops/list-shops.component';
+import { ListShopsComponent } from './home/list-shops/list-shops.component';
 import { DatabaseService, SearchService } from './services';
 import { OrderByPipe } from './pipes';
 import { ListItemsComponent } from './list-items/list-items.component';
@@ -21,7 +21,7 @@ import { ListDepartementsWithItemsComponent } from './list-departements-with-ite
 import { EditItemComponent } from './edit-item/edit-item.component';
 import { ListDepartmentComponent } from './list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './home/home-comp/home.component';
 import { ItemDropZoneComponent } from './item-drop-zone/item-drop-zone.component'
 
 const routes: Routes = [
