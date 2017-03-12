@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
 
-import { User } from '../model';
+import { User } from '../common/model';
 
 @Component({
   selector: 'user',

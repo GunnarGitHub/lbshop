@@ -1,5 +1,5 @@
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { SearchService } from './../services';
+import { SearchService } from './../common/services';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 

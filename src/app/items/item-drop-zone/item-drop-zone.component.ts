@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { DatabaseService } from './../services';
+import { DatabaseService } from './../../common/services';
 
 @Component({
   selector: 'item-drop-zone',

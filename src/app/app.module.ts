@@ -10,19 +10,18 @@ import { RouterModule, Routes } from '@angular/router';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
 import { ShopComponent } from './shop/shop.component';
 import { UserComponent } from './user';
-import { ListShopsComponent } from './home/list-shops/list-shops.component';
-import { DatabaseService, SearchService } from './services';
-import { OrderByPipe } from './pipes';
-import { ListItemsComponent } from './list-items/list-items.component';
-import { ListDepartementsWithItemsComponent } from './list-departements-with-items/list-departements-with-items.component';
-import { EditItemComponent } from './edit-item/edit-item.component';
-import { ListDepartmentComponent } from './list-department/list-department.component';
+import { ListShopsComponent } from './items/list-shops/list-shops.component';
+import { DatabaseService, SearchService } from './common/services';
+import { ListItemsComponent } from './items/list-items/list-items.component';
+import { ListDepartementsWithItemsComponent } from './items/list-departements-with-items/list-departements-with-items.component';
+import { EditItemComponent } from './items/edit-item/edit-item.component';
+import { ListDepartmentComponent } from './items/list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-import { HomeComponent } from './home/home-comp/home.component';
-import { ItemDropZoneComponent } from './item-drop-zone/item-drop-zone.component'
+import { HomeComponent } from './items/home/home.component';
+import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.component'
 
 const routes: Routes = [
  // { path: 'crisis-center', component: CrisisListComponent },
@@ -41,9 +40,7 @@ const routes: Routes = [
     ListDepartmentComponent,
     ListItemsComponent,
     ListDepartementsWithItemsComponent,
-    OrderByPipe,
     EditItemComponent,
-    OrderByPipe,
     ListDepartmentComponent,
     SearchComponent,
     PageNotFoundComponent,

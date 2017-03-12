@@ -3,9 +3,8 @@ import { Subject } from 'rxjs/Subject'
 import { Component, OnInit, Input } from '@angular/core'
 import { FormGroup, FormBuilder } from '@angular/forms'
 
-import { SearchService } from './../services'
-import { DatabaseService } from './../services'
-import { Department, Item } from './../model'
+import { SearchService, DatabaseService } from './../../common/services'
+import { Department, Item } from './../../common/model'
 
 @Component({
   selector: 'list-department',

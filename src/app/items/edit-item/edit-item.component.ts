@@ -4,8 +4,8 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
 
-import { DatabaseService } from './../services';
-import { Item } from '../model';
+import { DatabaseService } from './../../common/services';
+import { Item } from '../../common/model';
 
 @Component({
   selector: 'edit-item',

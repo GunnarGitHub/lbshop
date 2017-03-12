@@ -4,8 +4,8 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 
-import { Item, Department } from '../model';
-import { DatabaseService, SearchService } from './../services';
+import { Item, Department } from '../../common/model';
+import { DatabaseService, SearchService } from './../../common/services';
 
 @Component({
   selector: 'list-items',
