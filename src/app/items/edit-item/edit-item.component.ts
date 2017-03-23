@@ -53,7 +53,6 @@ export class EditItemComponent implements OnInit, AfterViewInit {
       event.preventDefault();
     })
     // handle droptarget
-    //TODO fix dzleave
     el.addEventListener('dragenter', (event) => {
       console.log('dragenter id ' + this.id);
       let targetElement: any = event.target

@@ -6,4 +6,21 @@ button {
 .mat-mini-fab .mat-icon {
    padding: 0;
 }
+
+.dzenter {
+    background-color: blue;
+}
+
+.dzenter input {
+    color: yellow;
+    background-color: blue;
     
+}
+.dzleave {
+    background-color: white;
+}
+
+.dzleave input{
+    background-color: white;
+    color: black;
+} 
