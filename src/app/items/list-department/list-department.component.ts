@@ -99,24 +99,26 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
         return
       }
       */
-      let key: string = event.dataTransfer.getData(this.dndItemKey);
-      console.log('drop key ' + key)
-      //let order:number = +this.departmentForm.value.owner
+      let dragItemKey: string = event.dataTransfer.getData(this.dndItemKey);
+      console.log('drop key ' + dragItemKey)
+      let newOwner:string = this.departmentForm.value.$key
+      console.log('drop owner ' + newOwner)
       //let order: number = +event.currentTarget[3].value
       //console.log('drop order ' + order)
-      let targetElementKey: string = event.currentTarget[0].value
-      let targetElementOwner: string = event.currentTarget[1].value
-      let targetElementOrder: number = -1000 //TODO
-      let targetElement: Element = document.getElementById(this.id)
+      //let targetElementKey: string = event.currentTarget[0].value
+      //let targetElementOwner: string = event.currentTarget[1].value
+      //let targetElementOwner: string = event.currentTarget[1].value
+      //let targetElementOrder: number = -1000 //TODO
+      //let targetElement: Element = document.getElementById(this.id)
       let nextElementOrder: number = +this.getNextFormOrder(this.id)
       console.log('dropHandler nextElement order ' + (nextElementOrder ? nextElementOrder : "null"))
       let newOrder: number =
-        (nextElementOrder ? ((targetElementOrder + nextElementOrder) / 2.0) : (targetElementOrder + 100))
+        (nextElementOrder ? (nextElementOrder -100) : 10000)
       console.log('dropHandler neworder ' + newOrder)
       //TODO gard for no nextElemet, calculate owner and order for the moved item and update database
 
-      this.databaseService.moveItem(key, targetElementOwner, newOrder)
-      targetElement.className = "dzleave"
+      this.databaseService.moveItem(dragItemKey, newOwner, newOrder)
+      el.className = "dzleave"
     })
     el.addEventListener('dragover', (event) => {
       //console.log('dragover ' + this.key)
@@ -125,11 +127,7 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
   }
 
   getNextFormOrder(id: string): number {
-    let prefix: string = id.slice(0, id.indexOf('f') + 1)
-    let suffix: number = +id.slice(id.indexOf('f') + 1)
-    suffix++
-
-    let form: Element = document.getElementById(prefix + suffix)
+    let form: Element = document.getElementById(id + "-f0")
     if (!form) return null
     return +form[6].value
   }
