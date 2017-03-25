@@ -21,13 +21,13 @@ import { EditItemComponent } from './items/edit-item/edit-item.component';
 import { ListDepartmentComponent } from './items/list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './items/home/home.component';
+import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
 import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.component'
 
 const routes: Routes = [
- // { path: 'crisis-center', component: CrisisListComponent },
- // { path: 'hero/:id',      component: HeroDetailComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { title: 'LB SHOP' }},
   { path: 'home', component: HomeComponent },
+  { path: 'departments', component: ListShopsWithDepartmentsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -45,6 +45,7 @@ const routes: Routes = [
     SearchComponent,
     PageNotFoundComponent,
     HomeComponent,
+    ListShopsWithDepartmentsComponent,
     ItemDropZoneComponent
   ],
   imports: [
