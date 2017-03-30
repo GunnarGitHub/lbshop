@@ -1,7 +1,7 @@
 import { by } from 'protractor';
 import { FirebaseListObservable } from 'angularfire2';
 import { DatabaseService } from '../../common/services/database.service';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Shop, User, Department } from '../../common/model/';
 import { ListShopsComponent } from '../list-shops';
 @Component({
@@ -19,11 +19,11 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private databaseService: DatabaseService, ) {
-    console.log("AppComponent constructor ");
+    console.log("constructor ");
   }
 
   ngOnInit() {
-    console.log("AppComponent ngOnInit load shop");
+    console.log("ngOnInit load shop");
     this.shops$ = this.databaseService.shops$
   }
 

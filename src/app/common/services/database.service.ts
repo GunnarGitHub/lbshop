@@ -157,7 +157,7 @@ export class DatabaseService {
   ];
 
   private storeInitialData() {
-    console.log('Database service storeInitialData');
+    console.log('storeInitialData');
     // remove old data
     const data$: FirebaseListObservable<any> =
       this.db.list('/');

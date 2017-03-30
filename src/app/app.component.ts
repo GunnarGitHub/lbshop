@@ -9,7 +9,7 @@ export class AppComponent implements OnInit {
   title: string = 'LB Shop'
   
   constructor() {
-    console.log("AppComponent constructor ");
+    console.log("constructor ");
   }
 
   ngOnInit() {
