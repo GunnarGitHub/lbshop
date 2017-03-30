@@ -16,18 +16,20 @@ import { UserComponent } from './user';
 import { ListShopsComponent } from './items/list-shops/list-shops.component';
 import { DatabaseService, SearchService } from './common/services';
 import { ListItemsComponent } from './items/list-items/list-items.component';
-import { ListDepartementsWithItemsComponent } from './items/list-departements-with-items/list-departements-with-items.component';
+import { ListDepartmentsWithItemsComponent } from './items/list-departments-with-items/list-departments-with-items.component';
 import { EditItemComponent } from './items/edit-item/edit-item.component';
 import { ListDepartmentComponent } from './items/list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './items/home/home.component';
-import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
 import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.component'
+import { DepartmentsHomeComponent } from './departments/departments-home/departments-home.component'
+import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
+import { DepartmentDropZoneComponent } from './departments/department-drop-zone/department-drop-zone.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { title: 'LB SHOP' }},
   { path: 'home', component: HomeComponent },
-  { path: 'departments', component: ListShopsWithDepartmentsComponent },
+  { path: 'departments', component: DepartmentsHomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -39,13 +41,15 @@ const routes: Routes = [
     ListShopsComponent,
     ListDepartmentComponent,
     ListItemsComponent,
-    ListDepartementsWithItemsComponent,
+    ListDepartmentsWithItemsComponent,
     EditItemComponent,
     ListDepartmentComponent,
     SearchComponent,
     PageNotFoundComponent,
     HomeComponent,
+    DepartmentsHomeComponent,
     ListShopsWithDepartmentsComponent,
+    DepartmentDropZoneComponent,
     ItemDropZoneComponent
   ],
   imports: [
