@@ -53,24 +53,6 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     let el = document.getElementById(this.id + "-f")
-    /*   let name: string = this.itemForm.get('name').value
-       if (name.length == 0) {
-         let nameElement = document.getElementById("name" + this.id)
-         nameElement.focus()
-       }
-       el.addEventListener('dragstart', (event) => {
-         this.dragStartKey = this.key
-         //console.log('dragstart key ' + this.key);
-         console.log('dragstart  key ' + this.dragStartKey);
-         console.log('dragstart owner ' + this.itemForm.get('owner').value);
-         event.dataTransfer.setData(this.dndItemKey, this.key);
-         event.dataTransfer.dropEffect = "move"
-       })
-       el.addEventListener('dragend', (event) => {
-         //console.log('dragend ' + this.key)
-         event.preventDefault();
-       })
-       */
     // handle droptarget
     el.addEventListener('dragenter', (event) => {
       console.log('dragenter id ' + this.id + "-f");
@@ -103,13 +85,6 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
       console.log('drop key ' + dragItemKey)
       let newOwner:string = this.departmentForm.value.$key
       console.log('drop owner ' + newOwner)
-      //let order: number = +event.currentTarget[3].value
-      //console.log('drop order ' + order)
-      //let targetElementKey: string = event.currentTarget[0].value
-      //let targetElementOwner: string = event.currentTarget[1].value
-      //let targetElementOwner: string = event.currentTarget[1].value
-      //let targetElementOrder: number = -1000 //TODO
-      //let targetElement: Element = document.getElementById(this.id)
       let nextElementOrder: number = +this.getNextFormOrder(this.id)
       console.log('dropHandler nextElement order ' + (nextElementOrder ? nextElementOrder : "null"))
       let newOrder: number =

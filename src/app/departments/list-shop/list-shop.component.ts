@@ -16,18 +16,22 @@ export class ListShopComponent implements OnInit {
   @Input() shop: Shop
   @Input() id: string
 
- private shopForm: FormGroup
+  private shopForm: FormGroup
   private hidden: boolean
   private searchSubscription: Subject<string>
-  firstShop: Shop
-  dndItemKey = 'string:text/departmentkey'
+  firstdepartment: Department
+  dnddepartmentKey = 'string:text/departmentkey'
 
   constructor(private fb: FormBuilder,
     private databaseService: DatabaseService,
     private searchService: SearchService) { }
 
+  addFirstDepartment(department: Department) {
+    this.firstdepartment = department
+  }
+
   ngOnInit() {
-        console.log('ngOnInit ');
+    console.log('ngOnInit ');
     this.shopForm = this.fb.group({
       $key: this.shop.$key,
       name: this.shop.name,
@@ -46,9 +50,18 @@ export class ListShopComponent implements OnInit {
     })
   }
 
-   onChange() {
+  onChange() {
     //console.log("onChange " + JSON.stringify(this.departmentForm.value));
     this.databaseService.updateShop(this.shopForm.value);
   }
 
+  addNewDepartment() {
+    console.log('addNewDepartment')
+    let owner = this.shopForm.value.$key
+    let department: Department = {
+      owner: owner, name: '',
+      order: this.firstdepartment ? (this.firstdepartment.order - 100) : 1000
+    }
+    this.databaseService.addDepartment(department)
+  }
 }
