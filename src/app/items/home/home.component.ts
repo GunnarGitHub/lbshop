@@ -2,7 +2,7 @@ import { by } from 'protractor';
 import { FirebaseListObservable } from 'angularfire2';
 import { DatabaseService } from '../../common/services/database.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Shop, User, Department } from '../../common/model/';
+import { User, Shop, Department } from '../../common/model/';
 import { ListShopsComponent } from '../list-shops';
 @Component({
   selector: 'home',
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   shop: Shop;
   shops$: FirebaseListObservable<any[]>;
   departments: Department[];
-  departments$: FirebaseListObservable<Department[]>;
+  departments$: FirebaseListObservable<Shop[]>;
 
   constructor(
     private databaseService: DatabaseService, ) {

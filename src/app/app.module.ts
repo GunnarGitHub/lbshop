@@ -25,6 +25,7 @@ import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.com
 import { DepartmentsHomeComponent } from './departments/departments-home/departments-home.component'
 import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
 import { DepartmentDropZoneComponent } from './departments/department-drop-zone/department-drop-zone.component'
+import { ListShopComponent } from './departments/list-shop/list-shop.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { title: 'LB SHOP' }},
@@ -49,6 +50,7 @@ const routes: Routes = [
     HomeComponent,
     DepartmentsHomeComponent,
     ListShopsWithDepartmentsComponent,
+    ListShopComponent,
     DepartmentDropZoneComponent,
     ItemDropZoneComponent
   ],

@@ -45,6 +45,16 @@ export class DatabaseService {
     this.shopSubject.next(shop.$key)
   }
 
+  public updateShop(shop: Shop) {
+    //console.log('updateDepartment() ' + JSON.stringify(department));
+    let key = shop.$key
+    let newShop = Object.assign({}, shop)
+    delete newShop.$key
+    newShop.name = newShop.name ?
+      newShop.name[0].toLocaleUpperCase() + newShop.name.substring(1) : ''
+    this.shops$.update(key, newShop)
+  }
+
   public updateDepartment(department: Department) {
     //console.log('updateDepartment() ' + JSON.stringify(department));
     let key = department.$key

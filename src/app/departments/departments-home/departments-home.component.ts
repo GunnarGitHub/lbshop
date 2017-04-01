@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FirebaseListObservable } from 'angularfire2';
 import { DatabaseService } from '../../common/services/database.service';
-import { Shop, User, Department } from '../../common/model/';
+import { User, Shop } from '../../common/model/';
 
 @Component({
   selector: 'app-departments-home',

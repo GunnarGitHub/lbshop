@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Department } from '../../common/model';
+import { Shop } from '../../common/model';
 
 @Component({
   selector: 'list-departments-with-items',
@@ -9,7 +9,7 @@ import { Department } from '../../common/model';
 })
 export class ListDepartmentsWithItemsComponent implements OnInit {
 
-@Input() departments: Department[] = [];
+@Input() departments: Shop[] = [];
 
 
   constructor( ) {

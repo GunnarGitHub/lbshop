@@ -4,7 +4,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core'
 import { FormGroup, FormBuilder } from '@angular/forms'
 
 import { SearchService, DatabaseService } from './../../common/services'
-import { Department, Item } from './../../common/model'
+import { Shop, Item } from './../../common/model'
 
 @Component({
   selector: 'list-department',
@@ -13,7 +13,7 @@ import { Department, Item } from './../../common/model'
 })
 export class ListDepartmentComponent implements OnInit, AfterViewInit {
 
-  @Input() department: Department
+  @Input() department: Shop
   @Input() id: string
   private departmentForm: FormGroup
   private hidden: boolean

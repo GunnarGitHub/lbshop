@@ -1,0 +1,13 @@
+
+<div [hidden]="hidden" id="{{id}}-f" [formGroup]="shopForm" class="dzleave">
+    <button md-mini-fab (click)="addNewDepartment()">
+        <md-icon class="md-24">add</md-icon>
+    </button>
+    <input type="hidden" formControlName="$key">
+    <input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()">
+    <input type="hidden" formControlName="owner" (change)="onChange()">
+    <input type="text" formControlName="order" [style.width.em]="4" (change)="onChange()">
+</div>
+<!--
+<list-items [id]="id" [department]="department" (firstItemEvent)="this.addFirstItem($event)" ></list-items>
+-->
