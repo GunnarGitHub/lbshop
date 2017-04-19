@@ -26,6 +26,7 @@ import { DepartmentsHomeComponent } from './departments/departments-home/departm
 import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
 import { DepartmentDropZoneComponent } from './departments/department-drop-zone/department-drop-zone.component'
 import { ListShopComponent } from './departments/list-shop/list-shop.component';
+import { ListDepartmentsComponent } from './departments/list-departments/list-departments.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { title: 'LB SHOP' }},
@@ -52,7 +53,8 @@ const routes: Routes = [
     ListShopsWithDepartmentsComponent,
     ListShopComponent,
     DepartmentDropZoneComponent,
-    ItemDropZoneComponent
+    ItemDropZoneComponent,
+    ListDepartmentsComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

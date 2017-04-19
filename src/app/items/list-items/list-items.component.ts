@@ -4,7 +4,7 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 
-import { Item, Shop } from '../../common/model';
+import { Item, Department } from '../../common/model';
 import { DatabaseService, SearchService } from './../../common/services';
 
 @Component({
@@ -17,7 +17,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
 
   private items: Item[]
   private itemForm: FormGroup
-  @Input() department: Shop
+  @Input() department: Department
   @Input() id: string
   @Output() firstItemEvent: EventEmitter<Item> = new EventEmitter();
 
