@@ -5,7 +5,7 @@ import { DatabaseService } from '../../common/services/database.service';
 import { User, Shop } from '../../common/model/';
 
 @Component({
-  selector: 'app-departments-home',
+  selector: 'departments-home',
   templateUrl: './departments-home.component.html',
   styleUrls: ['./departments-home.component.css']
 })
