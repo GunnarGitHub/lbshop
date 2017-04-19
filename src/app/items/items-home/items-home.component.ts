@@ -5,11 +5,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User, Shop, Department } from '../../common/model/';
 import { ListShopsComponent } from '../list-shops';
 @Component({
-  selector: 'home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'items-home',
+  templateUrl: './items-home.component.html',
+  styleUrls: ['./items-home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class ItemsHomeComponent implements OnInit {
 
   user: User = this.databaseService.user;
   shop: Shop;

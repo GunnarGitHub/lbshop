@@ -20,7 +20,7 @@ import { ListDepartmentsWithItemsComponent } from './items/list-departments-with
 import { EditItemComponent } from './items/edit-item/edit-item.component';
 import { ListDepartmentComponent } from './items/list-department/list-department.component';
 import { SearchComponent } from './search/search.component';
-import { HomeComponent } from './items/home/home.component';
+import { ItemsHomeComponent } from './items/items-home/items-home.component';
 import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.component'
 import { DepartmentsHomeComponent } from './departments/departments-home/departments-home.component'
 import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
@@ -29,7 +29,7 @@ import { ListShopComponent } from './departments/list-shop/list-shop.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { title: 'LB SHOP' }},
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: ItemsHomeComponent },
   { path: 'departments', component: DepartmentsHomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -47,7 +47,7 @@ const routes: Routes = [
     ListDepartmentComponent,
     SearchComponent,
     PageNotFoundComponent,
-    HomeComponent,
+    ItemsHomeComponent,
     DepartmentsHomeComponent,
     ListShopsWithDepartmentsComponent,
     ListShopComponent,
