@@ -2,18 +2,17 @@ import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { Subject } from 'rxjs/Subject'
 
-import { Shop, Department, Item } from './../model/model';
+import { User, Shop, Department, Item } from './../model/model';
 declare var firebase: any;
 
 @Injectable()
 export class DatabaseService {
   public db: any;
 
-  private shop: Shop
-  public shops$: FirebaseListObservable<Shop[]>
-  public users$: FirebaseListObservable<any[]>
+  //GB public shops$: FirebaseListObservable<Shop[]>
+  //public users$: FirebaseListObservable<any[]>
   public departments$: FirebaseListObservable<any[]>
-  private shopSubject: Subject<string>
+  //gbprivate shopSubject: Subject<string>
   //private departmentSubject: Subject<string>
   public items$: FirebaseListObservable<Item[]>
 
@@ -22,27 +21,33 @@ export class DatabaseService {
     this.db = af.database;
     this.items$ = this.db.list('/items')
     this.departments$ = this.db.list('/departments')
-    this.users$ = this.db.list('/users')
+    //this.users$ = this.db.list('/users')
     this.onInit()
   }
 
   onInit() {
     console.log('shopOwner: ' + this.user.shopOwner)
-    this.shopSubject = new Subject<string>()
+    //GB this.shopSubject = new Subject<string>()
+    /*GB
     this.shops$ = this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
         equalTo: this.user.shopOwner
       }
     });
+    */
 
     this.storeInitialData()
     this.storeUsers()
   }
 
-  public shopChanged(shop) {
-    this.shop = shop
-    this.shopSubject.next(shop.$key)
+  public getShops$(user: User) : FirebaseListObservable<Shop[]>  {
+    return this.db.list('/shops', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: this.user.shopOwner
+      }
+    });
   }
 
   public updateShop(shop: Shop) {
@@ -52,7 +57,8 @@ export class DatabaseService {
     delete newShop.$key
     newShop.name = newShop.name ?
       newShop.name[0].toLocaleUpperCase() + newShop.name.substring(1) : ''
-    this.shops$.update(key, newShop)
+    //GB this.shops$.update(key, newShop)
+    this.db.list('/shops').update(key, newShop)
   }
 
   public updateDepartment(department: Department) {
@@ -112,6 +118,7 @@ export class DatabaseService {
     //console.log('deleteItem item ' + JSON.stringify(item));
   }
 
+ // store users 
   private users = [
     { email: 'gunar.bos@gmail.com', name: 'Gunnar', shopOwner: 'gunar.bos@gmail.com' },
     { email: 'lena.bost@gmail.com', name: 'Lena', shopOwner: 'gunar.bos@gmail.com' }
@@ -121,7 +128,7 @@ export class DatabaseService {
 
   private storeUsers() {
     this.users.forEach(user => {
-      this.users$.push(user);
+      this.db.list('/users').push(user);
     });
   }
 
