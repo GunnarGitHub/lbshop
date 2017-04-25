@@ -23,7 +23,7 @@ export class ItemsHomeComponent implements OnInit {
 
   ngOnInit() {
     console.log("ngOnInit");
-    this.shops$ = this.databaseService.getShops$(this.user)
+    this.shops$ = this.databaseService.getShopsByUser$(this.user)
   }
 
   onShopChanged(shop: Shop) {

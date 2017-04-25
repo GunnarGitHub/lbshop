@@ -11,16 +11,16 @@ export class DatabaseService {
 
   //GB public shops$: FirebaseListObservable<Shop[]>
   //public users$: FirebaseListObservable<any[]>
-  public departments$: FirebaseListObservable<any[]>
+  //GB public departments$: FirebaseListObservable<any[]>
   //gbprivate shopSubject: Subject<string>
   //private departmentSubject: Subject<string>
-  public items$: FirebaseListObservable<Item[]>
+  //GB public items$: FirebaseListObservable<Item[]>
 
   constructor(public af: AngularFire) {
     // Initialize Firebase
     this.db = af.database;
-    this.items$ = this.db.list('/items')
-    this.departments$ = this.db.list('/departments')
+    //GB this.items$ = this.db.list('/items')
+    //GB this.departments$ = this.db.list('/departments')
     //this.users$ = this.db.list('/users')
     this.onInit()
   }
@@ -41,7 +41,19 @@ export class DatabaseService {
     this.storeUsers()
   }
 
-  public getShops$(user: User) : FirebaseListObservable<Shop[]>  {
+  public getDepartments$(): FirebaseListObservable<Department[]> {
+    return this.db.list('/departments')
+  }
+
+  public getItems$(): FirebaseListObservable<Item[]> {
+    return this.db.list('/items')
+  }
+
+  public getShops$() :  FirebaseListObservable<Shop[]> {
+    return this.db.list('/shops')
+  }
+
+  public getShopsByUser$(user: User): FirebaseListObservable<Shop[]> {
     return this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
@@ -58,7 +70,7 @@ export class DatabaseService {
     newShop.name = newShop.name ?
       newShop.name[0].toLocaleUpperCase() + newShop.name.substring(1) : ''
     //GB this.shops$.update(key, newShop)
-    this.db.list('/shops').update(key, newShop)
+    this.getShops$().update(key, newShop)
   }
 
   public updateDepartment(department: Department) {
@@ -68,13 +80,15 @@ export class DatabaseService {
     delete newDepartment.$key
     newDepartment.name = newDepartment.name ?
       newDepartment.name[0].toLocaleUpperCase() + newDepartment.name.substring(1) : ''
-    this.departments$.update(key, newDepartment)
+    //GB this.departments$.update(key, newDepartment)
+    this.getDepartments$().update(key, newDepartment)
   }
 
   public addDepartment(department: Department): string {
     //console.log('addDepartment ' + JSON.stringify(department));
     department.name = department.name ? department.name[0].toLocaleUpperCase() + department.name.substring(1) : ''
-    return this.departments$.push(department).key;
+    //GB return this.departments$.push(department).key;
+    return this.getDepartments$().push(department).key;
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
 
@@ -86,7 +100,8 @@ export class DatabaseService {
     //if (newItem.exists())
     newItem.name = newItem.name ?
       newItem.name[0].toLocaleUpperCase() + newItem.name.substring(1) : ''
-    this.items$.update(key, newItem)
+    //GB this.items$.update(key, newItem)
+    this.getItems$().update(key, newItem)
   }
 
   public moveItem(key: string, targetElementOwner: string, newOrder: number) {
@@ -94,7 +109,7 @@ export class DatabaseService {
     let itemObservable: FirebaseObjectObservable<Item> = this.db.object('/items/' + key)
     let item: Item
     itemObservable.subscribe(snapshot => {
-      console.log(JSON.stringify(snapshot) )
+      console.log(JSON.stringify(snapshot))
       item = snapshot
     })
     delete item['$exists']
@@ -107,7 +122,7 @@ export class DatabaseService {
   public addItem(item: Item) {
     //console.log('addItem() ' + JSON.stringify(item));
     item.name = item.name ? item.name[0].toLocaleUpperCase() + item.name.substring(1) : ''
-    this.items$.push(item)
+     this.getItems$().push(item)
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
 
@@ -118,7 +133,7 @@ export class DatabaseService {
     //console.log('deleteItem item ' + JSON.stringify(item));
   }
 
- // store users 
+  // store users 
   private users = [
     { email: 'gunar.bos@gmail.com', name: 'Gunnar', shopOwner: 'gunar.bos@gmail.com' },
     { email: 'lena.bost@gmail.com', name: 'Lena', shopOwner: 'gunar.bos@gmail.com' }

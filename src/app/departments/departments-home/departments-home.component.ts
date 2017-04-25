@@ -24,7 +24,7 @@ export class DepartmentsHomeComponent implements OnInit {
   ngOnInit() {
     console.log("ngOnInit load shop");
     //GB this.shops$ = this.databaseService.shops$
-    this.shops$ = this.databaseService.getShops$(this.user)
+    this.shops$ = this.databaseService.getShopsByUser$(this.user)
     this.shops$.subscribe(temp => {
       temp.sort((temp1, temp2) => temp1.order - temp2.order);
       this.shops = temp
