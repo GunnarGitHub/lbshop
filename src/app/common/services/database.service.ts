@@ -15,6 +15,8 @@ export class DatabaseService {
   //gbprivate shopSubject: Subject<string>
   //private departmentSubject: Subject<string>
   //GB public items$: FirebaseListObservable<Item[]>
+//GB public user = this.users[0];
+
 
   constructor(public af: AngularFire) {
     // Initialize Firebase
@@ -26,7 +28,7 @@ export class DatabaseService {
   }
 
   onInit() {
-    console.log('shopOwner: ' + this.user.shopOwner)
+    console.log('shopOwner: ' + this.loggedIn().shopOwner)
     //GB this.shopSubject = new Subject<string>()
     /*GB
     this.shops$ = this.db.list('/shops', {
@@ -36,9 +38,14 @@ export class DatabaseService {
       }
     });
     */
-
+    // TODO remove when in production
     this.storeInitialData()
     this.storeUsers()
+  }
+
+  // TODO read from firebase GOOLE authentication 
+  public loggedIn() : User { 
+    return this.users[1]
   }
 
   public getDepartments$(): FirebaseListObservable<Department[]> {
@@ -57,7 +64,7 @@ export class DatabaseService {
     return this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
-        equalTo: this.user.shopOwner
+        equalTo: user.shopOwner
       }
     });
   }
@@ -139,9 +146,7 @@ export class DatabaseService {
     { email: 'lena.bost@gmail.com', name: 'Lena', shopOwner: 'gunar.bos@gmail.com' }
   ];
 
-  public user = this.users[0];
-
-  private storeUsers() {
+    private storeUsers() {
     this.users.forEach(user => {
       this.db.list('/users').push(user);
     });

@@ -1,4 +1,6 @@
+import { DatabaseService } from './common/services/database.service';
 import { Component, OnInit } from '@angular/core';
+import { User } from './common/model'
 
 @Component({
   selector: 'root',
@@ -8,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title: string = 'LB Shop'
   
-  constructor() {
+  constructor(private databaseService: DatabaseService) {
     console.log("constructor ");
   }
 
@@ -16,5 +18,8 @@ export class AppComponent implements OnInit {
     console.log("ngOnInit ");
   }
 
+  private loggedIn() : User {
+    return this.databaseService.loggedIn();
+  }
 }
 

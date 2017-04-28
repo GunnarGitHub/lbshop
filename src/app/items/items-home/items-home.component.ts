@@ -11,7 +11,7 @@ import { ListShopsComponent } from '../list-shops';
 })
 export class ItemsHomeComponent implements OnInit {
 
-  user: User = this.databaseService.user;
+  user: User;
   shops$: FirebaseListObservable<any[]>;
   departments: Department[];
   departments$: FirebaseListObservable<Shop[]>;
@@ -23,6 +23,7 @@ export class ItemsHomeComponent implements OnInit {
 
   ngOnInit() {
     console.log("ngOnInit");
+    this.user = this.databaseService.loggedIn();
     this.shops$ = this.databaseService.getShopsByUser$(this.user)
   }
 

@@ -1,0 +1,11 @@
+<div>
+	<form [formGroup]="itemForm" id={{id}} draggable="true" class="dzleave">
+		<input type="hidden" formControlName="$key">
+		<input type="hidden" formControlName="owner">
+		<input type="checkbox" formControlName="buy" (change)="onChange()">
+		<input type="text" formControlName="quantity" [style.width.em]="3" (change)="onChange()" data-lpignore="true">
+		<input type="text" formControlName="unit" [style.width.em]="6" (change)="onChange()" data-lpignore="true">
+		<input type="text" id="name{{id}}" formControlName="name" [style.width.em]="25" (change)="onChange()" data-lpignore="true">
+		<input type="text" formControlName="order" [style.width.em]="5" (change)="onChange()" data-lpignore="true">
+	</form>
+</div>
