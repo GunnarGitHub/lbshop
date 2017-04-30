@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject'
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms'
 
+import { FirebaseListObservable } from 'angularfire2';
 import { SearchService, DatabaseService } from './../../common/services'
 import { Shop, Department } from './../../common/model'
 
@@ -11,10 +12,13 @@ import { Shop, Department } from './../../common/model'
   templateUrl: './list-shop.component.html',
   styleUrls: ['./list-shop.component.css']
 })
-export class ListShopComponent implements OnInit {
+export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() shop: Shop
   @Input() id: string
+
+  departments$: FirebaseListObservable<Department[]>;
+
 
   private shopForm: FormGroup
   private hidden: boolean
@@ -49,6 +53,19 @@ export class ListShopComponent implements OnInit {
       //console.log('ngOnInit hidden? ' + this.hidden)
     })
   }
+
+  ngOnChanges() {
+    console.log('ngOnChanges')
+    this.departments$ = this.databaseService.getDepartmentsByOwnerOrdered$(this.shop)
+
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit')
+    this.departments$ = this.databaseService.getDepartmentsByOwnerOrdered$(this.shop)
+
+  }
+
 
   onChange() {
     //console.log("onChange " + JSON.stringify(this.departmentForm.value));

@@ -15,7 +15,7 @@ export class DatabaseService {
   //gbprivate shopSubject: Subject<string>
   //private departmentSubject: Subject<string>
   //GB public items$: FirebaseListObservable<Item[]>
-//GB public user = this.users[0];
+  //GB public user = this.users[0];
 
 
   constructor(public af: AngularFire) {
@@ -44,7 +44,7 @@ export class DatabaseService {
   }
 
   // TODO read from firebase GOOLE authentication 
-  public loggedIn() : User { 
+  public loggedIn(): User {
     return this.users[1]
   }
 
@@ -56,11 +56,20 @@ export class DatabaseService {
     return this.db.list('/items')
   }
 
-  public getShops$() :  FirebaseListObservable<Shop[]> {
+  public getShops$(): FirebaseListObservable<Shop[]> {
     return this.db.list('/shops')
   }
 
-  public getShopsByUser$(user: User): FirebaseListObservable<Shop[]> {
+  public getDepartmentsByOwnerOrdered$(owner: any): FirebaseListObservable<any[]> {
+   console.log('getDepartmentsByOwnerOrdered ' + ' ' + JSON.stringify(owner) ) 
+   return this.db.list('/departments', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: owner.key$
+      },
+    });
+  }
+  public shopsByUser$(user: User): FirebaseListObservable<Shop[]> {
     return this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
@@ -129,7 +138,7 @@ export class DatabaseService {
   public addItem(item: Item) {
     //console.log('addItem() ' + JSON.stringify(item));
     item.name = item.name ? item.name[0].toLocaleUpperCase() + item.name.substring(1) : ''
-     this.getItems$().push(item)
+    this.getItems$().push(item)
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
 
@@ -146,7 +155,7 @@ export class DatabaseService {
     { email: 'lena.bost@gmail.com', name: 'Lena', shopOwner: 'gunar.bos@gmail.com' }
   ];
 
-    private storeUsers() {
+  private storeUsers() {
     this.users.forEach(user => {
       this.db.list('/users').push(user);
     });

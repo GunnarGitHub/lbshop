@@ -1,8 +1,17 @@
 <div class="departments-container">
 	<!--list-shops [shops]=" shops$ | async " (shopChanged)="onShopChanged($event) ">Shops</list-shops-->
-	<search>Loading search...</search> 
+	<search>Loading search...</search>
 </div>
+<div *ngFor="let shop of (shops$ | async); let i = index">
+	<list-shop [id]="'s'+i" id="{{id}}" [shop]="shop">
+		<div *ngFor="let department of (departments$ | async); let i = index">
+			FOO {{department.name}}
+		</div>
+	</list-shop>
+</div>
+<!-- GB 
 <div class="shops-and-departments">
 	<list-shops-with-departments [shops]=" shops ">Shops</list-shops-with-departments>
 	<department-drop-zone></department-drop-zone>
 </div>
+-->
