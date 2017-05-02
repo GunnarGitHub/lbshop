@@ -24,7 +24,7 @@ export class ItemsHomeComponent implements OnInit {
   ngOnInit() {
     console.log("ngOnInit");
     this.user = this.databaseService.loggedIn();
-    this.shops$ = this.databaseService.shopsByUser$(this.user)
+    this.shops$ = this.databaseService.shopsByOwner$(this.user)
   }
 
   onShopChanged(shop: Shop) {

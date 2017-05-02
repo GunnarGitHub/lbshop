@@ -12,17 +12,17 @@ import { Shop, Department } from './../../common/model'
   templateUrl: './list-shop.component.html',
   styleUrls: ['./list-shop.component.css']
 })
-export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
+//GBexport class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
+export class ListShopComponent implements OnInit {
 
   @Input() shop: Shop
   @Input() id: string
 
-  departments$: FirebaseListObservable<Department[]>;
+  //GBdepartments$: FirebaseListObservable<Department[]>;
 
-
-  private shopForm: FormGroup
-  private hidden: boolean
-  private searchSubscription: Subject<string>
+  shopForm: FormGroup
+  hidden: boolean
+  searchSubscription: Subject<string>
   firstdepartment: Department
   dnddepartmentKey = 'string:text/departmentkey'
 
@@ -50,22 +50,22 @@ export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
       } else {
         this.hidden = false
       }
-      //console.log('ngOnInit hidden? ' + this.hidden)
     })
+    //GBthis.departments$ = this.databaseService.departmentsByOwner$(this.shop)
   }
 
-  ngOnChanges() {
-    console.log('ngOnChanges')
-    this.departments$ = this.databaseService.getDepartmentsByOwnerOrdered$(this.shop)
-
-  }
-
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit')
-    this.departments$ = this.databaseService.getDepartmentsByOwnerOrdered$(this.shop)
-
-  }
-
+  /* GB  ngOnChanges() {
+      console.log('ngOnChanges')
+      this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
+  
+    }
+  
+    ngAfterViewInit() {
+      console.log('ngAfterViewInit')
+      this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
+  
+    }
+  */
 
   onChange() {
     //console.log("onChange " + JSON.stringify(this.departmentForm.value));

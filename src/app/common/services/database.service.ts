@@ -60,20 +60,21 @@ export class DatabaseService {
     return this.db.list('/shops')
   }
 
-  public getDepartmentsByOwnerOrdered$(owner: any): FirebaseListObservable<any[]> {
-   console.log('getDepartmentsByOwnerOrdered ' + ' ' + JSON.stringify(owner) ) 
-   return this.db.list('/departments', {
-      query: {
-        orderByChild: 'owner',
-        equalTo: owner.key$
-      },
-    });
-  }
-  public shopsByUser$(user: User): FirebaseListObservable<Shop[]> {
+  public shopsByOwner$(user: User): FirebaseListObservable<Shop[]> {
     return this.db.list('/shops', {
       query: {
         orderByChild: 'owner',
         equalTo: user.shopOwner
+      }
+    });
+  }
+
+  public departmentsByOwner$(shop: Shop): FirebaseListObservable<Shop[]> {
+    console.log('departmentsByOwner$ ' + JSON.stringify(shop));
+    return this.db.list('/departments', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: shop.$key
       }
     });
   }
