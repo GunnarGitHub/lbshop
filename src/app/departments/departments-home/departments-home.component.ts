@@ -11,32 +11,34 @@ import { User, Shop, Department } from '../../common/model/';
 })
 export class DepartmentsHomeComponent implements OnInit {
 
-  @Input() shop : Shop
+  @Input() shop: Shop
 
   user: User
   shops: Shop[]
   shops$: FirebaseListObservable<Shop[]>
-  //departments: Department[];
+  departments: Department[];
+  departments$: FirebaseListObservable<Department[]>;
+
   constructor(private databaseService: DatabaseService) {
     console.log("constructor ");
   }
 
   ngOnInit() {
     console.log("ngOnInit");
-     this.user = this.databaseService.loggedIn();
+    this.user = this.databaseService.loggedIn();
     //GB this.shops$ = this.databaseService.shops$
     this.shops$ = this.shopsByOwner$(this.user)
     this.shops$.subscribe(temp => {
       temp.sort((temp1, temp2) => temp1.order - temp2.order);
       this.shops = temp
     })
-    
+
   }
 
- public shopsByOwner$(user: User) : FirebaseListObservable<Shop[]> {
-   console.log("shopsByOwner");
-   return this.databaseService.shopsByOwner$(this.user)
- }
+  public shopsByOwner$(user: User): FirebaseListObservable<Shop[]> {
+    console.log("shopsByOwner");
+    return this.databaseService.shopsByOwner$(this.user)
+  }
 
   public loggedIn() {
     return this.databaseService.loggedIn()

@@ -14,7 +14,7 @@ export class ItemsHomeComponent implements OnInit {
   user: User;
   shops$: FirebaseListObservable<any[]>;
   departments: Department[];
-  departments$: FirebaseListObservable<Shop[]>;
+  departments$: FirebaseListObservable<Department[]>;
 
   constructor(
     private databaseService: DatabaseService, ) {

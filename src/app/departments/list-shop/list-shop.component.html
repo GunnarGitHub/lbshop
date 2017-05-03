@@ -8,6 +8,7 @@
     <input type="hidden" formControlName="owner" (change)="onChange()">
     <input type="text" formControlName="order" [style.width.em]="4" (change)="onChange()">
 </div>
-<!--
-<list-departments [id]="id" [department]="department" (firstItemEvent)="this.addFirstItem($event)" ></list-departments>
+<!--GB
+<list-departments [id]="id" [shop]="shop"></list-departments>
+<list-departments [id]="id" [shop]="shop" (firstDepartmentEvent)="this.addFirstDepartment($event)" ></list-departments>
 -->

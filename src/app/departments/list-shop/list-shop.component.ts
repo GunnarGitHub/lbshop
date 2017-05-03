@@ -12,13 +12,13 @@ import { Shop, Department } from './../../common/model'
   templateUrl: './list-shop.component.html',
   styleUrls: ['./list-shop.component.css']
 })
-//GBexport class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
-export class ListShopComponent implements OnInit {
+export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
+//GBexport class ListShopComponent implements OnInit {
 
   @Input() shop: Shop
   @Input() id: string
 
-  //GBdepartments$: FirebaseListObservable<Department[]>;
+  departments$: FirebaseListObservable<Department[]>;
 
   shopForm: FormGroup
   hidden: boolean
@@ -59,13 +59,13 @@ export class ListShopComponent implements OnInit {
       this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
   
     }
+  */
   
     ngAfterViewInit() {
-      console.log('ngAfterViewInit')
+      console.log('ngAfterViewInit ' +JSON.stringify(this.shop))
       this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
   
     }
-  */
 
   onChange() {
     //console.log("onChange " + JSON.stringify(this.departmentForm.value));
