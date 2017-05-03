@@ -1,5 +1,5 @@
 import { by } from 'protractor';
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { DatabaseService } from '../../common/services/database.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { User, Shop, Department } from '../../common/model/';

@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject'
-import { Component, OnInit, AfterViewInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms'
 
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { SearchService, DatabaseService } from './../../common/services'
 import { Shop, Department } from './../../common/model'
 
@@ -67,7 +67,7 @@ export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
   
     }
 
-  onChange() {
+  ngOnChanges(changes: SimpleChanges): void {
     //console.log("onChange " + JSON.stringify(this.departmentForm.value));
     this.databaseService.updateShop(this.shopForm.value);
   }

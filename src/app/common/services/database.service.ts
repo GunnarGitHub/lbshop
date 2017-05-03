@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Subject } from 'rxjs/Subject'
 
 import { User, Shop, Department, Item } from './../model/model';
@@ -18,7 +18,7 @@ export class DatabaseService {
   //GB public user = this.users[0];
 
 
-  constructor(public af: AngularFire) {
+  constructor(public af: AngularFireDatabase) {
     // Initialize Firebase
     this.db = af.database;
     //GB this.items$ = this.db.list('/items')

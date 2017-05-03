@@ -1,6 +1,6 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ListShopsComponent } from './../../items/list-shops/list-shops.component';
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { DatabaseService } from '../../common/services/database.service';
 import { Component, OnInit, Input } from '@angular/core';
 
