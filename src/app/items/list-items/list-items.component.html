@@ -2,7 +2,7 @@
 	<div formArrayName="items">
 		<div *ngFor="let item of getItems(); let i=index">
 			<div id="{{id}}-i{{i}}" [formGroupName]="i">
-				<edit-item [id]="id+'-f'+i" [group]="itemForm.controls.items.controls[i]"></edit-item>
+				<edit-item [id]="id+'-f'+i" [group]="itemForm.controls['items'].controls[i]"></edit-item>
 			</div>
 		</div>
 	</div>

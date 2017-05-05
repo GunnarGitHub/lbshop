@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject'
-import { Component, OnInit, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms'
 
 import { FirebaseListObservable } from 'angularfire2/database';
@@ -12,7 +12,7 @@ import { Shop, Department } from './../../common/model'
   templateUrl: './list-shop.component.html',
   styleUrls: ['./list-shop.component.css']
 })
-export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
+export class ListShopComponent implements OnInit, AfterViewInit {
   //GBexport class ListShopComponent implements OnInit {
 
   @Input() shop: Shop
@@ -20,7 +20,7 @@ export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
 
   departments$: FirebaseListObservable<Department[]>;
 
-  shopForm: FormGroup 
+  shopForm: FormGroup
   hidden: boolean
   searchSubscription: Subject<string>
   firstdepartment: Department
@@ -36,6 +36,13 @@ export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit() {
     console.log('ngOnInit ');
+    this.shopForm = this.fb.group({
+      $key: this.shop.$key,
+      name: this.shop.name,
+      owner: this.shop.owner,
+      order: this.shop.order
+    })
+
     this.searchSubscription = this.searchService.getSearchSubject()
     this.searchSubscription.subscribe(search => {
       //console.log('search ' + search + ' ' + this.department.name)
@@ -48,29 +55,16 @@ export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
     //GBthis.departments$ = this.databaseService.departmentsByOwner$(this.shop)
   }
 
-  /* GB  ngOnChanges() {
-      console.log('ngOnChanges')
-      this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
-  
-    }
-  */
-
   ngAfterViewInit() {
     console.log('ngAfterViewInit ' + JSON.stringify(this.shop))
     //this.shopForm = new FormGroup()
-    this.shopForm = this.fb.group({
-      $key: this.shop.$key,
-      name: this.shop.name,
-      owner: this.shop.owner,
-      order: this.shop.order
-    })
     this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
 
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    //GB console.log("onChanges " + JSON.stringify(this.shopForm));
-    //GB this.databaseService.updateShop(this.shopForm.value);
+  onChange(): void {
+    console.log("onChanges " + JSON.stringify(this.shopForm.value));
+    this.databaseService.updateShop(this.shopForm.value);
   }
 
   addNewDepartment() {

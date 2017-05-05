@@ -7,11 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Shop, Department } from './../../common/model';
 
 @Component({
-  selector: 'list-departments',
-  templateUrl: './list-departments.component.html',
-  styleUrls: ['./list-departments.component.css']
+  selector: 'show-departments',
+  templateUrl: './show-departments.component.html',
+  styleUrls: ['./show-departments.component.css']
 })
-export class ListDepartmentsComponent implements OnInit {
+export class ShowDepartmentsComponent implements OnInit {
 
   @Input() shop: Shop
   @Input() id: string
@@ -47,12 +47,12 @@ export class ListDepartmentsComponent implements OnInit {
 
   public addNewDepartment() {
     //TODO
-    console.log('addNewDepartment TOSO')
+    console.log('addNewDepartment TODO')
   }
 
   onChange() {
     //console.log("onChange " + JSON.stringify(this.departmentForm.value));
-    console.log('onChange TOSO')
+    console.log('onChange TODO')
     //this.databaseService.updateDepartment(this.shopForm.value);
   }
 

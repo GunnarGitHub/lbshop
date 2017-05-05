@@ -15,8 +15,8 @@ import { DatabaseService, SearchService } from './../../common/services';
 
 export class ListItemsComponent implements OnInit, OnDestroy {
 
-  private items: Item[]
-  private itemForm: FormGroup
+  items: Item[]
+  itemForm: FormGroup
   @Input() department: Department
   @Input() id: string
   @Output() firstItemEvent: EventEmitter<Item> = new EventEmitter();

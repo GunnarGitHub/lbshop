@@ -4,9 +4,9 @@
         <md-icon class="md-24">add</md-icon>
     </button>
     <input type="hidden" formControlName="$key">
-    <input type="text" formControlName="name" [style.width.em]="25" (change)="ngOnChanges()">
-    <input type="hidden" formControlName="owner" (change)="ngOnChanges()">
-    <input type="text" formControlName="order" [style.width.em]="4" (change)="ngOnChanges()">
+    <input type="text" formControlName="name" [style.width.em]="25" (change)="onChange()">
+    <input type="hidden" formControlName="owner" (change)="onChange()">
+    <input type="text" formControlName="order" [style.width.em]="4" (change)="onChange()">
 </div>
 <!--GB
 <list-departments [id]="id" [shop]="shop"></list-departments>

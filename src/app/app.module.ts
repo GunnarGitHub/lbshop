@@ -27,7 +27,8 @@ import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.com
 import { DepartmentsHomeComponent } from './departments/departments-home/departments-home.component'
 import { DepartmentDropZoneComponent } from './departments/department-drop-zone/department-drop-zone.component'
 import { ListShopComponent } from './departments/list-shop/list-shop.component';
-import { ListDepartmentsComponent } from './departments/list-departments/list-departments.component'
+//import { ListDepartmentsComponent } from './departments/list-departments/list-departments.component'
+import { ShowDepartmentsComponent } from './departments/show-departments/show-departments.component'
 import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
 
 const routes: Routes = [
@@ -52,11 +53,12 @@ const routes: Routes = [
     PageNotFoundComponent,
     ItemsHomeComponent,
     DepartmentsHomeComponent,
-    ListDepartmentsComponent,
+    //ListDepartmentsComponent,
     ListShopComponent,
     DepartmentDropZoneComponent,
     ItemDropZoneComponent,
-    ListDepartmentsComponent,
+    //ListDepartmentsComponent,
+    ShowDepartmentsComponent,
     ListShopsWithDepartmentsComponent
   ],
   imports: [
