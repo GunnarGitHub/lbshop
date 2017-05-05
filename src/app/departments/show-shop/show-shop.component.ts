@@ -8,11 +8,11 @@ import { SearchService, DatabaseService } from './../../common/services'
 import { Shop, Department } from './../../common/model'
 
 @Component({
-  selector: 'list-shop',
-  templateUrl: './list-shop.component.html',
-  styleUrls: ['./list-shop.component.css']
+  selector: 'show-shop',
+  templateUrl: './show-shop.component.html',
+  styleUrls: ['./show-shop.component.css']
 })
-export class ListShopComponent implements OnInit, AfterViewInit {
+export class ShowShopComponent implements OnInit, AfterViewInit {
   //GBexport class ListShopComponent implements OnInit {
 
   @Input() shop: Shop
@@ -77,3 +77,4 @@ export class ListShopComponent implements OnInit, AfterViewInit {
     this.databaseService.addDepartment(department)
   }
 }
+

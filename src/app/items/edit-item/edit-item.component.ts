@@ -15,7 +15,7 @@ import { Item } from '../../common/model';
 export class EditItemComponent implements OnInit, AfterViewInit {
 
   @Input('group')
-  private itemForm: FormGroup;
+  itemForm: FormGroup;
 
   @Input() id: string
   key: string = "dummy"

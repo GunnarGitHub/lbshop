@@ -13,8 +13,6 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './common/page-not-found/page-not-found.component';
-import { ShopComponent } from './shop/shop.component';
-import { UserComponent } from './user';
 import { ListShopsComponent } from './items/list-shops/list-shops.component';
 import { DatabaseService, SearchService } from './common/services';
 import { ListItemsComponent } from './items/list-items/list-items.component';
@@ -26,10 +24,10 @@ import { ItemsHomeComponent } from './items/items-home/items-home.component';
 import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.component'
 import { DepartmentsHomeComponent } from './departments/departments-home/departments-home.component'
 import { DepartmentDropZoneComponent } from './departments/department-drop-zone/department-drop-zone.component'
-import { ListShopComponent } from './departments/list-shop/list-shop.component';
-//import { ListDepartmentsComponent } from './departments/list-departments/list-departments.component'
+import { ShowShopComponent } from './departments/show-shop/show-shop.component'
 import { ShowDepartmentsComponent } from './departments/show-departments/show-departments.component'
-import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
+import { ShowShopsWithDepartmentsComponent } from './departments/show-shops-with-departments/show-shops-with-departments.component'
+//import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full', data: { title: 'LB SHOP' }},
@@ -41,8 +39,6 @@ const routes: Routes = [
 @NgModule({ 
   declarations: [
     AppComponent,
-    ShopComponent,
-    UserComponent,
     ListShopsComponent,
     ListDepartmentComponent,
     ListItemsComponent,
@@ -53,13 +49,12 @@ const routes: Routes = [
     PageNotFoundComponent,
     ItemsHomeComponent,
     DepartmentsHomeComponent,
-    //ListDepartmentsComponent,
-    ListShopComponent,
     DepartmentDropZoneComponent,
     ItemDropZoneComponent,
-    //ListDepartmentsComponent,
+    ShowShopComponent,
     ShowDepartmentsComponent,
-    ListShopsWithDepartmentsComponent
+    ShowShopsWithDepartmentsComponent
+    //ListShopsWithDepartmentsComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),

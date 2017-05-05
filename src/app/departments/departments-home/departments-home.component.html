@@ -2,19 +2,19 @@
 	<!--list-shops [shops]=" shops$ | async " (shopChanged)="onShopChanged($event) ">Shops</list-shops-->
 	<search>Loading search...</search>
 </div>
-<list-shops-with-departments [shops]="shops"></list-shops-with-departments>
+<show-shops-with-departments [shops]="shops"></show-shops-with-departments>
 		<!--
 <div *ngFor="let shop of shops; let i = index">
-	<list-shop [id]="'s'+i" id="{{id}}" [shop]="shop">
+	<show-shop [id]="'s'+i" id="{{id}}" [shop]="shop">
 		<list-departments [shop]="shop"></list-departments> 
 		<div *ngFor="let department of (departments$ | async); let i = index">
 			FOO {{department.name}}
 		</div>
-	</list-shop>
+	</show-shop>
 	-->
 <!-- GB 
 <div class="shops-and-departments">
-	<list-shops-with-departments [shops]=" shops ">Shops</list-shops-with-departments>
+	<shop-shops-with-departments [shops]=" shops ">Shops</shop-shops-with-departments>
 	<department-drop-zone></department-drop-zone>
 </div>
 -->
