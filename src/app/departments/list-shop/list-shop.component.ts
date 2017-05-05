@@ -13,14 +13,14 @@ import { Shop, Department } from './../../common/model'
   styleUrls: ['./list-shop.component.css']
 })
 export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
-//GBexport class ListShopComponent implements OnInit {
+  //GBexport class ListShopComponent implements OnInit {
 
   @Input() shop: Shop
   @Input() id: string
 
   departments$: FirebaseListObservable<Department[]>;
 
-  shopForm: FormGroup
+  shopForm: FormGroup 
   hidden: boolean
   searchSubscription: Subject<string>
   firstdepartment: Department
@@ -36,12 +36,6 @@ export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit() {
     console.log('ngOnInit ');
-    this.shopForm = this.fb.group({
-      $key: this.shop.$key,
-      name: this.shop.name,
-      owner: this.shop.owner,
-      order: this.shop.order
-    })
     this.searchSubscription = this.searchService.getSearchSubject()
     this.searchSubscription.subscribe(search => {
       //console.log('search ' + search + ' ' + this.department.name)
@@ -60,16 +54,23 @@ export class ListShopComponent implements OnInit, OnChanges, AfterViewInit {
   
     }
   */
-  
-    ngAfterViewInit() {
-      console.log('ngAfterViewInit ' +JSON.stringify(this.shop))
-      this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
-  
-    }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit ' + JSON.stringify(this.shop))
+    //this.shopForm = new FormGroup()
+    this.shopForm = this.fb.group({
+      $key: this.shop.$key,
+      name: this.shop.name,
+      owner: this.shop.owner,
+      order: this.shop.order
+    })
+    this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
+
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    //console.log("onChange " + JSON.stringify(this.departmentForm.value));
-    this.databaseService.updateShop(this.shopForm.value);
+    //GB console.log("onChanges " + JSON.stringify(this.shopForm));
+    //GB this.databaseService.updateShop(this.shopForm.value);
   }
 
   addNewDepartment() {

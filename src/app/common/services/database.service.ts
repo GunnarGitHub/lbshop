@@ -7,7 +7,7 @@ declare var firebase: any;
 
 @Injectable()
 export class DatabaseService {
-  public db: any;
+  public db: AngularFireDatabase;
 
   //GB public shops$: FirebaseListObservable<Shop[]>
   //public users$: FirebaseListObservable<any[]>
@@ -18,9 +18,9 @@ export class DatabaseService {
   //GB public user = this.users[0];
 
 
-  constructor(public af: AngularFireDatabase) {
+  constructor(db: AngularFireDatabase) {
     // Initialize Firebase
-    this.db = af.database;
+    this.db = db;
     //GB this.items$ = this.db.list('/items')
     //GB this.departments$ = this.db.list('/departments')
     //this.users$ = this.db.list('/users')

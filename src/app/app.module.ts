@@ -5,6 +5,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database'
+
 import { RouterModule, Routes } from '@angular/router';
 
 import 'hammerjs';
@@ -59,6 +61,7 @@ const routes: Routes = [
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
