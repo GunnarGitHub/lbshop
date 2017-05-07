@@ -16,6 +16,7 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
   //GBexport class ListShopComponent implements OnInit {
 
   @Input() shop: Shop
+  @Input() shops: Shop[]
   @Input() id: string
 
   departments$: FirebaseListObservable<Department[]>;

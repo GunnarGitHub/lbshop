@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ListShopsComponent } from './../../items/list-shops/list-shops.component';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { DatabaseService } from '../../common/services/database.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 
 import { Shop, Department } from './../../common/model';
 
@@ -11,7 +11,7 @@ import { Shop, Department } from './../../common/model';
   templateUrl: './show-departments.component.html',
   styleUrls: ['./show-departments.component.css']
 })
-export class ShowDepartmentsComponent implements OnInit {
+export class ShowDepartmentsComponent implements OnInit, AfterViewInit {
 
   @Input() shop: Shop
   @Input() id: string
@@ -22,6 +22,10 @@ export class ShowDepartmentsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private databaseService: DatabaseService) {
+  }
+
+  public ngAfterViewInit() {
+    console.log("ngAfterViewInit shop " + JSON.stringify(this.shop));
     this.departments$ = this.departmentsByOwner$(this.shop)
     this.departments$.subscribe(temp => {
       temp.sort((temp1, temp2) => temp1.order - temp2.order);
@@ -30,7 +34,7 @@ export class ShowDepartmentsComponent implements OnInit {
   }
 
   public departmentsByOwner$(shop: Shop): FirebaseListObservable<Shop[]> {
-    console.log("departmentsByOwner$ " + JSON.stringify(ListShopsComponent));
+    console.log("departmentsByOwner$ " + JSON.stringify(shop));
     return this.databaseService.departmentsByOwner$(shop)
   }
 

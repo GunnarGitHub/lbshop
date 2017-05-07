@@ -24,9 +24,11 @@ import { ItemsHomeComponent } from './items/items-home/items-home.component';
 import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.component'
 import { DepartmentsHomeComponent } from './departments/departments-home/departments-home.component'
 import { DepartmentDropZoneComponent } from './departments/department-drop-zone/department-drop-zone.component'
+import { ShowShopsWithDepartmentsComponent } from './departments/show-shops-with-departments/show-shops-with-departments.component'
+import { ShowShopsComponent } from './departments/show-shops/show-shops.component';
 import { ShowShopComponent } from './departments/show-shop/show-shop.component'
 import { ShowDepartmentsComponent } from './departments/show-departments/show-departments.component'
-import { ShowShopsWithDepartmentsComponent } from './departments/show-shops-with-departments/show-shops-with-departments.component'
+import { ShowDepartmentComponent } from './departments/show-department/show-department.component'
 //import { ListShopsWithDepartmentsComponent } from './departments/list-shops-with-departments/list-shops-with-departments.component'
 
 const routes: Routes = [
@@ -51,8 +53,10 @@ const routes: Routes = [
     DepartmentsHomeComponent,
     DepartmentDropZoneComponent,
     ItemDropZoneComponent,
+    ShowShopsComponent,
     ShowShopComponent,
     ShowDepartmentsComponent,
+    ShowDepartmentComponent,
     ShowShopsWithDepartmentsComponent
     //ListShopsWithDepartmentsComponent
   ],

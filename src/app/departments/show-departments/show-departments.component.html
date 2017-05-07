@@ -1,3 +1,5 @@
-<p>
-  show-departments works!
-</p>
+<div *ngFor="let department of departments; let i = index">
+    <show-department [id]="id" [department]="department"></show-department>
+</div>
+    <!-- GB
+-->
