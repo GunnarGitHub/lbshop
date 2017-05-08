@@ -110,7 +110,7 @@ export class DatabaseService {
   }
 
   public updateItem(item: Item) {
-    //console.log('updateItem() ' + JSON.stringify(item));
+    console.log('updateItem() ' + JSON.stringify(item));
     let key = item.$key
     let newItem = Object.assign({}, item)
     delete newItem.$key
@@ -122,17 +122,17 @@ export class DatabaseService {
   }
 
   public moveItem(key: string, targetElementOwner: string, newOrder: number) {
-    console.log('moveItem ' + key + '/' + targetElementOwner + '/' + newOrder)
+    //console.log('moveItem ' + key + '/' + targetElementOwner + '/' + newOrder)
     let itemObservable: FirebaseObjectObservable<Item> = this.db.object('/items/' + key)
     let item: Item
     itemObservable.subscribe(snapshot => {
-      console.log(JSON.stringify(snapshot))
+      //console.log("moveItem snapshot " + JSON.stringify(snapshot))
       item = snapshot
     })
     delete item['$exists']
-    console.log('moveItem before ' + JSON.stringify(item)) //item.$key + '/' + item.owner + '/' + item.order)
-    item = Object.assign({}, item, { owner: targetElementOwner, order: newOrder })
-    console.log('moveItem after ' + JSON.stringify(item)) // + item.$key + '/' + item.owner + '/' + item.order)
+    //console.log('moveItem before ' + JSON.stringify(item)) //item.$key + '/' + item.owner + '/' + item.order)
+    item = Object.assign({}, item, { $key: key, owner: targetElementOwner, order: newOrder })
+    console.log('moveItem ' + JSON.stringify(item)) // + item.$key + '/' + item.owner + '/' + item.order)
     this.updateItem(item)
   }
 
