@@ -15,9 +15,10 @@ import { Shop, Department } from './../../common/model'
 export class ShowShopComponent implements OnInit, AfterViewInit {
   //GBexport class ListShopComponent implements OnInit {
 
+  @Input() id: string
   @Input() shop: Shop
   @Input() shops: Shop[]
-  @Input() id: string
+  @Input() departments: Department[]
 
   departments$: FirebaseListObservable<Department[]>;
 
@@ -31,8 +32,9 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
     private databaseService: DatabaseService,
     private searchService: SearchService) { }
 
-  addFirstDepartment(department: Department) {
-    this.firstdepartment = department
+  addFirstDepartment() {
+    this.firstdepartment = this.departments[0]
+    this.databaseService.addDepartment(this.departments[0])
   }
 
   ngOnInit() {
