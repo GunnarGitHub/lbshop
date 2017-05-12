@@ -90,8 +90,9 @@ export class ListItemsComponent implements OnInit, OnDestroy {
       order: item.order
     });
   }
-
+  /*GB
   getItems(): Item[] {
     return this.itemForm.controls['items']['controls'];
   }
+  */
 }

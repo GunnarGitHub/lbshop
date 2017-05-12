@@ -17,10 +17,10 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
 
   @Input() id: string
   @Input() shop: Shop
-  @Input() shops: Shop[]
+  //GB @Input() shops: Shop[]
   //GB  @Input() departments: Department[]
-  @Output() firstDepartmentEvent: EventEmitter<Department> = new EventEmitter();
 
+  //GBfirstDepartmentEvent: Department
   departments: Department[]
   departments$: FirebaseListObservable<Department[]>;
 
@@ -34,10 +34,10 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
     private databaseService: DatabaseService,
     private searchService: SearchService) { }
 
-  addFirstDepartment() {
-    console.log('addFirstDepartment ');
-    this.firstdepartment = this.departments[0]
-    this.databaseService.addDepartment(this.departments[0])
+  addFirstDepartment(department: Department) {
+    console.log('addFirstDepartment ' + JSON.stringify(department));
+    this.firstdepartment = department
+    //GB this.databaseService.addDepartment(this.departments[0])
   }
 
   ngOnInit() {
@@ -63,7 +63,6 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
       temp.sort((temp1, temp2) => temp1.order - temp2.order);
       this.departments = temp
     })
-    this.firstDepartmentEvent.emit(this.departments ? this.departments[0] : null)
     //GBthis.departments$ = this.databaseService.departmentsByOwner$(this.shop)
   }
 
