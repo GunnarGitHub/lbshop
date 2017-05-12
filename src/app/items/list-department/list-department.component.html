@@ -8,4 +8,4 @@
     <input type="hidden" formControlName="owner" (change)="onChange()">
     <input type="text" formControlName="order" [style.width.em]="4" (change)="onChange()">
 </div>
-<list-items [id]="id" [department]="department" (firstItemEvent)="this.addFirstItem($event)" ></list-items>
+<list-items [id]="id" [department]="department" (firstItemEvent)="addFirstItem($event)" ></list-items>

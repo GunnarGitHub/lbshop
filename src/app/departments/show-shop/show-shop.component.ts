@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject'
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms'
 
 import { FirebaseListObservable } from 'angularfire2/database';
@@ -18,8 +18,10 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
   @Input() id: string
   @Input() shop: Shop
   @Input() shops: Shop[]
-  @Input() departments: Department[]
+  //GB  @Input() departments: Department[]
+  @Output() firstDepartmentEvent: EventEmitter<Department> = new EventEmitter();
 
+  departments: Department[]
   departments$: FirebaseListObservable<Department[]>;
 
   shopForm: FormGroup
@@ -33,6 +35,7 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
     private searchService: SearchService) { }
 
   addFirstDepartment() {
+    console.log('addFirstDepartment ');
     this.firstdepartment = this.departments[0]
     this.databaseService.addDepartment(this.departments[0])
   }
@@ -55,14 +58,18 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
         this.hidden = false
       }
     })
+    this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
+    this.departments$.subscribe(temp => {
+      temp.sort((temp1, temp2) => temp1.order - temp2.order);
+      this.departments = temp
+    })
+    this.firstDepartmentEvent.emit(this.departments ? this.departments[0] : null)
     //GBthis.departments$ = this.databaseService.departmentsByOwner$(this.shop)
   }
 
   ngAfterViewInit() {
     console.log('ngAfterViewInit ' + JSON.stringify(this.shop))
     //this.shopForm = new FormGroup()
-    this.departments$ = this.databaseService.departmentsByOwner$(this.shop)
-
   }
 
   onChange(): void {

@@ -1,8 +1,7 @@
-  <show-shops [shops]="shops" ></show-shops>
-  <!--
-  <show-shops [id]="'d'+i" id="{{id}}" [shops]="shops" ></show-shops>
 <div *ngFor="let shop of shops; let i = index">
-  {{shop.name}}
-   <list-departments [id]="'d'+i" id="{{id}}" [shop]="shop" ></list-departments>
+   <show-shop [id]="'d'+i" id="{{id}}" [shop]="shop" ></show-shop>
 </div>
+  <!--
+  <show-shops [shops]="shops" ></show-shops>
+  <show-shops [id]="'d'+i" id="{{id}}" [shops]="shops" ></show-shops>
   -->

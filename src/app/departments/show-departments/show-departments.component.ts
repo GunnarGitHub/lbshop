@@ -2,7 +2,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ListShopsComponent } from './../../items/list-shops/list-shops.component';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { DatabaseService } from '../../common/services/database.service';
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, AfterViewInit, EventEmitter } from '@angular/core';
 
 import { Shop, Department } from './../../common/model';
 
@@ -15,6 +15,8 @@ export class ShowDepartmentsComponent implements OnInit, AfterViewInit {
 
   @Input() shop: Shop
   @Input() id: string
+  @Output() firstDepartmentEvent: EventEmitter<Department> = new EventEmitter();
+
   shopForm: FormGroup
   hidden: boolean = false
   departments: Department[]
@@ -31,6 +33,7 @@ export class ShowDepartmentsComponent implements OnInit, AfterViewInit {
       temp.sort((temp1, temp2) => temp1.order - temp2.order);
       this.departments = temp
     })
+    this.firstDepartmentEvent.emit(this.departments? this.departments[0] : null)
   }
 
   public departmentsByOwner$(shop: Shop): FirebaseListObservable<Shop[]> {

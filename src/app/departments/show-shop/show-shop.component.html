@@ -7,7 +7,7 @@
     <input type="hidden" formControlName="owner" (change)="onChange()">
     <input type="text" formControlName="order" [style.width.em]="4" (change)="onChange()">
 </div>
-    <show-departments [id]="id" [shop]="shop"></show-departments>
+    <show-departments [id]="id" [shop]="shop" (firstDepartmentEvent)="addFirstDepartment($event)"></show-departments>
     <!--
 <div *ngFor="let shop of shops; let i = index">
 </div>

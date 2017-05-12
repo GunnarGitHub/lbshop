@@ -25,7 +25,6 @@ import { ItemDropZoneComponent } from './items/item-drop-zone/item-drop-zone.com
 import { DepartmentsHomeComponent } from './departments/departments-home/departments-home.component'
 import { DepartmentDropZoneComponent } from './departments/department-drop-zone/department-drop-zone.component'
 import { ShowShopsWithDepartmentsComponent } from './departments/show-shops-with-departments/show-shops-with-departments.component'
-import { ShowShopsComponent } from './departments/show-shops/show-shops.component';
 import { ShowShopComponent } from './departments/show-shop/show-shop.component'
 import { ShowDepartmentsComponent } from './departments/show-departments/show-departments.component'
 import { ShowDepartmentComponent } from './departments/show-department/show-department.component'
@@ -53,7 +52,6 @@ const routes: Routes = [
     DepartmentsHomeComponent,
     DepartmentDropZoneComponent,
     ItemDropZoneComponent,
-    ShowShopsComponent,
     ShowShopComponent,
     ShowDepartmentsComponent,
     ShowDepartmentComponent,
