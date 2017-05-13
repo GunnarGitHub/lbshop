@@ -1,5 +1,5 @@
 <div [hidden]="hidden" id="{{id}}-f" [formGroup]="shopForm" class="dzleave">
-    <button md-mini-fab (click)="addNewDepartment()">
+    <button md-mini-fab (click)="newDepartment()">
         <md-icon class="md-24">add</md-icon>
     </button>
     <input type="hidden" formControlName="$key">
@@ -7,7 +7,7 @@
     <input type="hidden" formControlName="owner" (change)="onChange()">
     <input type="text" formControlName="order" [style.width.em]="4" (change)="onChange()">
 </div>
-    <show-departments [id]="id" [shop]="shop" (firstDepartmentEvent)="addFirstDepartment($event)"></show-departments>
+    <show-departments [id]="id" [shop]="shop" ></show-departments>
     <!--
 <div *ngFor="let shop of shops; let i = index">
 </div>

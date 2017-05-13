@@ -27,7 +27,7 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
   shopForm: FormGroup
   hidden: boolean
   searchSubscription: Subject<string>
-  firstdepartment: Department
+  firstDepartment: Department
   dnddepartmentKey = 'string:text/departmentkey'
 
   constructor(private fb: FormBuilder,
@@ -36,7 +36,7 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
 
   addFirstDepartment(department: Department) {
     console.log('addFirstDepartment ' + JSON.stringify(department));
-    this.firstdepartment = department
+    //GB this.firstdepartment = department
     //GB this.databaseService.addDepartment(this.departments[0])
   }
 
@@ -76,12 +76,15 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
     this.databaseService.updateShop(this.shopForm.value);
   }
 
-  addNewDepartment() {
-    console.log('addNewDepartment')
+  newDepartment() {
+    console.log('newDepartment')
+    let form = document.getElementById('d0-f') TODO
+    console.log('form 4 ' + (<HTMLInputElement>form.children[4]).value)
+    //const 
     let owner = this.shopForm.value.$key
     let department: Department = {
       owner: owner, name: '',
-      order: this.firstdepartment ? (this.firstdepartment.order - 100) : 1000
+      order: this.firstDepartment ? (this.firstDepartment.order - 100) : 1000
     }
     this.databaseService.addDepartment(department)
   }
