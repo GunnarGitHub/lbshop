@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject'
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms'
 
 import { FirebaseListObservable } from 'angularfire2/database';
@@ -27,18 +27,20 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
   shopForm: FormGroup
   hidden: boolean
   searchSubscription: Subject<string>
-  firstDepartment: Department
+  //GB firstDepartment: Department
   dnddepartmentKey = 'string:text/departmentkey'
 
   constructor(private fb: FormBuilder,
     private databaseService: DatabaseService,
     private searchService: SearchService) { }
 
+  /* GB
   addFirstDepartment(department: Department) {
     console.log('addFirstDepartment ' + JSON.stringify(department));
     //GB this.firstdepartment = department
     //GB this.databaseService.addDepartment(this.departments[0])
   }
+  */
 
   ngOnInit() {
     console.log('ngOnInit ');
@@ -78,13 +80,12 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
 
   newDepartment() {
     console.log('newDepartment')
-    let form = document.getElementById('d0-f') TODO
+    let form = document.getElementById('d0-f')
     console.log('form 4 ' + (<HTMLInputElement>form.children[4]).value)
-    //const 
+    let order = form ? ((+(<HTMLInputElement>form.children[4]).value) - 100) : 1000
     let owner = this.shopForm.value.$key
     let department: Department = {
-      owner: owner, name: '',
-      order: this.firstDepartment ? (this.firstDepartment.order - 100) : 1000
+      owner: owner, name: '', order: order
     }
     this.databaseService.addDepartment(department)
   }

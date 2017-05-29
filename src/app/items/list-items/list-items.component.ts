@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { FirebaseListObservable } from 'angularfire2/database';
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 
@@ -19,7 +19,7 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   itemForm: FormGroup
   @Input() department: Department
   @Input() id: string
-  @Output() firstItemEvent: EventEmitter<Item> = new EventEmitter();
+  //GB @Output() firstItemEvent: EventEmitter<Item> = new EventEmitter();
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService, private searchService: SearchService) {
     console.log("constructor ") // + JSON.stringify(this.items));
@@ -36,12 +36,15 @@ export class ListItemsComponent implements OnInit, OnDestroy {
     if (this.itemForm) {
       this.itemForm.reset()
     }
-    this.items$ = this.databaseService.db.list('/items', {
+    this.items$ = this.databaseService.itemsByOwner$(this.department)
+    /*GB
+    db.list('/items', {
       query: {
         orderByChild: 'owner',
         equalTo: this.department.$key
       }
     });
+    */
 
     this.itemForm = this.fb.group({
       items: this.fb.array([])
@@ -58,7 +61,9 @@ export class ListItemsComponent implements OnInit, OnDestroy {
         items: this.fb.array([])
       });
       this.showItems()
+      /*GB
       this.firstItemEvent.emit(this.items? this.items[0] : null)
+      */
     })
   }
 
@@ -90,9 +95,8 @@ export class ListItemsComponent implements OnInit, OnDestroy {
       order: item.order
     });
   }
-  /*GB
+  
   getItems(): Item[] {
     return this.itemForm.controls['items']['controls'];
   }
-  */
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Subject } from 'rxjs/Subject'
 
-import { User, Shop, Department, Item } from './../model/model';
+import { User, Shop, Department, Item } from './../model';
 declare var firebase: any;
 
 @Injectable()
@@ -46,6 +46,16 @@ export class DatabaseService {
   // TODO read from firebase GOOLE authentication 
   public loggedIn(): User {
     return this.users[1]
+  }
+
+  public itemsByOwner$(department: Department): FirebaseListObservable<Item[]> {
+    return this.db.list('/items', {
+      query: {
+        orderByChild: 'owner',
+        equalTo: department.$key
+      }
+    });
+
   }
 
   public getDepartments$(): FirebaseListObservable<Department[]> {
