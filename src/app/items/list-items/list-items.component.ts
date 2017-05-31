@@ -19,7 +19,6 @@ export class ListItemsComponent implements OnInit, OnDestroy {
   itemForm: FormGroup
   @Input() department: Department
   @Input() id: string
-  //GB @Output() firstItemEvent: EventEmitter<Item> = new EventEmitter();
 
   constructor(private fb: FormBuilder, private databaseService: DatabaseService, private searchService: SearchService) {
     console.log("constructor ") // + JSON.stringify(this.items));
@@ -37,14 +36,6 @@ export class ListItemsComponent implements OnInit, OnDestroy {
       this.itemForm.reset()
     }
     this.items$ = this.databaseService.itemsByOwner$(this.department)
-    /*GB
-    db.list('/items', {
-      query: {
-        orderByChild: 'owner',
-        equalTo: this.department.$key
-      }
-    });
-    */
 
     this.itemForm = this.fb.group({
       items: this.fb.array([])
@@ -61,9 +52,6 @@ export class ListItemsComponent implements OnInit, OnDestroy {
         items: this.fb.array([])
       });
       this.showItems()
-      /*GB
-      this.firstItemEvent.emit(this.items? this.items[0] : null)
-      */
     })
   }
 

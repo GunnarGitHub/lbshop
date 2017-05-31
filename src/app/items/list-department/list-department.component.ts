@@ -108,7 +108,6 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
     return +form[6].value
   }
 
-
   ngOnDestroy() {
     console.log("ngOnDestroy ")
     this.searchSubscription.unsubscribe
@@ -119,13 +118,17 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
     this.databaseService.updateDepartment(this.departmentForm.value);
   }
 
-  addNewItem() {
-    console.log('addNewItem')
-    let owner = this.departmentForm.value.$key
+   newItem() {
+    console.log('newItem')
+    let form = document.getElementById('d0-f')
+    console.log('form 4 ' + (<HTMLInputElement>form.children[4]).value)
+    let order = form ? ((+(<HTMLInputElement>form.children[4]).value) - 100) : 1000
+    //GB let owner = this.shopForm.value.$key
+    let owner = this.department.$key
     let item: Item = {
-      owner: owner, buy: true, quantity: 1, unit: 'st', name: '',
-      order: this.firstItem ? (this.firstItem.order - 100) : 10000
+      owner: owner, buy: true, quantity: 1, unit: 'st', name: '', order: order, 
     }
     this.databaseService.addItem(item)
   }
+
 }
