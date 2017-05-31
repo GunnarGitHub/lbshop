@@ -1,5 +1,5 @@
-<div *ngFor="let department of departments; let i = index">
-    <show-department [id]="id" [department]="department"></show-department>
+<div *ngFor="let department of departments; let no = index">
+    <show-department [id]="id+'d'+no" [department]="department"></show-department>
 </div>
     <!-- GB
 -->

@@ -1,5 +1,5 @@
-<div *ngFor="let shop of shops; let i = index">
-   <show-shop [id]="'d'+i" id="{{id}}" [shop]="shop" ></show-shop>
+<div *ngFor="let shop of shops; let no = index">
+   <show-shop [id]="'s'+no" [shop]="shop" ></show-shop>
 </div>
   <!--
   <show-shops [shops]="shops" ></show-shops>

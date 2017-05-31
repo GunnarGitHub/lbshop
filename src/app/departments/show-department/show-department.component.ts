@@ -55,10 +55,10 @@ export class ShowDepartmentComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    let el = document.getElementById(this.id + "-f")
+    let el = document.getElementById(this.id)
     // handle droptarget
     el.addEventListener('dragenter', (event) => {
-      console.log('dragenter id ' + this.id + "-f");
+      console.log('dragenter id ' + this.id);
       //let itemKey: string = event.dataTransfer.getData(this.dndItemKey)
       event.preventDefault()
       el.className = "dzenter"
