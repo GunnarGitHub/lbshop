@@ -53,10 +53,10 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    let el = document.getElementById(this.id + "-f")
+    let el = document.getElementById(this.id)
     // handle droptarget
     el.addEventListener('dragenter', (event) => {
-      console.log('dragenter id ' + this.id + "-f");
+      console.log('dragenter id ' + this.id);
       //let itemKey: string = event.dataTransfer.getData(this.dndItemKey)
       event.preventDefault()
       el.className = "dzenter"
@@ -120,7 +120,7 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
 
    newItem() {
     console.log('newItem')
-    let form = document.getElementById('d0-f')
+    let form = document.getElementById(this.id)
     console.log('form 4 ' + (<HTMLInputElement>form.children[4]).value)
     let order = form ? ((+(<HTMLInputElement>form.children[4]).value) - 100) : 1000
     //GB let owner = this.shopForm.value.$key
