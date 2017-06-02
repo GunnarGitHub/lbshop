@@ -86,12 +86,12 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
       console.log('drop key ' + dragItemKey)
       let newOwner:string = this.departmentForm.value.$key
       console.log('drop owner ' + newOwner)
-      let nextElementOrder: number = +this.getNextFormOrder(this.id)
-      console.log('dropHandler nextElement order ' + (nextElementOrder ? nextElementOrder : "null"))
+      let firstItemOrder: number = +this.firstItemOrder(this.id)
+      console.log('dropHandler nextElement order ' + (firstItemOrder ? firstItemOrder : "null"))
       let newOrder: number =
-        (nextElementOrder ? (nextElementOrder -100) : 10000)
+        (firstItemOrder ? (firstItemOrder -100) : 10000)
       console.log('dropHandler neworder ' + newOrder)
-      //TODO gard for no nextElemet, calculate owner and order for the moved item and update database
+      //TODO guard for no nextElemet, calculate owner and order for the moved item and update database
 
       this.databaseService.moveItem(dragItemKey, newOwner, newOrder)
       el.className = "dzleave"
@@ -102,8 +102,8 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
     })
   }
 
-  getNextFormOrder(id: string): number {
-    let form: Element = document.getElementById(id + "-f0")
+  firstItemOrder(id: string): number {
+    let form: Element = document.getElementById(id + "i0")
     if (!form) return null
     return +form[6].value
   }

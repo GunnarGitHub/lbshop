@@ -74,7 +74,7 @@ export class EditItemComponent implements OnInit, AfterViewInit {
     })
     el.addEventListener('drop', (event: DragEvent) => {
       console.log('drop')
-      if(this.dragStartKey) {
+      if (this.dragStartKey) {
         console.log('drop cannot drop on self')
         return
       }
@@ -103,11 +103,18 @@ export class EditItemComponent implements OnInit, AfterViewInit {
   }
 
   getNextFormOrder(id: string): number {
+    console.log('getNextFormOrder ' + id)
+    let m = id.match(/(.*i)(\d+)/)
+    let elId = m[1] + (+m[2] + 1)
+    /*GB
     let prefix: string = id.slice(0, id.indexOf('f') + 1)
     let suffix: number = +id.slice(id.indexOf('f') + 1)
     suffix++
 
     let form: Element = document.getElementById(prefix + suffix)
+    */
+    let form: Element = document.getElementById(elId)
+
     if (!form) return null
     return +form[6].value
   }
