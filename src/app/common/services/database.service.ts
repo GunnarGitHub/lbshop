@@ -21,9 +21,6 @@ export class DatabaseService {
   constructor(db: AngularFireDatabase) {
     // Initialize Firebase
     this.db = db;
-    //GB this.items$ = this.db.list('/items')
-    //GB this.departments$ = this.db.list('/departments')
-    //this.users$ = this.db.list('/users')
     this.onInit()
   }
 
@@ -58,15 +55,15 @@ export class DatabaseService {
 
   }
 
-  public getDepartments$(): FirebaseListObservable<Department[]> {
+  public departments$(): FirebaseListObservable<Department[]> {
     return this.db.list('/departments')
   }
 
-  public getItems$(): FirebaseListObservable<Item[]> {
+  public items$(): FirebaseListObservable<Item[]> {
     return this.db.list('/items')
   }
 
-  public getShops$(): FirebaseListObservable<Shop[]> {
+  public shops$(): FirebaseListObservable<Shop[]> {
     return this.db.list('/shops')
   }
 
@@ -97,7 +94,7 @@ export class DatabaseService {
     newShop.name = newShop.name ?
       newShop.name[0].toLocaleUpperCase() + newShop.name.substring(1) : ''
     //GB this.shops$.update(key, newShop)
-    this.getShops$().update(key, newShop)
+    this.shops$().update(key, newShop)
   }
 
   public updateDepartment(department: Department) {
@@ -108,14 +105,14 @@ export class DatabaseService {
     newDepartment.name = newDepartment.name ?
       newDepartment.name[0].toLocaleUpperCase() + newDepartment.name.substring(1) : ''
     //GB this.departments$.update(key, newDepartment)
-    this.getDepartments$().update(key, newDepartment)
+    this.departments$().update(key, newDepartment)
   }
 
   public addDepartment(department: Department): string {
     //console.log('addDepartment ' + JSON.stringify(department));
     department.name = department.name ? department.name[0].toLocaleUpperCase() + department.name.substring(1) : ''
     //GB return this.departments$.push(department).key;
-    return this.getDepartments$().push(department).key;
+    return this.departments$().push(department).key;
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
 
@@ -128,7 +125,7 @@ export class DatabaseService {
     newItem.name = newItem.name ?
       newItem.name[0].toLocaleUpperCase() + newItem.name.substring(1) : ''
     //GB this.items$.update(key, newItem)
-    this.getItems$().update(key, newItem)
+    this.items$().update(key, newItem)
   }
 
   public moveItem(key: string, targetElementOwner: string, newOrder: number) {
@@ -149,7 +146,7 @@ export class DatabaseService {
   public addItem(item: Item) {
     //console.log('addItem() ' + JSON.stringify(item));
     item.name = item.name ? item.name[0].toLocaleUpperCase() + item.name.substring(1) : ''
-    this.getItems$().push(item)
+    this.items$().push(item)
     //console.log('addItem pushed ' +  JSON.stringify(item)) 
   }
 
@@ -174,43 +171,43 @@ export class DatabaseService {
 
   private initialData = [
     {
-      owner: 'gunar.bos@gmail.com', name: 'Maxi', order: 1.0, departments: [
+      owner: 'gunar.bos@gmail.com', name: 'Maxi', order: 10, departments: [
         {
-          name: 'Frukt', order: 1, items: [
-            { buy: true, quantity: 1, unit: 'st', name: 'äpplen', order: 1.0 },
-            { buy: false, quantity: 1, unit: 'st', name: 'päron', order: 2.0 },
+          name: 'Frukt', order: 15, items: [
+            { buy: true, quantity: 1, unit: 'st', name: 'äpplen', order: 20 },
+            { buy: false, quantity: 1, unit: 'st', name: 'päron', order: 30 },
           ]
         },
         {
-          name: 'Mejeri', order: 3.5, items: [
-            { buy: false, quantity: 1, unit: 'st', name: 'Grädde', order: 4.0 },
-            { buy: false, quantity: 2, unit: 'st', name: 'Mjölk', order: 3.0 },
-            { buy: false, quantity: 3, unit: 'st', name: 'Smör', order: 6 },
+          name: 'Mejeri', order: 25, items: [
+            { buy: false, quantity: 1, unit: 'st', name: 'Grädde', order: 40 },
+            { buy: false, quantity: 2, unit: 'st', name: 'Mjölk', order: 50 },
+            { buy: false, quantity: 3, unit: 'st', name: 'Smör', order: 60 },
           ]
         },
         {
-          name: 'Övrigt', order: 4, items: [
-            { buy: false, quantity: 3, unit: 'st', name: 'Blommor', order: 6.0 }
+          name: 'Övrigt', order: 35, items: [
+            { buy: false, quantity: 3, unit: 'st', name: 'Blommor', order: 70 }
           ]
         },
       ]
     },
     {
-      owner: 'gunar.bos@gmail.com', name: 'City Gross', order: 2.2, departments: [
+      owner: 'gunar.bos@gmail.com', name: 'City Gross', order: 80, departments: [
         {
-          name: 'Diverse', order: 3, items: [
-            { buy: false, quantity: 9, unit: 'st', name: 'AA Batterier', order: 5.0 },
-            { buy: false, quantity: 9, unit: 'st', name: '60 W Lampa', order: 8.0 },
-            { buy: false, quantity: 9, unit: 'st', name: '40 W Lampa', order: 4.0 },
+          name: 'Diverse', order: 45, items: [
+            { buy: false, quantity: 9, unit: 'st', name: 'AA Batterier', order: 90 },
+            { buy: false, quantity: 9, unit: 'st', name: '60 W Lampa', order: 100 },
+            { buy: false, quantity: 9, unit: 'st', name: '40 W Lampa', order: 110 },
           ]
         },
         {
-          name: 'Empty', order: 45, items: []
+          name: 'Empty', order: 55, items: []
         }
       ],
     },
-    { owner: 'lena.bost@gmail.com', name: 'Apoteket', order: 2.2, departments: [] },
-    { owner: 'lena.bost@gmail.com', name: 'Systemet', order: 2.3, departments: [] }
+    { owner: 'lena.bost@gmail.com', name: 'Apoteket', order: 120, departments: [] },
+    { owner: 'lena.bost@gmail.com', name: 'Systemet', order: 130, departments: [] }
   ];
 
   private storeInitialData() {

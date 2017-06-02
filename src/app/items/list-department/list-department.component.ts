@@ -120,9 +120,9 @@ export class ListDepartmentComponent implements OnInit, AfterViewInit {
 
    newItem() {
     console.log('newItem')
-    let form = document.getElementById(this.id)
-    console.log('form 4 ' + (<HTMLInputElement>form.children[4]).value)
-    let order = form ? ((+(<HTMLInputElement>form.children[4]).value) - 100) : 1000
+    let form = document.getElementById(this.id+'i0')
+    //GBconsole.log('form 4 ' + (<HTMLInputElement>form.children[4]).value)
+    let order = form ? ((+(<HTMLInputElement>form.children[6]).value) - 100) : 1000
     //GB let owner = this.shopForm.value.$key
     let owner = this.department.$key
     let item: Item = {

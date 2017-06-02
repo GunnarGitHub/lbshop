@@ -80,9 +80,9 @@ export class ShowShopComponent implements OnInit, AfterViewInit {
 
   newDepartment() {
     console.log('newDepartment')
-    let form = document.getElementById(this.id)
-    console.log('form 4 ' + (<HTMLInputElement>form.children[4]).value)
-    let order = form ? ((+(<HTMLInputElement>form.children[4]).value) - 100) : 1000
+    let form = document.getElementById(this.id+'d0')
+    //console.log('form 4 ' + (<HTMLInputElement>form.children[4]).value)
+    let order = form ? ((+(<HTMLInputElement>form.children[3]).value) - 100) : 1000
     let owner = this.shopForm.value.$key
     let department: Department = {
       owner: owner, name: '', order: order
